@@ -1,0 +1,49 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": false,
+    "target": "es2017",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "jsx": "preserve",
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@frontend/components/auth": ["web/learn-chinese/src/components/auth/index.ts"],
+      "@frontend/components/nav": ["web/learn-chinese/src/components/nav/index.ts"],
+      "@frontend/components/profile": [
+        "web/learn-chinese/src/components/profile/index.ts"
+      ],
+      "@frontend/components/widgets": [
+        "web/learn-chinese/src/components/widgets/index.ts"
+      ],
+      "@frontend/components/svg": ["web/learn-chinese/src/components/svg/index.ts"],
+      "@frontend/api": ["web/learn-chinese/src/api/index.ts"],
+      "@frontend/features": ["web/learn-chinese/src/features/index.ts"],
+      "@frontend/store": ["web/learn-chinese/src/store/index.ts"],
+      "@frontend/types": ["web/learn-chinese/src/types/index.ts"],
+      "@frontend/util/config": ["web/learn-chinese/src/util/config/index.ts"],
+      "@frontend/util/i18n": ["web/learn-chinese/src/util/i18n/index.ts"],
+      "@frontend/util/app": ["web/learn-chinese/src/util/app/index.ts"],
+      "@frontend/util/misc": ["web/learn-chinese/src/util/misc/index.ts"],
+      "@frontend/util/format": ["web/learn-chinese/src/util/format/index.ts"],
+      "@frontend/util/api": ["web/learn-chinese/src/util/api/index.ts"],
+      "@frontend/util/speech": ["web/learn-chinese/src/util/speech/index.ts"],
+      "@frontend/util/ui": ["web/learn-chinese/src/util/ui/index.ts"],
+      "@frontend/util/zhuyin": ["web/learn-chinese/src/util/zhuyin/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

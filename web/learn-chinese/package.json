@@ -1,0 +1,38 @@
+{
+  "name": "@samatech/learn-chinese",
+  "version": "1.0.0",
+  "description": "Web app for learn-chinese.",
+  "type": "module",
+  "main": "dist/learn-chinese.js",
+  "types": "dist/index.d.mts.d.ts",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@samatech/fetch-api": "catalog:",
+    "@samatech/vue-store": "catalog:",
+    "@samatech/vue-components": "catalog:",
+    "vue": "catalog:",
+    "date-fns": "catalog:",
+    "jwt-decode": "catalog:",
+    "@floating-ui/vue": "catalog:",
+    "vue-router": "catalog:"
+  },
+  "devDependencies": {
+    "terser": "catalog:",
+    "@samatech/postcss-basics": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "postcss": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  }
+}

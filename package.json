@@ -1,0 +1,44 @@
+{
+  "name": "learn-chinese",
+  "version": "1.0.0",
+  "description": "Learn to read and type traditional Chinese mandarin.",
+  "engines": {
+    "node": ">=18",
+    "npm": ">=8"
+  },
+  "type": "module",
+  "scripts": {
+    "format": "prettier -w \"{**/*,*}.{ts,js,json}\"",
+    "format:check": "prettier --check \"{**/*,*}.{ts,js,json,vue}\"",
+    "lint": "oxlint -c .oxlintrc.json .",
+    "lint:style": "./node_modules/.bin/stylelint \"**/src/**/*.{css,vue}\"",
+    "dev:web:run": "pnpm --filter '@samatech/learn-chinese' run dev",
+    "prod:web:build": "pnpm --filter '@samatech/learn-chinese' run build",
+    "prod:web:preview": "pnpm --filter '@samatech/learn-chinese' run preview",
+    "dev:api:build": "cd backend && cargo build",
+    "dev:api:build-aarch": "cd backend && CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-unknown-linux-gnu-gcc cargo build --target aarch64-unknown-linux-gnu",
+    "prod:api:build-aarch": "cd backend && CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-unknown-linux-gnu-gcc cargo build --release --target aarch64-unknown-linux-gnu",
+    "dev:api:run": "cd backend && cargo run",
+    "prod:api:build": "cd backend && cargo build --release",
+    "api-test": "./web/api-test/node_modules/.bin/vitest run -r ./web/api-test",
+    "skaffold:basic": "(skaffold dev --platform linux/arm64 -f tools/skaffold.basic.yaml --cache-artifacts=true)",
+    "prune": "tools/scripts/prune-all.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samatechtw/learn-chinese.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samatechtw/learn-chinese/issues"
+  },
+  "homepage": "https://github.com/samatechtw/learn-chinese#Readme.md",
+  "author": "Sam Pullman",
+  "devDependencies": {
+    "oxlint": "^0.15.7",
+    "prettier": "^3.4.2",
+    "stylelint": "^16.13.2",
+    "stylelint-config-recommended-vue": "^1.6.0"
+  }
+}
