@@ -4,6 +4,7 @@ import { LocalStoragePlugin, useModule } from '@samatech/vue-store'
 export interface IZhuyinState {
   cardStats: Record<string, IBasicCardStats>
   quizOptions: IZhuyinQuizOptions
+  showPinyin: boolean
 }
 
 const getters = (_state: IZhuyinState) => ({})
@@ -15,6 +16,9 @@ const mutations = (state: IZhuyinState) => ({
   setOptions(options: Partial<IZhuyinQuizOptions>) {
     state.quizOptions = { ...state.quizOptions, ...options }
   },
+  setPinyin(show: boolean) {
+    state.showPinyin = show
+  },
 })
 
 export const zhuyinModule = useModule<
@@ -23,13 +27,14 @@ export const zhuyinModule = useModule<
   ReturnType<typeof mutations>
 >({
   name: 'zhuyin-store',
-  version: 3,
+  version: 4,
   stateInit: () => ({
     cardStats: {},
     quizOptions: {
       reverse: false,
       order: 'random',
     },
+    showPinyin: false,
   }),
   getters,
   mutations,

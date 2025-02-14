@@ -28,5 +28,9 @@ import Checkbox from './Checkbox.vue'
 @import '@theme/css/defines.postcss';
 
 .audio-options {
+  display: flex;
+}
+.voice-select {
+  margin-left: 16px;
 }
 </style>

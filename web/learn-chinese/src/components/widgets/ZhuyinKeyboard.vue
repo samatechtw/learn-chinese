@@ -1,11 +1,11 @@
 <template>
-  <div class="zhuyin-keyboard">
+  <div class="zhuyin-keyboard f-col">
     <div v-for="(row, index) in keyLayout" :class="`row row${index}`">
       <div
         v-for="key in row"
         :key="key"
         class="key-w"
-        :class="{ pressed: keysDown.has(key) }"
+        :class="{ pressed: keysDown.has(key), [`k${key}`]: true }"
         @mousedown="pressKey(key)"
         @mouseup="keysDown.delete(key)"
         @mouseleave="keysDown.delete(key)"
@@ -16,6 +16,9 @@
           </div>
           <div v-if="zhuyinSymbols[key]" class="s">
             {{ zhuyinSymbols[key].s }}
+          </div>
+          <div v-if="showPinyin && zhuyinSymbols[key]" class="p">
+            {{ zhuyinSymbols[key].p }}
           </div>
         </div>
       </div>
@@ -30,6 +33,9 @@ import { onMounted, onUnmounted, reactive, ref } from 'vue'
 
 const emit = defineEmits<{
   (e: 'press', key: KeyType, event: KeyboardEvent | undefined): void
+}>()
+defineProps<{
+  showPinyin: boolean
 }>()
 
 const keyLayout: KeyType[][] = [
@@ -72,21 +78,24 @@ $keysize: 60px;
 $marginH: 8px;
 
 .zhuyin-keyboard {
+  width: 100%;
+  align-items: center;
 }
 .row {
   display: flex;
+  position: relative;
 }
 .row0 {
-  padding-left: calc($keysize + $marginH);
+  padding-left: $marginH;
 }
 .row1 {
-  padding-left: calc($keysize * 1.5);
+  padding-left: calc($keysize * 0.5);
 }
 .row2 {
-  padding-left: calc($keysize * 1.7);
+  padding-left: calc($keysize * 0.7);
 }
 .row3 {
-  padding-left: calc($keysize * 2.2);
+  padding-left: calc($keysize * 1.2);
 }
 .key-w {
   @mixin size $keysize;
@@ -117,11 +126,58 @@ $marginH: 8px;
   @mixin title-regular 28px;
   color: #eeeae7;
 }
+.p {
+  @mixin title-regular 16px;
+  color: #fffdfa;
+  position: absolute;
+  left: 2px;
+  bottom: -1px;
+}
 .z {
   @mixin text 16px;
   position: absolute;
-  right: 6px;
-  bottom: -2px;
+  right: 4px;
+  top: -1px;
   color: #c6def1;
+}
+$smallHeight: 68px;
+
+@media (max-width: 760px) {
+  .row {
+    width: 100%;
+  }
+  .key-w {
+    height: 68px;
+    width: 10%;
+  }
+  .s {
+    font-size: 24px;
+  }
+  .row0 {
+    padding-left: $marginH;
+  }
+  .row1 {
+    padding-left: $marginH;
+  }
+  .row2 {
+    padding-left: $marginH;
+  }
+  .row3 {
+    padding-left: $marginH;
+  }
+  .k- {
+    position: absolute;
+    top: calc(($smallHeight + 8px) * 4);
+    right: 24%;
+    width: 9%;
+  }
+}
+@media (max-width: 500px) {
+  .s {
+    font-size: 20px;
+  }
+  .key-w {
+    margin-right: 6px;
+  }
 }
 </style>

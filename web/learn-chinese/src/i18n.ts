@@ -48,6 +48,7 @@ const fallback: I18nObject = {
     random: 'Show symbols in random order.',
     difficult: 'Show symbols you have trouble with first.',
     learn_tool: 'View all symbols, with audio.',
+    pinyin: 'Show Pinyin',
     preview: 'Choose a symbol',
   },
   auth: {

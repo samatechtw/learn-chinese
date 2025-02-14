@@ -4,7 +4,13 @@
       <h1 class="hero-title">
         {{ ts('zhuyin.learn') }}
       </h1>
-      <AudioOptions />
+      <div class="options f-col">
+        <Checkbox
+          :item="{ label: ts('zhuyin.pinyin'), checked: store.zhuyin.showPinyin.value }"
+          @checked="store.zhuyin.setPinyin($event)"
+        />
+        <AudioOptions />
+      </div>
       <div class="preview f-center-col">
         <div class="symbol">
           {{ selected?.s }}
@@ -16,14 +22,18 @@
           {{ ts('zhuyin.preview') }}
         </div>
       </div>
-      <ZhuyinKeyboard class="zh-keyboard" @press="selectKey" />
+      <ZhuyinKeyboard
+        class="zh-keyboard"
+        :showPinyin="store.zhuyin.showPinyin.value"
+        @press="selectKey"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-import { AudioOptions, ZhuyinKeyboard } from '@frontend/components/widgets'
+import { AudioOptions, ZhuyinKeyboard, Checkbox } from '@frontend/components/widgets'
 import { zhuyinSymbols } from '@frontend/util/zhuyin'
 import { KeyType } from '@frontend/types'
 import { populateVoices, say } from '@frontend/util/speech'
@@ -81,13 +91,17 @@ onMounted(() => {
   padding: 140px 0 160px;
   align-items: center;
 }
+.options {
+  margin-top: 16px;
+  align-items: center;
+}
 .zh-keyboard {
-  margin-top: 40px;
+  margin-top: 24px;
 }
 .preview {
-  @mixin title 44px;
-  margin-top: 24px;
-  min-height: 90px;
+  @mixin title 48px;
+  margin-top: 16px;
+  min-height: 120px;
 }
 .pinyin {
   font-size: 28px;

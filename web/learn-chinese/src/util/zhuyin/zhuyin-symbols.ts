@@ -9,7 +9,7 @@ export const zhuyinSymbols: Partial<Record<KeyType, IZhuyinKeyInfo>> = {
   '2': info('ㄉ', 'd'),
   '3': info('ˇ', 'ˇ'),
   '4': info('ˋ', 'ˋ'),
-  '5': info('ㄓ', 'ㄓ'),
+  '5': info('ㄓ', 'zhi'),
   '6': info('ˊ', 'ˊ'),
   '7': info('˙', '˙'),
   '8': info('ㄚ', 'a'),

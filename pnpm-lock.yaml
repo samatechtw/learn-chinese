@@ -16,8 +16,8 @@ catalogs:
       specifier: 0.7.4
       version: 0.7.4
     '@samatech/vue-components':
-      specifier: 1.2.6
-      version: 1.2.6
+      specifier: 1.2.7
+      version: 1.2.7
     '@samatech/vue-store':
       specifier: 0.7.0
       version: 0.7.0
@@ -127,7 +127,7 @@ importers:
         version: 0.12.1
       '@samatech/vue-components':
         specifier: 'catalog:'
-        version: 1.2.6(typescript@5.7.3)
+        version: 1.2.7(typescript@5.7.3)
       '@samatech/vue-store':
         specifier: 'catalog:'
         version: 0.7.0(vue@3.5.13(typescript@5.7.3))
@@ -1011,8 +1011,8 @@ packages:
     peerDependencies:
       postcss: ^8.4.31
 
-  '@samatech/vue-components@1.2.6':
-    resolution: {integrity: sha512-qWrrNj0LgbitDo15Wm5HgVh4z0MSU4HLJjRQWHTzUXNNwD80DuLUHKTl79Q6hX3K8zzmvAtJkr21qX3Cz2Nejw==}
+  '@samatech/vue-components@1.2.7':
+    resolution: {integrity: sha512-bAWmOrHDQuSlc/8QD3iyML5LQRT1lGIaueGCGCRs14NL28WEdWHNOWAnDkAI6jEm8yVODVivJaIkr+TWxlbQag==}
     bundledDependencies:
       - '@samatech/st-input'
       - '@samatech/st-multiselect'
@@ -3529,7 +3529,7 @@ snapshots:
       postcss: 8.5.1
       postcss-value-parser: 4.2.0
 
-  '@samatech/vue-components@1.2.6(typescript@5.7.3)':
+  '@samatech/vue-components@1.2.7(typescript@5.7.3)':
     dependencies:
       vue: 3.5.13(typescript@5.7.3)
     transitivePeerDependencies:
