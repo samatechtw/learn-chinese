@@ -35,7 +35,7 @@ const emit = defineEmits<{
   (e: 'press', key: KeyType, event: KeyboardEvent | undefined): void
 }>()
 defineProps<{
-  showPinyin: boolean
+  showPinyin?: boolean
 }>()
 
 const keyLayout: KeyType[][] = [
@@ -112,6 +112,9 @@ $marginH: 8px;
     box-shadow: -2px 2px 2px black;
     top: 1px;
     left: -1px;
+  }
+  &:hover {
+    background-color: #353535;
   }
 }
 .key {

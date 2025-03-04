@@ -5,6 +5,7 @@
       @checked="store.misc.setPlayAudio($event)"
     />
     <STMultiselect
+      v-if="!hideVoice"
       :value="store.misc.voiceName.value"
       class="voice-selsect"
       :placeholder="ts('select_voice')"
@@ -22,6 +23,10 @@ import { voices } from '@frontend/util/speech'
 import { store } from '@frontend/store'
 import { ts } from '../../i18n'
 import Checkbox from './Checkbox.vue'
+
+defineProps<{
+  hideVoice?: boolean
+}>()
 </script>
 
 <style lang="postcss" scoped>

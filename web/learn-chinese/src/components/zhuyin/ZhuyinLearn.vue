@@ -1,8 +1,9 @@
 <template>
   <div class="learn-wrap">
     <div class="zhuyin-learn container f-col">
+      <PageNav :nav="['Home', 'Zhuyin', 'ZhuyinLearn']" />
       <h1 class="hero-title">
-        {{ ts('zhuyin.learn') }}
+        {{ ts('zhuyin.symbols') }}
       </h1>
       <div class="options f-col">
         <Checkbox
@@ -33,26 +34,19 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-import { AudioOptions, ZhuyinKeyboard, Checkbox } from '@frontend/components/widgets'
+import {
+  AudioOptions,
+  ZhuyinKeyboard,
+  Checkbox,
+  PageNav,
+} from '@frontend/components/widgets'
 import { zhuyinSymbols } from '@frontend/util/zhuyin'
 import { KeyType } from '@frontend/types'
-import { populateVoices, say } from '@frontend/util/speech'
+import { populateVoices, say, saySymbol } from '@frontend/util/speech'
 import { store } from '@frontend/store'
 import { ts } from '../../i18n'
 
 const selected = ref()
-
-const saySymbol = (s: string) => {
-  if (!store.misc.playAudio.value) {
-    return
-  }
-  const voices = populateVoices()
-  if (!voices) {
-    return
-  }
-  const voice = store.misc.voiceName.value
-  say(voices, voice ?? voices[0].name, s)
-}
 
 const selectKey = (key: KeyType, event?: KeyboardEvent) => {
   if (event?.ctrlKey || event?.metaKey) {
@@ -84,7 +78,7 @@ onMounted(() => {
 }
 .hero-title {
   @mixin title 32px;
-  margin: 0;
+  margin: 8px 0 0 0;
 }
 .zhuyin-learn {
   min-height: calc(100vh - $header-height);

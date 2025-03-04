@@ -1,28 +1,19 @@
 <template>
-  <Modal :show="show" cls="zhuyin-options-modal" @cancel="emit('cancel')">
+  <Modal :show="show" cls="zhuyin-typing-modal" @cancel="emit('cancel')">
     <div class="modal-title">
-      {{ ts('quiz_options') }}
+      {{ ts('typing_options') }}
     </div>
     <div class="modal-text">
-      {{ ts('zhuyin.quiz_options_text') }}
-    </div>
-    <div
-      class="reverse-option option-wrap"
-      @click="setOption({ reverse: !store.zhuyin.quizOptions.value.reverse })"
-    >
-      <div class="option-text">
-        {{ ts('zhuyin.quiz_reverse') }}
-      </div>
-      <Checkbox :item="{ label: '', checked: store.zhuyin.quizOptions.value.reverse }" />
+      {{ ts('zhuyin.typing_options_text') }}
     </div>
     <div class="count-option option-wrap">
       <div class="option-text">
-        {{ ts('zhuyin.quiz_count') }}
+        {{ ts('zhuyin.typing_count') }}
       </div>
       <STMultiselect
-        :value="store.zhuyin.quizOptions.value.count"
+        :value="store.zhuyin.typingOptions.value.count"
         class="table-select"
-        :options="countOptions"
+        :options="hskCounts"
         :clearable="false"
         @select="setOption({ count: $event })"
         @click.stop
@@ -30,10 +21,10 @@
     </div>
     <div class="reverse-option option-wrap">
       <div class="option-text">
-        {{ ts(`zhuyin.${store.zhuyin.quizOptions.value.order}`) }}
+        {{ ts(`zhuyin.${store.zhuyin.typingOptions.value.order}`) }}
       </div>
       <STMultiselect
-        :value="store.zhuyin.quizOptions.value.order"
+        :value="store.zhuyin.typingOptions.value.order"
         class="table-select"
         :options="orderOptions"
         :clearable="false"
@@ -57,7 +48,12 @@
 import { STMultiselect } from '@samatech/vue-components'
 import { AppButton, Checkbox, Modal } from '@frontend/components/widgets'
 import { store } from '@frontend/store'
-import { IZhuyinQuizOptions, QuizOrder, ZhuyinQuizCount } from '@frontend/types'
+import {
+  IZhuyinTypingOptions,
+  QuizOrder,
+  ZhuyinQuizCount,
+  ZhuyinTypingCount,
+} from '@frontend/types'
 import { ts } from '../../i18n'
 
 defineProps<{
@@ -71,17 +67,18 @@ const emit = defineEmits<{
 
 const orderOptions: QuizOrder[] = ['random', 'difficult']
 
-const countOptions: ZhuyinQuizCount[] = ['all', '5', '10', '15', '20', '30']
+const hskCounts: ZhuyinTypingCount[] = ['all', '10', '25', '50', '100']
 
-const setOption = (options: Partial<IZhuyinQuizOptions>) => {
-  store.zhuyin.setQuizOptions(options)
+const setOption = (options: Partial<IZhuyinTypingOptions>) => {
+  store.zhuyin.setTypingOptions(options)
+  console.log(store.zhuyin.typingOptions.value)
 }
 </script>
 
 <style lang="postcss">
 @import '@theme/css/defines.postcss';
 
-.zhuyin-options-modal {
+.zhuyin-typing-modal {
   .modal-inner {
     width: 460px;
   }

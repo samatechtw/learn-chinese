@@ -43,6 +43,7 @@ const click = () => {
   align-items: center;
   text-align: center;
   position: relative;
+  color: black;
   width: 220px;
   border: 1px solid black;
   border-radius: 16px;
