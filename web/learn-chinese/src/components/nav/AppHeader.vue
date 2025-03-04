@@ -5,7 +5,7 @@
         <div class="logo-wrap">
           <Logo class="header-logo" />
           <div class="company">
-            {{ ts('company') }}
+            {{ ts('home.hero') }}
           </div>
         </div>
       </router-link>

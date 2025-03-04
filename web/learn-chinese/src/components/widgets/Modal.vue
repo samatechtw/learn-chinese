@@ -3,7 +3,7 @@
     <transition name="modal">
       <div
         v-if="show"
-        class="modal-outer overlay f-center"
+        class="modal-outer f-center"
         :class="cls"
         @mousedown="clickOutside"
       >
@@ -101,6 +101,10 @@ onUnmounted(() => {
   font-family: $font-text;
   background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
   z-index: 5000;
 }
 .modal-inner {

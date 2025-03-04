@@ -4,12 +4,12 @@
       <h1 class="privacy-title blog-title">Privacy Policy</h1>
       <div class="blog-label">Last Updated: Dec. 14, 2024</div>
       <div class="blog-text">
-        learn-chinese values your privacy. This Privacy Policy outlines how we
-        collect, use, share, and protect your information when you use our cryptocurrency
-        payment platform
+        learn-chinese values your privacy. This Privacy Policy outlines how we collect,
+        use, share, and protect your information when you use our cryptocurrency payment
+        platform
         <a href="https://learn.samatech.tw">https://learn.samatech.tw</a>
-        (“Platform”) and associated services. By accessing or using learn-chinese,
-        you agree to this Privacy Policy.
+        (“Platform”) and associated services. By accessing or using learn-chinese, you
+        agree to this Privacy Policy.
       </div>
       <div class="blog-label">1. Information We Collect</div>
       <div class="blog-text">
@@ -17,8 +17,8 @@
         This includes:
         <ul>
           <li>
-            <b>Account Information: </b>To create and maintain your learn-chinese
-            account, we may collect information like your email address and basic profile
+            <b>Account Information: </b>To create and maintain your learn-chinese account,
+            we may collect information like your email address and basic profile
             information.
           </li>
           <li>

@@ -5,8 +5,8 @@
       <div class="blog-label">Last Updated: Dec. 14, 2024</div>
       <div class="blog-text">
         Welcome to
-        <a href="https://learn.samatech.tw">https://learn.samatech.tw</a>. These
-        Terms of Service ("Terms") govern your access to and use of our website, mobile
+        <a href="https://learn.samatech.tw">https://learn.samatech.tw</a>. These Terms of
+        Service ("Terms") govern your access to and use of our website, mobile
         application, and any related services (collectively, the "Service"). By accessing
         or using the Service, you agree to be bound by these Terms. If you do not agree to
         these Terms, please do not use the Service.

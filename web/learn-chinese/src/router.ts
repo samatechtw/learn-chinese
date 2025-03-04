@@ -109,6 +109,12 @@ const router = createRouter({
       component: () => import('./views/ZhuyinQuizPage.vue'),
     },
     {
+      path: '/zhuyin/typing',
+      name: 'ZhuyinTyping',
+      meta: { title: 'Zhuyin Typing' },
+      component: () => import('./views/ZhuyinTypingPage.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: import('./views/NotFoundPage.vue'),
