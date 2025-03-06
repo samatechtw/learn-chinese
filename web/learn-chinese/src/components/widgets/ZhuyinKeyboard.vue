@@ -1,5 +1,5 @@
 <template>
-  <div class="zhuyin-keyboard f-col">
+  <div class="zhuyin-keyboard f-col" :class="{ 'hide-zhuyin': hideZhuyin }">
     <div v-for="(row, index) in keyLayout" :class="`row row${index}`">
       <div
         v-for="key in row"
@@ -36,6 +36,7 @@ const emit = defineEmits<{
 }>()
 defineProps<{
   showPinyin?: boolean
+  hideZhuyin?: boolean
 }>()
 
 const keyLayout: KeyType[][] = [
@@ -77,9 +78,36 @@ onUnmounted(() => {
 $keysize: 60px;
 $marginH: 8px;
 
+.s {
+  @mixin title-regular 28px;
+  color: #eeeae7;
+}
+.p {
+  @mixin title-regular 16px;
+  color: #fffdfa;
+  position: absolute;
+  left: 2px;
+  bottom: -1px;
+}
+.z {
+  @mixin text 16px;
+  position: absolute;
+  right: 4px;
+  top: -1px;
+  color: #c6def1;
+}
 .zhuyin-keyboard {
   width: 100%;
   align-items: center;
+  &.hide-zhuyin {
+    .s {
+      display: none;
+    }
+    .p {
+      font-size: 20px;
+      position: relative;
+    }
+  }
 }
 .row {
   display: flex;
@@ -124,24 +152,6 @@ $marginH: 8px;
   justify-content: center;
   border-radius: 7px;
   position: relative;
-}
-.s {
-  @mixin title-regular 28px;
-  color: #eeeae7;
-}
-.p {
-  @mixin title-regular 16px;
-  color: #fffdfa;
-  position: absolute;
-  left: 2px;
-  bottom: -1px;
-}
-.z {
-  @mixin text 16px;
-  position: absolute;
-  right: 4px;
-  top: -1px;
-  color: #c6def1;
 }
 $smallHeight: 68px;
 
