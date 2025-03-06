@@ -119,7 +119,8 @@
       <ZhuyinKeyboard
         v-if="!store.zhuyin.quizOptions.value.hideKeyboard"
         class="quiz-keyboard"
-        :showPinyin="store.zhuyin.quizOptions.value.cheating"
+        :showPinyin="showPinyin"
+        :hideZhuyin="store.zhuyin.quizOptions.value.reverse"
         @press="setAnswer"
       />
     </div>
@@ -147,6 +148,10 @@ import { saySymbol } from '@frontend/util/speech'
 
 const router = useRouter()
 const entry = ref()
+
+const showPinyin = computed(() => {
+  return store.zhuyin.quizOptions.value.cheating || store.zhuyin.quizOptions.value.reverse
+})
 
 const questionState = computed(() => {
   return store.zhuyin.quiz.value?.questionState ?? 'init'
