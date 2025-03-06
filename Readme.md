@@ -45,3 +45,6 @@ npm run prod:web-admin:build
 - Create the folder in `web/src`
 - Create `index.ts` and export any files used externally
 - Add to tsconfig `paths`
+
+**Generate pinyin/zhuyin from characters**
+npx esno --tsconfig ./tools/scripts/tsconfig.json ./tools/scripts/character-info.ts
