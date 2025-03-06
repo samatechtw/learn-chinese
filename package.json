@@ -36,6 +36,7 @@
   "homepage": "https://github.com/samatechtw/learn-chinese#Readme.md",
   "author": "Sam Pullman",
   "devDependencies": {
+    "esno": "^4.8.0",
     "oxlint": "^0.15.10",
     "prettier": "^3.5.1",
     "stylelint": "^16.14.1",

@@ -1,6 +1,7 @@
 <template>
   <div class="zhuyin-typing-wrap">
     <div class="zhuyin-typing container f-col">
+      <PageNav :nav="['Home', 'Zhuyin', 'ZhuyinTyping']" />
       <h1 class="hero-title">
         {{ ts('zhuyin.typing') }}
       </h1>
@@ -9,6 +10,7 @@
 </template>
 
 <script lang="ts" setup>
+import { PageNav } from '@frontend/components/widgets'
 import { ts } from '../../i18n'
 </script>
 
@@ -20,7 +22,7 @@ import { ts } from '../../i18n'
 }
 .hero-title {
   @mixin title 32px;
-  margin: 0;
+  margin: 16px 0 0 0;
 }
 .zhuyin-typing {
   min-height: calc(100vh - $header-height);

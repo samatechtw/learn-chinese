@@ -37,6 +37,7 @@
       "@frontend/util/config": ["web/learn-chinese/src/util/config/index.ts"],
       "@frontend/util/i18n": ["web/learn-chinese/src/util/i18n/index.ts"],
       "@frontend/util/app": ["web/learn-chinese/src/util/app/index.ts"],
+      "@frontend/util/characters": ["web/learn-chinese/src/util/characters/index.ts"],
       "@frontend/util/misc": ["web/learn-chinese/src/util/misc/index.ts"],
       "@frontend/util/format": ["web/learn-chinese/src/util/format/index.ts"],
       "@frontend/util/api": ["web/learn-chinese/src/util/api/index.ts"],
