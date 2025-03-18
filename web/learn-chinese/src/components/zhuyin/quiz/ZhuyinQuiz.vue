@@ -21,101 +21,35 @@
               {{ ts('continue') }}
             </div>
           </div>
-          <div v-else-if="questionState === 'correct'" class="card correct">
-            <div class="card-title">
-              {{ `${ts('correct')} (${questionTime}s)` }}
-            </div>
-            <div class="card-text">
-              {{ ts('continue') }}
-            </div>
-            <STInput :modelValue="entry" class="entry" />
-          </div>
-          <div v-else-if="questionState === 'incorrect'" class="card incorrect">
-            <div class="card-title">
-              {{ ts('incorrect') }}
-            </div>
-            <div class="card-text">
-              {{ ts('continue_correct') }}
-            </div>
-            <div class="incorrect-inputs">
-              <STInput :modelValue="entry" class="entry" />
-              <STInput :modelValue="card.answer" class="entry correct" />
-            </div>
-          </div>
-          <div v-else-if="questionState === 'complete'" class="card">
-            <div class="card-title">
-              {{ `${ts('quiz_complete')} (${quizTime}s)` }}
-            </div>
-            <div class="result">
-              <div class="result-count">
-                {{ `${getCorrectCount()} / ${symbolKeys.length}` }}
-              </div>
-              <div class="result-percent">
-                {{ `(${getCorrectPercent()}%)` }}
-              </div>
-            </div>
-            <div class="score-wrap">
-              <div>{{ ts('score') }}</div>
-              <div class="score">
-                {{ store.zhuyin.quiz.value?.score ?? 0 }}
-              </div>
-              <div v-if="!store.zhuyin.quiz.value?.cheated">{{ ts('high_score') }}</div>
-              <div v-if="!store.zhuyin.quiz.value?.cheated" class="high-score">
-                {{ highScore }}
-              </div>
-            </div>
-            <div class="complete-actions f-col">
-              <div class="actions1">
-                <AppButton :text="ts('restart')" class="restart" @click="restartQuiz" />
-                <AppButton
-                  :text="ts('back')"
-                  class="back"
-                  @click="router.push({ name: 'Zhuyin' })"
-                />
-              </div>
-              <AppButton
-                v-if="store.zhuyin.quiz.value?.incorrect.length"
-                :text="ts('review_missed')"
-                class="review"
-                @click="reviewMissed"
-              />
-            </div>
-          </div>
-          <div v-else-if="questionState === 'active'" class="card">
-            <div class="question-wrap">
-              <div class="question">
-                {{ card.question }}
-              </div>
-              <Sound class="sound" @click="sayCurrentSymbol" />
-            </div>
-            <STInput
-              :modelValue="entry"
-              :placeholder="ts('answer')"
-              class="entry"
-              @update:modelValue="setAnswer"
-            />
-          </div>
+          <ZhuyinQuizCorrect
+            v-else-if="questionState === 'correct'"
+            :symbol="entry.s"
+            class="card"
+          />
+          <ZhuyinQuizIncorrect
+            v-else-if="questionState === 'incorrect'"
+            :entry="entry"
+            :card="card"
+            class="card"
+          />
+          <ZhuyinQuizComplete
+            v-else-if="questionState === 'complete'"
+            :symbolKeys="symbolKeys"
+            class="card"
+            @restart="restartQuiz"
+            @review="reviewMissed"
+          />
+          <ZhuyinQuizActive
+            v-else-if="questionState === 'active'"
+            :symbol="entry?.s"
+            :card="card"
+            class="card"
+            @sayCurrentSymbol="sayCurrentSymbol"
+            @setAnswer="setAnswer"
+          />
         </Transition>
       </div>
-      <div class="options">
-        <Checkbox
-          :item="{
-            label: ts('hide_keyboard'),
-            checked: store.zhuyin.quizOptions.value.hideKeyboard,
-          }"
-          class="keyboard-toggle"
-          @checked="store.zhuyin.setQuizOptions({ hideKeyboard: $event })"
-        />
-        <Checkbox
-          :item="{
-            label: ts('cheat'),
-            checked: store.zhuyin.quizOptions.value.cheating,
-          }"
-          class="cheat"
-          @checked="setCheating"
-        />
-        <AudioOptions :hideVoice="true" class="audio" />
-      </div>
+      <ZhuyinQuizOptions />
       <ZhuyinKeyboard
         v-if="!store.zhuyin.quizOptions.value.hideKeyboard"
         class="quiz-keyboard"
@@ -129,24 +63,24 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { STInput } from '@samatech/vue-components'
 import { store } from '@frontend/store'
-import { IZhuyinKeyInfo, IZhuyinQuizState, KeyType } from '@frontend/types'
-import { Sound } from '@frontend/components/svg'
+import {
+  IZhuyinKeyInfo,
+  IZhuyinQuizQuestion,
+  IZhuyinQuizState,
+  KeyType,
+} from '@frontend/types'
 import { zhuyinSymbols } from '@frontend/util/zhuyin'
 import { shuffleArray } from '@frontend/util/misc'
-import {
-  AppButton,
-  AudioOptions,
-  Checkbox,
-  PageNav,
-  ZhuyinKeyboard,
-} from '@frontend/components/widgets'
-import { ts } from '../../i18n'
+import { PageNav, ZhuyinKeyboard } from '@frontend/components/widgets'
+import { ts } from '../../../i18n'
 import { saySymbol } from '@frontend/util/speech'
+import ZhuyinQuizCorrect from './ZhuyinQuizCorrect.vue'
+import ZhuyinQuizIncorrect from './ZhuyinQuizIncorrect.vue'
+import ZhuyinQuizComplete from './ZhuyinQuizComplete.vue'
+import ZhuyinQuizActive from './ZhuyinQuizActive.vue'
+import ZhuyinQuizOptions from './ZhuyinQuizOptions.vue'
 
-const router = useRouter()
 const entry = ref()
 
 const showPinyin = computed(() => {
@@ -164,28 +98,8 @@ const index = computed(() => {
   return store.zhuyin.quiz.value?.index ?? 0
 })
 
-const highScore = computed(() => {
-  const count = store.zhuyin.quizOptions.value.count
-  return store.zhuyin.quizHighScore.value[count] ?? 0
-})
-
-const roundTime = (t: number) => {
-  return Math.round(t / 100) / 10
-}
-
-const questionTime = computed(() => {
-  const count = store.zhuyin.quiz.value?.questionTime ?? 0
-  return roundTime(count)
-})
-
-const quizTime = computed(() => {
-  const quiz = store.zhuyin.quiz.value
-  if (!quiz) return 0
-  return roundTime(quiz.quizEnd - quiz.quizStart)
-})
-
 const symbolKeys = computed(() => {
-  return store.zhuyin.quiz.value?.symbolKeys ?? Object.keys(zhuyinSymbols)
+  return (store.zhuyin.quiz.value?.symbolKeys ?? Object.keys(zhuyinSymbols)) as KeyType[]
 })
 
 const currentKey = computed(() => {
@@ -194,7 +108,7 @@ const currentKey = computed(() => {
   return symbolKeys.value[ind] as KeyType
 })
 
-const card = computed(() => {
+const card = computed<IZhuyinQuizQuestion>(() => {
   const symbol = zhuyinSymbols[currentKey.value] as IZhuyinKeyInfo
   const reverse = store.zhuyin.quizOptions.value.reverse
   return {
@@ -263,16 +177,6 @@ const getAnswer = (symbol: IZhuyinKeyInfo) => {
   return reverse ? symbol.p : symbol.s
 }
 
-const getCorrectCount = (): number => {
-  const incorrect = store.zhuyin.quiz.value?.incorrect.length ?? 0
-  return symbolKeys.value.length - incorrect
-}
-
-const getCorrectPercent = (): number => {
-  const correct = getCorrectCount()
-  return Math.round((correct / symbolKeys.value.length) * 100)
-}
-
 // Returns true if there is no active question
 // Starts question if inactive and not complete.
 // Completes quiz if inactive and last question has been answered.
@@ -310,7 +214,7 @@ const setAnswer = (char: string, event?: KeyboardEvent) => {
   if (!symbol) {
     return
   }
-  entry.value = symbol.s
+  entry.value = symbol
   if (getAnswer(symbol) === card.value.answer) {
     recordCorrect()
   } else {
@@ -362,13 +266,6 @@ const restartQuiz = () => {
   })
 }
 
-const setCheating = (on: boolean) => {
-  store.zhuyin.setQuizOptions({ cheating: on })
-  if (on) {
-    store.zhuyin.setQuiz({ cheated: true })
-  }
-}
-
 onMounted(() => {
   if (!store.zhuyin.quiz.value) {
     restartQuiz()
@@ -416,117 +313,5 @@ onMounted(() => {
   min-height: 254px;
   text-align: center;
   position: relative;
-}
-.card-title {
-  @mixin title 28px;
-}
-.card-text {
-  @mixin title-regular 18px;
-  margin-top: 16px;
-}
-.question-wrap {
-  display: flex;
-  align-items: center;
-}
-.question {
-  @mixin title 48px;
-}
-.sound {
-  @mixin size 26px;
-  margin-left: 24px;
-  cursor: pointer;
-  margin-top: 8px;
-}
-.entry {
-  width: 100%;
-  max-width: 160px;
-  :deep(input) {
-    border-radius: 12px;
-    height: 64px;
-    font-size: 30px;
-    text-align: center;
-    margin-top: 24px;
-  }
-}
-.incorrect-inputs {
-  display: flex;
-}
-.incorrect .entry {
-  max-width: 60px;
-  :deep(input) {
-    background-color: $color-error-bg;
-    border-color: $color-error;
-  }
-  &.correct {
-    max-width: 100px;
-    margin-left: 16px;
-    :deep(input) {
-      background-color: $green1;
-      border-color: $green2;
-    }
-  }
-}
-.correct .entry {
-  :deep(input) {
-    background-color: $green1;
-    border-color: $green2;
-  }
-}
-.result {
-  @mixin title 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 12px 0 0;
-}
-.result-count {
-  font-weight: bold;
-}
-.result-percent {
-  margin-left: 16px;
-}
-.score-wrap {
-  @mixin title-regular 16px;
-  display: flex;
-  margin-top: 16px;
-  align-items: center;
-}
-.score {
-  font-weight: 700;
-  margin: 0 16px 0 6px;
-}
-.high-score {
-  font-weight: 700;
-  margin-left: 6px;
-}
-.options {
-  display: flex;
-  align-items: center;
-  padding: 16px 0 24px;
-  .keyboard-toggle,
-  :deep(.checkbox) {
-    margin: 0;
-  }
-  .keyboard-toggle {
-    margin-right: 12px;
-  }
-}
-.audio {
-  margin-left: 16px;
-}
-.complete-actions {
-  margin-top: 16px;
-}
-.actions1 {
-  display: flex;
-}
-.restart {
-  margin-right: 4px;
-}
-.back {
-  margin-left: 4px;
-}
-.review {
-  margin-top: 8px;
 }
 </style>

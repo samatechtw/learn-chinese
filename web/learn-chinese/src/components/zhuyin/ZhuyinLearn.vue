@@ -64,9 +64,6 @@ const selectKey = (key: KeyType, event?: KeyboardEvent) => {
 
 onMounted(() => {
   populateVoices()
-  if (speechSynthesis.onvoiceschanged !== undefined) {
-    speechSynthesis.onvoiceschanged = populateVoices
-  }
 })
 </script>
 
