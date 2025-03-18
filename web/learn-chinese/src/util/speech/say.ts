@@ -8,12 +8,12 @@ export const say = (voices: SpeechSynthesisVoice[], voiceName: string, text: str
   synth.speak(speech)
 }
 
-export const saySymbol = (s: string) => {
+export const saySymbol = async (s: string) => {
   if (!store.misc.playAudio.value) {
     return
   }
-  const voices = populateVoices()
-  if (!voices) {
+  const voices = await populateVoices()
+  if (!voices?.[0]) {
     return
   }
   const voice = store.misc.voiceName.value

@@ -27,6 +27,7 @@ onMounted(async () => {
 @import '@theme/css/defines.postcss';
 @import '@theme/css/app.postcss';
 @import '@theme/css/auth.postcss';
+@import '@theme/css/quiz.postcss';
 
 html,
 body {
