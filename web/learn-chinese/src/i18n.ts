@@ -18,7 +18,9 @@ const fallback: I18nObject = {
   correct: 'Correct!',
   edit: 'Edit',
   email: 'Email',
+  hide: 'hide',
   high_score: 'High score:',
+  hint: 'Hint',
   incorrect: 'Incorrect',
   learn: 'Learn',
   link: 'Link',
@@ -44,6 +46,7 @@ const fallback: I18nObject = {
   score: 'Score:',
   start: 'Start',
   start_quiz: 'Start Quiz',
+  start_typing: 'Start Typing',
   typing: 'Typing',
   typing_game: 'Typing Game',
   typing_game_text: 'Challenge yourself with a typing game.',
@@ -62,6 +65,7 @@ const fallback: I18nObject = {
     quiz: 'Zhuyin Quiz',
     quiz_text: 'Quiz yourself with flashcards.',
     typing: 'Practice basic characters.',
+    practice: 'Typing Practice',
     quiz_options_text:
       'Pinyin is shown, and the corresponding zhuyin symbol must be entered.',
     typing_options_text: 'Type the pinyin for each character.',
@@ -74,6 +78,9 @@ const fallback: I18nObject = {
     typing_count: 'Limit the number of cards.',
     symbols: 'Zhuyin Symbols',
     quiz_count: 'Limit the number of cards. Only "all" counts for high scores.',
+  },
+  char: {
+    sets: 'Character sets',
   },
   auth: {
     login: 'Log In',

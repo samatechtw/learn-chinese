@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import ZhuyinTyping from '../components/zhuyin/ZhuyinTyping.vue'
+import ZhuyinTyping from '../components/zhuyin/typing/ZhuyinTyping.vue'
 </script>
 
 <style lang="postcss" scoped></style>

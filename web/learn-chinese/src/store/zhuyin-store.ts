@@ -5,7 +5,6 @@ import {
   IZhuyinQuizOptions,
   IZhuyinQuizRecord,
   IZhuyinQuizState,
-  IZhuyinTypingOptions,
   KeyType,
 } from '@frontend/types'
 import { zhuyinSymbols } from '@frontend/util/zhuyin'
@@ -18,8 +17,6 @@ export interface IZhuyinState {
   quizHighScore: IZhuyinQuizHighScore
   quizDifficulty: IZhuyinQuizDifficulty
   quizPlays: number
-  typingOptions: IZhuyinTypingOptions
-  showPinyin: boolean
 }
 
 const defaultQuiz = (): IZhuyinQuizState => {
@@ -53,12 +50,6 @@ const mutations = (state: IZhuyinState) => ({
   setQuizOptions(options: Partial<IZhuyinQuizOptions>) {
     state.quizOptions = { ...state.quizOptions, ...options }
   },
-  setTypingOptions(options: Partial<IZhuyinTypingOptions>) {
-    state.typingOptions = { ...state.typingOptions, ...options }
-  },
-  setPinyin(show: boolean) {
-    state.showPinyin = show
-  },
   clearQuiz() {
     state.quiz = null
   },
@@ -86,7 +77,7 @@ export const zhuyinModule = useModule<
   ReturnType<typeof mutations>
 >({
   name: 'zhuyin-store',
-  version: 10,
+  version: 11,
   stateInit: () => ({
     cardStats: {},
     quizOptions: {
@@ -96,17 +87,10 @@ export const zhuyinModule = useModule<
       count: 'all',
       cheating: false,
     },
-    showPinyin: false,
     quiz: null,
     quizHighScore: {},
     quizDifficulty: {},
     quizPlays: 0,
-    typingOptions: {
-      hideKeyboard: false,
-      order: 'random',
-      count: 'all',
-      cheating: false,
-    },
   }),
   getters,
   mutations,

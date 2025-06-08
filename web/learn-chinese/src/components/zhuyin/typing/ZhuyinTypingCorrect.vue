@@ -6,24 +6,31 @@
     <div class="card-text">
       {{ ts('continue') }}
     </div>
-    <STInput :modelValue="symbol" class="entry" />
+    <div class="question">
+      {{ card.question }}
+    </div>
+    <div class="entry">
+      <div class="text">
+        {{ entry }}
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { STInput } from '@samatech/vue-components'
 import { store } from '@frontend/store'
 import { roundTime } from '@frontend/util/misc'
-import { IZhuyinSymbol } from '@frontend/types'
+import { ITypingQuestion } from '@frontend/types'
 import { ts } from '../../../i18n'
 
 defineProps<{
-  symbol: IZhuyinSymbol
+  entry: string
+  card: ITypingQuestion
 }>()
 
 const questionTime = computed(() => {
-  const count = store.zhuyin.quiz.value?.questionTime ?? 0
+  const count = store.typing.state.value?.questionTime ?? 0
   return roundTime(count)
 })
 </script>
@@ -31,14 +38,19 @@ const questionTime = computed(() => {
 <style lang="postcss" scoped>
 @import '@theme/css/defines.postcss';
 
+.question {
+  @mixin title 30px;
+  margin-top: 12px;
+}
 .entry {
-  margin-top: 24px;
+  margin-top: 8px;
+  max-width: unset;
 }
 
-.correct .entry {
-  :deep(input) {
-    background-color: $green1;
-    border-color: $green2;
-  }
+.text {
+  background-color: $green1;
+  border-color: $green2;
+  height: 48px;
+  font-size: 26px;
 }
 </style>

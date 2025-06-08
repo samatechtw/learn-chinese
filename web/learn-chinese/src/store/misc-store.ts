@@ -7,6 +7,7 @@ export interface IMiscState {
   locale: string
   voiceName: string | null
   playAudio: boolean
+  showPinyin: boolean
 }
 
 const getters = (state: IMiscState) => ({
@@ -26,6 +27,9 @@ const mutations = (state: IMiscState) => ({
   setPlayAudio(play: boolean) {
     state.playAudio = play
   },
+  setShowPinyin(show: boolean) {
+    state.showPinyin = show
+  },
 })
 
 export const miscModule = useModule<
@@ -40,6 +44,7 @@ export const miscModule = useModule<
     locale: 'en',
     voiceName: null,
     playAudio: true,
+    showPinyin: false,
   }),
   getters,
   mutations,

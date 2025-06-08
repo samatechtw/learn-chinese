@@ -1,17 +1,9 @@
 import { KeyType } from '../ui'
+import { QuestionState } from './i-shared'
 
 export type QuizOrder = 'random' | 'difficult'
 
 export type ZhuyinQuizCount = 'all' | '5' | '10' | '15' | '20' | '30'
-
-export type QuestionState = 'init' | 'correct' | 'incorrect' | 'active' | 'complete'
-
-// View of current active question
-export interface IZhuyinQuizQuestion {
-  question: string
-  answer: string
-  audio: string | undefined
-}
 
 export interface IZhuyinQuizOptions {
   // If true, show zhuyin and type pinyin

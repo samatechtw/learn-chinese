@@ -7,8 +7,8 @@
       </h1>
       <div class="options f-col">
         <Checkbox
-          :item="{ label: ts('zhuyin.pinyin'), checked: store.zhuyin.showPinyin.value }"
-          @checked="store.zhuyin.setPinyin($event)"
+          :item="{ label: ts('zhuyin.pinyin'), checked: store.misc.showPinyin.value }"
+          @checked="store.misc.setShowPinyin($event)"
         />
         <AudioOptions />
       </div>
@@ -25,7 +25,7 @@
       </div>
       <ZhuyinKeyboard
         class="zh-keyboard"
-        :showPinyin="store.zhuyin.showPinyin.value"
+        :showPinyin="store.misc.showPinyin.value"
         @press="selectKey"
       />
     </div>

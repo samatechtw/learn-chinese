@@ -11,7 +11,7 @@
         {{ ts('zhuyin.typing_count') }}
       </div>
       <STMultiselect
-        :value="store.zhuyin.typingOptions.value.count"
+        :value="store.typing.typingOptions.value.count"
         class="table-select"
         :options="hskCounts"
         :clearable="false"
@@ -19,12 +19,25 @@
         @click.stop
       />
     </div>
-    <div class="reverse-option option-wrap">
+    <div class="character-sets option-wrap">
       <div class="option-text">
-        {{ ts(`zhuyin.${store.zhuyin.typingOptions.value.order}`) }}
+        {{ ts('char.sets') }}
       </div>
       <STMultiselect
-        :value="store.zhuyin.typingOptions.value.order"
+        :value="store.typing.sets.value[0]"
+        class="table-select"
+        :options="Object.keys(characterSets)"
+        :clearable="false"
+        @select="setOption({ sets: [($event ?? 'hsk1') as ICharacterSetName] })"
+        @click.stop
+      />
+    </div>
+    <div class="reverse-option option-wrap">
+      <div class="option-text">
+        {{ ts(`zhuyin.${store.typing.typingOptions.value.order}`) }}
+      </div>
+      <STMultiselect
+        :value="store.typing.typingOptions.value.order"
         class="table-select"
         :options="orderOptions"
         :clearable="false"
@@ -46,15 +59,11 @@
 
 <script lang="ts" setup>
 import { STMultiselect } from '@samatech/vue-components'
-import { AppButton, Checkbox, Modal } from '@frontend/components/widgets'
+import { AppButton, Modal } from '@frontend/components/widgets'
 import { store } from '@frontend/store'
-import {
-  IZhuyinTypingOptions,
-  QuizOrder,
-  ZhuyinQuizCount,
-  ZhuyinTypingCount,
-} from '@frontend/types'
+import { IZhuyinTypingOptions, QuizOrder, ZhuyinTypingCount } from '@frontend/types'
 import { ts } from '../../i18n'
+import { characterSets, ICharacterSetName } from '@frontend/util/characters'
 
 defineProps<{
   show: boolean
@@ -70,8 +79,7 @@ const orderOptions: QuizOrder[] = ['random', 'difficult']
 const hskCounts: ZhuyinTypingCount[] = ['all', '10', '25', '50', '100']
 
 const setOption = (options: Partial<IZhuyinTypingOptions>) => {
-  store.zhuyin.setTypingOptions(options)
-  console.log(store.zhuyin.typingOptions.value)
+  store.typing.setTypingOptions(options)
 }
 </script>
 
