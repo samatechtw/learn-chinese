@@ -18,12 +18,12 @@
 <script lang="ts" setup>
 import { STInput } from '@samatech/vue-components'
 import { Sound } from '@frontend/components/svg'
-import { IZhuyinQuizQuestion, IZhuyinSymbol } from '@frontend/types'
+import { ICardQuestion, IZhuyinSymbol } from '@frontend/types'
 import { ts } from '../../../i18n'
 
 defineProps<{
   symbol: IZhuyinSymbol | undefined
-  card: IZhuyinQuizQuestion
+  card: ICardQuestion
 }>()
 const emit = defineEmits<{
   (e: 'sayCurrentSymbol'): void
@@ -46,5 +46,8 @@ const emit = defineEmits<{
   margin-left: 24px;
   cursor: pointer;
   margin-top: 8px;
+}
+.entry {
+  margin-top: 24px;
 }
 </style>

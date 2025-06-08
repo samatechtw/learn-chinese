@@ -23,13 +23,13 @@
 </template>
 
 <script lang="ts" setup>
-import { IZhuyinKeyInfo, IZhuyinQuizQuestion } from '@frontend/types'
+import { IZhuyinKeyInfo, ICardQuestion } from '@frontend/types'
 import { ts } from '../../../i18n'
 import { store } from '@frontend/store'
 
 defineProps<{
   entry: IZhuyinKeyInfo | undefined
-  card: IZhuyinQuizQuestion
+  card: ICardQuestion
 }>()
 </script>
 

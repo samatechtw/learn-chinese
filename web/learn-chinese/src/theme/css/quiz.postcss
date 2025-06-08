@@ -8,12 +8,19 @@
 .entry {
   width: 100%;
   max-width: 160px;
-  input {
+  input,
+  .text {
     border-radius: 12px;
     height: 64px;
     font-size: 30px;
     text-align: center;
-    margin-top: 24px;
+  }
+  .text {
+    @mixin title-regular 30px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 .entry-item {
@@ -25,4 +32,31 @@
   height: 80px;
   justify-content: center;
   margin-top: 24px;
+}
+
+.progress-wrap {
+  @mixin title-regular 17px;
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+.progress {
+  font-weight: 700;
+  margin-left: 6px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card-wrap {
+  margin-top: 16px;
+  border: 1px solid black;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  padding: 32px 24px;
+  min-height: 254px;
+  text-align: center;
+  position: relative;
 }

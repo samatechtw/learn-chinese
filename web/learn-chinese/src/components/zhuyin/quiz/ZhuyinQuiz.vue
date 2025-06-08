@@ -64,12 +64,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
 import { store } from '@frontend/store'
-import {
-  IZhuyinKeyInfo,
-  IZhuyinQuizQuestion,
-  IZhuyinQuizState,
-  KeyType,
-} from '@frontend/types'
+import { IZhuyinKeyInfo, ICardQuestion, IZhuyinQuizState, KeyType } from '@frontend/types'
 import { zhuyinSymbols } from '@frontend/util/zhuyin'
 import { shuffleArray } from '@frontend/util/misc'
 import { PageNav, ZhuyinKeyboard } from '@frontend/components/widgets'
@@ -108,7 +103,7 @@ const currentKey = computed(() => {
   return symbolKeys.value[ind] as KeyType
 })
 
-const card = computed<IZhuyinQuizQuestion>(() => {
+const card = computed<ICardQuestion>(() => {
   const symbol = zhuyinSymbols[currentKey.value] as IZhuyinKeyInfo
   const reverse = store.zhuyin.quizOptions.value.reverse
   return {
@@ -186,7 +181,7 @@ const checkInactive = (char?: string): boolean => {
 
   if (char === 'Meta' || char === 'Tab' || questionState.value === 'complete') {
     return true
-  } else if (questionState.value != 'active' && isLast) {
+  } else if (questionState.value !== 'active' && isLast) {
     // Finish the quiz if the answer was correct or the right key is pressed
     if (questionState.value === 'correct' || char === currentKey.value) {
       store.zhuyin.quizComplete()
@@ -287,31 +282,5 @@ onMounted(() => {
   min-height: calc(100vh - $header-height);
   padding: 120px 0 160px;
   align-items: center;
-}
-.progress-wrap {
-  @mixin title-regular 17px;
-  display: flex;
-  align-items: center;
-  margin-top: 12px;
-}
-.progress {
-  font-weight: 700;
-  margin-left: 6px;
-}
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.card-wrap {
-  margin-top: 16px;
-  border: 1px solid black;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 400px;
-  padding: 32px 24px;
-  min-height: 254px;
-  text-align: center;
-  position: relative;
 }
 </style>

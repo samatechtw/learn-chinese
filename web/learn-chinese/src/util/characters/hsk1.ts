@@ -1,10 +1,10 @@
-import { ICharacterInfo } from '@frontend/types'
+import { ICharacterInfo, ICharacterSet } from '@frontend/types'
 
-const info = (p: string, audio?: string): ICharacterInfo => {
-  return { p, audio }
+const info = (p: string, z: string, audio?: string): ICharacterInfo => {
+  return { p, z }
 }
 
-export const hsk1: Record<string, ICharacterInfo> = {
+export const hsk1: ICharacterSet = {
   愛: info('ài', 'ㄞˋ'),
   八: info('bā', 'ㄅㄚ'),
   爸爸: info('bà ba', 'ㄅㄚˋ ˙ㄅㄚ'),
