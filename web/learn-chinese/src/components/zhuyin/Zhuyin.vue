@@ -18,7 +18,7 @@
     <ZhuyinTypingModal
       :show="showTypingModal"
       @start="startTyping"
-      @resume="resumeQuiz"
+      @resume="resumeTyping"
       @cancel="showTypingModal = false"
     />
   </div>
@@ -68,6 +68,11 @@ const resumeQuiz = () => {
 }
 
 const startTyping = () => {
+  store.typing.clearTyping()
+  resumeTyping()
+}
+
+const resumeTyping = () => {
   showTypingModal.value = false
   router.push({ name: 'ZhuyinTyping' })
 }

@@ -9,6 +9,8 @@ export const rootApi = new AppApi({
   userToken: store.auth.token,
 })
 
+export const externalApi = new AppApi({ baseUrl: '' })
+
 export const setupApiInterceptors = (api: AppApi) => {
   api.interceptResponse(async (res: Response): Promise<ApiResponse> => {
     if (res.status === 401) {

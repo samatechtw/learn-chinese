@@ -16,6 +16,7 @@ const fallback: I18nObject = {
   continue: 'Press any key to continue.',
   continue_correct: 'Press the correct key to continue.',
   correct: 'Correct!',
+  definition: 'Definition',
   edit: 'Edit',
   email: 'Email',
   hide: 'hide',

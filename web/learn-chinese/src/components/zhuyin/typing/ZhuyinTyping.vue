@@ -37,6 +37,7 @@
             :entry="entry"
             :card="card"
             :hint="hint"
+            :info="currentInfo"
             class="card"
             @sayCurrentChar="sayCurrentChar"
             @showHint="showHint"
@@ -116,8 +117,12 @@ const currentChar = computed<string>(() => {
   return characters.value[ind]
 })
 
+const currentInfo = computed(() => {
+  return characterData.value[currentChar.value]
+})
+
 const card = computed<ITypingQuestion>(() => {
-  const info = characterData.value[currentChar.value]
+  const info = currentInfo.value
   return {
     question: currentChar.value,
     answer: info.z.replaceAll(' ', '').replaceAll('˙', ''),

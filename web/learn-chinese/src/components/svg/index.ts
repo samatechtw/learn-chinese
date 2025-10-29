@@ -1,5 +1,6 @@
 export { default as ArrowShort } from './ArrowShort.vue'
 export { default as Cross } from './Cross.vue'
+export { default as Definition } from './Definition.vue'
 export { default as Info } from './Info.vue'
 export { default as Logo } from './Logo.vue'
 export { default as Location } from './Location.vue'

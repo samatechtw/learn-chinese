@@ -5,6 +5,7 @@
         {{ card.question }}
       </div>
       <Sound class="sound" @click="emit('sayCurrentChar')" />
+      <ShowDefinition :info="info" class="definition" />
     </div>
     <div class="hint-wrap f-col">
       <Transition name="fade" mode="out-in">
@@ -49,14 +50,15 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { STInput } from '@samatech/vue-components'
 import { Sound } from '@frontend/components/svg'
-import { ITypingQuestion, ITypingEntry } from '@frontend/types'
-import { ts } from '../../../i18n'
-import { AppButton } from '@frontend/components/widgets'
+import { ITypingQuestion, ITypingEntry, ICharacterInfo } from '@frontend/types'
+import { AppButton, ShowDefinition } from '@frontend/components/widgets'
 import { store } from '@frontend/store'
+import { ts } from '../../../i18n'
 
 const { hint } = defineProps<{
   entry: ITypingEntry[]
   card: ITypingQuestion
+  info: ICharacterInfo
   hint: string | undefined
 }>()
 const emit = defineEmits<{
@@ -95,9 +97,13 @@ onUnmounted(() => {
 }
 .sound {
   @mixin size 26px;
-  margin-left: 24px;
+  margin-left: 16px;
   cursor: pointer;
   margin-top: 8px;
+}
+.definition {
+  margin-left: 12px;
+  margin-top: 6px;
 }
 .input-wrap {
   position: relative;
