@@ -48,7 +48,7 @@
     <div class="buttons">
       <AppButton :text="ts('start')" @click="emit('start')" class="start" />
       <AppButton
-        v-if="store.zhuyin.quiz.value"
+        v-if="store.typing.state.value"
         :text="ts('resume')"
         @click="emit('resume')"
         class="resume"
