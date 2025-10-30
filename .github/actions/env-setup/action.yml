@@ -6,11 +6,11 @@ runs:
     - name: Setup PNPM
       uses: pnpm/action-setup@v4
       with:
-        version: 9.1.1
-    - name: Set up NodeJS v20
-      uses: actions/setup-node@v4
+        version: 10.20.0
+    - name: Set up NodeJS v24
+      uses: actions/setup-node@v6
       with:
-        node-version: 20
+        node-version: 24
         registry-url: 'https://registry.npmjs.org'
         cache: 'pnpm'
     - name: Install npm modules

@@ -44,7 +44,7 @@ jobs:
       repo_slug: ${{ steps.meta.outputs.repo_slug }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code into workspace directory
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - uses: ./.github/actions/env-setup
@@ -74,7 +74,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code into workspace directory
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - run: |
@@ -83,7 +83,7 @@ jobs:
       - name: Build app in release mode
         run: cd backend && cargo build --release
       - name: Upload binaries
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: backend-binaries
           path: |
@@ -102,9 +102,9 @@ jobs:
       BRANCH_NAME: prod
     steps:
       - name: Checkout code into workspace directory
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Download binary
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: backend-binaries
           path: ./backend/target/release/${{env.APP_NAME}}
@@ -124,7 +124,7 @@ jobs:
           script: return `ghcr.io/${context.repo.owner.toLowerCase()}/${context.repo.repo.toLowerCase()}`
       - name: Build and push prod docker image
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ${{env.WORKSPACE_ROOT}}
           push: true
@@ -144,9 +144,9 @@ jobs:
       BRANCH_NAME: prod
     steps:
       - name: Checkout code into workspace directory
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Download binary
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: backend-binaries
           path: ./backend/target/release/${{env.APP_NAME}}
@@ -166,7 +166,7 @@ jobs:
           script: return `ghcr.io/${context.repo.owner.toLowerCase()}/${context.repo.repo.toLowerCase()}`
       - name: Build and push prod docker image
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ${{env.WORKSPACE_ROOT}}
           build-args: |
