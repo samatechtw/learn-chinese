@@ -3,6 +3,7 @@ dist/
 tmp/
 out-tsc/
 node_modules/
+.pnpm-store/
 
 .nyc_output
 *.zip
