@@ -68,6 +68,7 @@ const resumeQuiz = () => {
 }
 
 const startTyping = () => {
+  store.typing.clearTyping()
   showTypingModal.value = false
   router.push({ name: 'ZhuyinTyping' })
 }

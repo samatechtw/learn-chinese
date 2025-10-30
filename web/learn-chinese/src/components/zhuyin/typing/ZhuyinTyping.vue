@@ -107,7 +107,7 @@ const characterData = computed<ICharacterSet>(() => {
 })
 
 const characters = computed<string[]>(() => {
-  return Object.keys(characterData.value)
+  return store.typing.state.value?.characters ?? Object.keys(characterData.value)
 })
 
 const currentChar = computed<string>(() => {
