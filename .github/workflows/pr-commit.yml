@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code into workspace directory
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - uses: ./.github/actions/env-setup
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code into workspace directory
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - uses: ./.github/actions/env-setup
@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code into workspace directory
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - run: |
@@ -81,7 +81,7 @@ jobs:
       - name: Build app in release mode
         run: cd backend && cargo build --release
       - name: Upload binaries
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: backend-binaries
           path: |
@@ -108,9 +108,9 @@ jobs:
         id: slug
         run: echo "::set-output name=sha8::$(echo ${{github.event.after}} | cut -c1-8)"
       - name: Checkout code into workspace directory
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Download binary
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: backend-binaries
           path: ./backend/target/release/${{env.APP_NAME}}
@@ -118,7 +118,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: Build docker image
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ${{env.WORKSPACE_ROOT}}
           file: ${{env.WORKSPACE_ROOT}}/backend/${{env.APP_NAME}}/Dockerfile
@@ -126,7 +126,7 @@ jobs:
           tags: ${{env.APP_NAME}}.prod
           outputs: type=docker,dest=/tmp/${{env.APP_NAME}}-${{steps.slug.outputs.sha8}}-${{github.run_number}}.tar
       - name: Upload docker image
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{env.APP_NAME}}-${{steps.slug.outputs.sha8}}-${{github.run_number}}
           path: /tmp/${{env.APP_NAME}}-${{steps.slug.outputs.sha8}}-${{github.run_number}}.tar
@@ -151,9 +151,9 @@ jobs:
         id: slug
         run: echo "::set-output name=sha8::$(echo ${{github.event.after}} | cut -c1-8)"
       - name: Checkout code into workspace directory
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Download binary
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: backend-binaries
           path: ./backend/target/release/${{env.APP_NAME}}
@@ -161,7 +161,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: Build docker image
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ${{env.WORKSPACE_ROOT}}
           # Fake values can be overridden with Github secrets as needed
@@ -173,7 +173,7 @@ jobs:
           tags: ${{env.APP_NAME}}.prod
           outputs: type=docker,dest=/tmp/${{env.APP_NAME}}-${{steps.slug.outputs.sha8}}-${{github.run_number}}.tar
       - name: Upload docker image
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{env.APP_NAME}}-${{steps.slug.outputs.sha8}}-${{github.run_number}}
           path: /tmp/${{env.APP_NAME}}-${{steps.slug.outputs.sha8}}-${{github.run_number}}.tar
@@ -198,9 +198,9 @@ jobs:
         id: slug
         run: echo "::set-output name=sha8::$(echo ${{github.event.after}} | cut -c1-8)"
       - name: Checkout code into workspace directory
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Download binary
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: backend-binaries
           path: ./backend/target/release/${{env.APP_NAME}}
@@ -208,7 +208,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
       - name: Build docker image
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ${{env.WORKSPACE_ROOT}}
           file: ${{env.WORKSPACE_ROOT}}/backend/${{env.APP_NAME}}/Dockerfile
@@ -216,7 +216,7 @@ jobs:
           tags: ${{env.APP_NAME}}.prod
           outputs: type=docker,dest=/tmp/${{env.APP_NAME}}-${{steps.slug.outputs.sha8}}-${{github.run_number}}.tar
       - name: Upload docker image
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{env.APP_NAME}}-${{steps.slug.outputs.sha8}}-${{github.run_number}}
           path: /tmp/${{env.APP_NAME}}-${{steps.slug.outputs.sha8}}-${{github.run_number}}.tar
@@ -232,7 +232,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code into workspace directory
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Cluster setup
@@ -262,7 +262,7 @@ jobs:
     if: always()
     runs-on: ubuntu-22.04
     steps:
-      - uses: geekyeggo/delete-artifact@v2
+      - uses: geekyeggo/delete-artifact@v5
         with:
           name: |
             api-test-helper-*
