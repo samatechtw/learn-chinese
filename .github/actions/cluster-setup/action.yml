@@ -26,6 +26,7 @@ runs:
       id: download
       uses: actions/download-artifact@v6
       with:
+        pattern: '*-*-*'
         path: /tmp
     - uses: AbsaOSS/k3d-action@v2
       name: 'Create Single Cluster'
