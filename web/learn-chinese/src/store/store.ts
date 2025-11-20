@@ -3,6 +3,7 @@ import { miscModule } from './misc-store'
 import { userModule } from './user-store'
 import { zhuyinModule } from './zhuyin-store'
 import { zhuyinTypingModule } from './zhuyin-typing-store'
+import { vocabModule } from './vocab-store'
 
 declare global {
   interface Window {
@@ -16,6 +17,7 @@ export interface WebStore {
   user: typeof userModule
   zhuyin: typeof zhuyinModule
   typing: typeof zhuyinTypingModule
+  vocab: typeof vocabModule
 }
 
 export const store: WebStore = {
@@ -24,6 +26,7 @@ export const store: WebStore = {
   user: userModule,
   zhuyin: zhuyinModule,
   typing: zhuyinTypingModule,
+  vocab: vocabModule,
 }
 
 // Attach to window for debugging purposes

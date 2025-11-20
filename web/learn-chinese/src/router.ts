@@ -115,6 +115,18 @@ const router = createRouter({
       component: () => import('./views/ZhuyinTypingPage.vue'),
     },
     {
+      path: '/vocab',
+      name: 'Vocab',
+      component: () => import('./views/VocabPage.vue'),
+      meta: { title: 'Vocabulary' },
+    },
+    {
+      path: '/vocab/quiz',
+      name: 'VocabQuiz',
+      meta: { title: 'Vocabulary Quiz' },
+      component: () => import('./views/VocabQuizPage.vue'),
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: import('./views/NotFoundPage.vue'),

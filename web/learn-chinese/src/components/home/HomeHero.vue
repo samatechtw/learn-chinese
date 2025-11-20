@@ -21,7 +21,7 @@ import { ts } from '../../i18n'
 
 const tools: IToolBubble[] = [
   { title: 'zhuyin.title', text: 'zhuyin.text', to: 'Zhuyin', disabled: false },
-  { title: 'vocab', text: 'vocab_text', to: 'not-found', disabled: true },
+  { title: 'vocab.title', text: 'vocab_text', to: 'Vocab', disabled: false },
   { title: 'typing_game', text: 'typing_game_text', to: 'not-found', disabled: true },
 ]
 </script>
