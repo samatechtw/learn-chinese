@@ -63,12 +63,39 @@ while read -r cidr; do
     ipset add allowed-domains "$cidr"
 done < <(echo "$gh_ranges" | jq -r '(.web + .api + .git)[]' | aggregate -q)
 
+# --- Cloudflare IPv4 ranges ---
+echo "Fetching Cloudflare IP ranges..."
+cf_json=$(curl -s https://api.cloudflare.com/client/v4/ips)
+if [ -z "$cf_json" ]; then
+    echo "ERROR: Failed to fetch Cloudflare IP ranges"
+    exit 1
+fi
+if ! echo "$cf_json" | jq -e '.result.ipv4_cidrs' >/dev/null; then
+    echo "ERROR: Cloudflare API response missing ipv4_cidrs"
+    exit 1
+fi
+echo "Processing Cloudflare IPv4 CIDRs..."
+echo "$cf_json" \
+  | jq -r '.result.ipv4_cidrs[]' \
+  | aggregate -q \
+  | while read -r cidr; do
+      if [[ ! "$cidr" =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}$ ]]; then
+        echo "ERROR: Invalid CIDR range from Cloudflare: $cidr"
+        exit 1
+      fi
+      echo "Adding Cloudflare range $cidr"
+      ipset add -! allowed-domains "$cidr"   # -! ignores duplicates
+    done
+
 # Resolve and add other allowed domains
 # First block of domains are project-specific
 # Second block are defaults from mainline, minus analytics
 for domain in \
     "json.schemastore.org" \
     \
+    "api.openai.com" \
+    "platform.openai.com" \
+    "googlehosted.l.googleusercontent.com" \
     "registry.npmjs.org" \
     "api.anthropic.com" \
     "marketplace.visualstudio.com" \
