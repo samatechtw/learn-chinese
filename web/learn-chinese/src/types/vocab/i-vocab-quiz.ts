@@ -6,6 +6,11 @@ export type VocabQuizCount = 'all' | '5' | '10' | '15' | '20' | '30'
 
 export type QuizOrder = 'random' | 'difficult'
 
+export type VocabQuestionType =
+  | 'EnglishToChinese'
+  | 'ChineseToPinyin'
+  | 'ChineseToEnglish'
+
 export interface IVocabQuizOptions {
   hskLevel: VocabHSKLevel
   count: VocabQuizCount
@@ -13,10 +18,17 @@ export interface IVocabQuizOptions {
   cheating: boolean
 }
 
+export interface IVocabQuizQuestion {
+  characterId: string
+  questionType: VocabQuestionType
+  correctAnswer: string
+  wrongGuess?: string
+}
+
 export interface IVocabQuizState {
   index: number
   characterIds: string[]
-  incorrect: string[]
+  questions: IVocabQuizQuestion[]
   score: number
   quizStart: number
   quizEnd: number

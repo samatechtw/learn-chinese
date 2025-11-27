@@ -1,6 +1,7 @@
 export interface ICharacterInfo {
   p: string
   z: string
+  e?: string
   audio?: string
 }
 

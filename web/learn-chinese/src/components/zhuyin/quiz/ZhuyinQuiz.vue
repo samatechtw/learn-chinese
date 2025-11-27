@@ -11,7 +11,7 @@
           {{ `${index} / ${symbolKeys.length}` }}
         </div>
       </div>
-      <div class="card-wrap f-center-col" @click="checkInactive()">
+      <div class="card-wrap f-center-col" @click="checkInactive">
         <Transition name="fade" mode="out-in">
           <div v-if="questionState === 'init'" class="card">
             <div class="card-title">

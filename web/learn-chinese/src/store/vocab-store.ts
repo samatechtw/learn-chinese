@@ -21,7 +21,7 @@ const defaultQuiz = (): IVocabQuizState => {
   return {
     index: 0,
     characterIds: [],
-    incorrect: [],
+    questions: [],
     score: 0,
     quizStart: Date.now(),
     quizEnd: 0,
@@ -29,7 +29,7 @@ const defaultQuiz = (): IVocabQuizState => {
     questionTime: 0,
     questionState: 'init',
     cheated: false,
-    reviewing: true,
+    reviewing: false,
   }
 }
 
