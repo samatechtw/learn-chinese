@@ -45,11 +45,10 @@ const getCharInfo = () => {
 @import '@theme/css/defines.postcss';
 
 .vocab-quiz-incorrect {
-  padding: 16px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -57,30 +56,32 @@ const getCharInfo = () => {
 }
 
 .status-icon {
-  font-size: 48px;
-  width: 80px;
-  height: 80px;
+  font-size: 44px;
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
 
   &.incorrect {
-    background: rgba(239, 68, 68, 0.1);
-    color: rgb(239, 68, 68);
+    background: rgba(224, 40, 24, 0.12);
+    color: $incorrect;
+    box-shadow: 0 10px 24px rgba(224, 40, 24, 0.2);
   }
 }
 
 .status-text {
-  @mixin title 24px;
-  color: rgb(239, 68, 68);
+  @mixin title 22px;
+  color: $incorrect;
 }
 
 .answer-info {
   display: flex;
-  gap: 24px;
+  gap: 20px;
   width: 100%;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .your-answer,
@@ -88,20 +89,24 @@ const getCharInfo = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  padding: 12px 16px;
 }
 
 .label {
-  @mixin title-regular 12px;
+  @mixin title-regular 13px;
   color: $text2;
   text-transform: uppercase;
 }
 
 .value {
-  @mixin title 18px;
+  @mixin title 22px;
 
   &.wrong {
-    color: rgb(239, 68, 68);
+    color: $incorrect;
     text-decoration: line-through;
   }
 }
@@ -110,32 +115,23 @@ const getCharInfo = () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 16px;
-  background: $color3;
-  border-radius: 8px;
+  gap: 8px;
+  padding: 18px 16px;
+  background: linear-gradient(135deg, #fff2f2, #ffecec);
+  border-radius: 12px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  border: 1px solid rgba(224, 40, 24, 0.15);
 }
 
-.chinese {
-  @mixin title 36px;
-}
-
-.pinyin {
-  @mixin title-regular 16px;
-  color: $text2;
-}
-
-.english {
-  @mixin title-regular 14px;
-  color: $text2;
-}
-
-.continue-hint {
-  @mixin title-regular 12px;
-  color: $text2;
-  margin-top: 8px;
+@media (max-width: 640px) {
+  .answer-info {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .chinese {
+    font-size: 30px;
+  }
 }
 </style>

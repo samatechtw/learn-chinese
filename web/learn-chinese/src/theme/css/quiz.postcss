@@ -45,18 +45,40 @@
   margin-left: 6px;
 }
 .card {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 28px 32px;
 }
 .card-wrap {
   margin-top: 16px;
   border: 1px solid black;
-  border-radius: 20px;
+  border-radius: 18px;
   width: 100%;
   max-width: 400px;
-  padding: 32px 24px;
-  min-height: 254px;
+  min-height: 400px;
   text-align: center;
   position: relative;
+}
+
+.continue-hint {
+  @mixin title-regular 14px;
+  color: $text3;
+  margin-top: 8px;
+}
+
+.chinese {
+  @mixin title 36px;
+}
+
+.pinyin {
+  @mixin title-regular 20px;
+  color: $text2;
+}
+
+.english {
+  @mixin title-regular 18px;
+  color: $text2;
 }

@@ -21,6 +21,8 @@ const navItems: Record<string, string> = {
   ZhuyinLearn: 'Learn',
   ZhuyinQuiz: 'Quiz',
   ZhuyinTyping: 'Typing',
+  Vocab: 'Vocab',
+  VocabQuiz: 'Quiz',
 }
 </script>
 

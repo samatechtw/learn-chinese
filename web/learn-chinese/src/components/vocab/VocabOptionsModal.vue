@@ -89,7 +89,12 @@ const setOption = (options: Partial<IVocabQuizOptions>) => {
 
 .vocab-options-modal {
   .modal-inner {
-    width: 460px;
+    width: 480px;
+    background: linear-gradient(180deg, #f4f9ff 0%, #ffffff 100%);
+    border: 1px solid rgba(50, 130, 184, 0.2);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.14);
+    border-radius: 16px;
+    padding: 28px 32px;
   }
 }
 .option-wrap {
@@ -98,6 +103,10 @@ const setOption = (options: Partial<IVocabQuizOptions>) => {
   margin-top: 16px;
   display: flex;
   justify-content: space-between;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
   .checkbox {
     margin: 0;
   }
@@ -112,10 +121,13 @@ const setOption = (options: Partial<IVocabQuizOptions>) => {
   color: $text2;
 }
 .buttons {
-  text-align: center;
-  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
 }
 .resume {
-  margin-left: 16px;
+  margin-left: 0;
 }
 </style>

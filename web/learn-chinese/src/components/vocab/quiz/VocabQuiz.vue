@@ -1,55 +1,68 @@
 <template>
   <div class="vocab-quiz-wrap">
     <div class="vocab-quiz container f-col">
-      <PageNav :nav="['Home', 'Vocab', 'VocabQuiz']" />
-      <h1 class="hero-title">
-        {{ ts('vocab.quiz') }}
-      </h1>
-      <div class="progress-wrap">
-        <div>{{ ts('progress') }}</div>
-        <div class="progress">
-          {{ `${displayIndex} / ${characterIds.length}` }}
+      <div class="header">
+        <div class="title-block">
+          <PageNav :nav="['Home', 'Vocab', 'VocabQuiz']" />
+          <h1 class="hero-title">
+            {{ ts('vocab.quiz') }}
+          </h1>
+          <p class="subtitle">
+            {{ ts('vocab.quiz_text') }}
+          </p>
+        </div>
+        <div class="meta">
+          <div class="pill">
+            <span>{{ ts('progress') }}</span>
+            <strong>{{ `${displayIndex} / ${characterIds.length}` }}</strong>
+          </div>
+          <div class="pill score-pill">
+            <span>{{ ts('score') }}</span>
+            <strong>{{ score }}</strong>
+          </div>
         </div>
       </div>
-      <div class="card-wrap f-center-col">
-        <Transition name="fade" mode="out-in">
-          <div
-            v-if="questionState === 'init'"
-            class="card init-card"
-            @click="checkInactive"
-          >
-            <div class="card-title">
-              {{ ts('start_quiz') }}
+      <div class="card-shell">
+        <div class="card-wrap f-center-col">
+          <Transition name="fade" mode="out-in">
+            <div
+              v-if="questionState === 'init'"
+              class="card init-card"
+              @click="checkInactive"
+            >
+              <div class="card-title">
+                {{ ts('start_quiz') }}
+              </div>
+              <div class="card-text">Click to start</div>
             </div>
-            <div class="card-text">Click to start</div>
-          </div>
-          <VocabQuizComplete
-            v-else-if="questionState === 'complete'"
-            :questions="questions"
-            :score="score"
-            class="card"
-            @restart="restartQuiz"
-          />
-          <VocabQuizCorrect
-            v-else-if="questionState === 'correct'"
-            :question="currentQuestion"
-            class="card"
-            @next="checkInactive()"
-          />
-          <VocabQuizIncorrect
-            v-else-if="questionState === 'incorrect'"
-            :question="currentQuestion"
-            class="card"
-            @next="checkInactive()"
-          />
-          <VocabQuizActive
-            v-else-if="questionState === 'active'"
-            :question="currentQuestion"
-            :options="currentOptions"
-            class="card"
-            @selectAnswer="selectAnswer"
-          />
-        </Transition>
+            <VocabQuizComplete
+              v-else-if="questionState === 'complete'"
+              :questions="questions"
+              :score="score"
+              class="card"
+              @restart="restartQuiz"
+            />
+            <VocabQuizCorrect
+              v-else-if="questionState === 'correct'"
+              :question="currentQuestion"
+              class="card"
+              @next="checkInactive()"
+            />
+            <VocabQuizIncorrect
+              v-else-if="questionState === 'incorrect'"
+              :question="currentQuestion"
+              class="card"
+              @next="checkInactive()"
+            />
+            <VocabQuizActive
+              v-else-if="questionState === 'active'"
+              :question="currentQuestion"
+              :options="currentOptions"
+              class="card"
+              @selectAnswer="selectAnswer"
+            />
+          </Transition>
+        </div>
       </div>
     </div>
   </div>
@@ -102,6 +115,7 @@ const currentQuestion = computed(() => {
 })
 
 const currentOptions = ref<string[]>([])
+const lastOptionIndex = ref<number | null>(null)
 
 const getRandomQuestionType = (): VocabQuestionType => {
   const types: VocabQuestionType[] = [
@@ -162,6 +176,21 @@ const generateOptions = (question: IVocabQuizQuestion): string[] => {
   return options.sort(() => Math.random() - 0.5)
 }
 
+const syncOptions = () => {
+  if (questionState.value === 'active' && currentQuestion.value) {
+    if (
+      lastOptionIndex.value !== currentIndex.value ||
+      currentOptions.value.length === 0
+    ) {
+      currentOptions.value = generateOptions(currentQuestion.value)
+      lastOptionIndex.value = currentIndex.value
+    }
+  } else {
+    lastOptionIndex.value = null
+    currentOptions.value = []
+  }
+}
+
 const startQuestion = () => {
   const now = Date.now()
   const state: Partial<IVocabQuizState> = {
@@ -177,9 +206,7 @@ const startQuestion = () => {
 
   store.vocab.setQuiz(state)
 
-  if (currentQuestion.value) {
-    currentOptions.value = generateOptions(currentQuestion.value)
-  }
+  syncOptions()
 }
 
 const checkInactive = (): boolean => {
@@ -260,8 +287,10 @@ const restartQuiz = () => {
 }
 
 onMounted(() => {
-  if (!store.vocab.quiz.value) {
+  if (!store.vocab.quiz.value || characterIds.value.length === 0) {
     restartQuiz()
+  } else {
+    syncOptions()
   }
 })
 </script>
@@ -270,32 +299,107 @@ onMounted(() => {
 @import '@theme/css/defines.postcss';
 
 .vocab-quiz-wrap {
-  background: $color4;
+  background: linear-gradient(130deg, #bbe1fa 0%, #e6f1ff 45%, #f7fbff 100%);
+  color: $text1;
 }
 .hero-title {
-  @mixin title 32px;
-  margin: 16px 0 0 0;
+  @mixin title 36px;
+  margin: 12px 0 6px 0;
+  color: $color2;
 }
 .vocab-quiz {
   min-height: calc(100vh - $header-height);
-  padding: 120px 0 160px;
-  align-items: center;
+  padding: 96px 0 140px;
+  align-items: stretch;
 }
-.progress-wrap {
+.header {
   display: flex;
-  gap: 8px;
-  margin-top: 16px;
-  @mixin title-regular 16px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 24px;
 }
-.progress {
-  font-weight: 600;
+.title-block {
+  flex: 1;
+  min-width: 260px;
+}
+.subtitle {
+  @mixin text 16px;
+  color: $text2;
+  max-width: 560px;
+}
+.meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+.pill {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(50, 130, 184, 0.18);
+  border-radius: 14px;
+  padding: 12px 16px;
+  min-width: 160px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pill span {
+  @mixin title-regular 12px;
+  color: $text2;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.pill strong {
+  @mixin title 20px;
+  color: $text1;
+}
+.score-pill {
+  background: linear-gradient(135deg, #3282b8, #5db8ff);
+  border: none;
+  color: white;
+}
+.score-pill span {
+  color: rgba(255, 255, 255, 0.86);
+}
+.score-pill strong {
+  color: white;
+}
+.card-shell {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
 }
 .card-wrap {
-  margin-top: 32px;
+  margin-top: 0;
+  max-width: 760px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(50, 130, 184, 0.2);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.12);
 }
 .init-card {
   cursor: pointer;
   width: 100%;
-  padding: 32px;
+  padding: 28px 12px;
+}
+
+@media (max-width: 720px) {
+  .vocab-quiz {
+    padding: 88px 0 120px;
+  }
+  .hero-title {
+    font-size: 30px;
+  }
+  .subtitle {
+    font-size: 15px;
+  }
+  .pill {
+    min-width: 140px;
+  }
+  .card-wrap {
+    padding: 22px 20px;
+  }
 }
 </style>

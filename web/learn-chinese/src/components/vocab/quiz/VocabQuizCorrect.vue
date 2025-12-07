@@ -35,11 +35,10 @@ const getCharInfo = () => {
 @import '@theme/css/defines.postcss';
 
 .vocab-quiz-correct {
-  padding: 16px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -47,55 +46,43 @@ const getCharInfo = () => {
 }
 
 .status-icon {
-  font-size: 48px;
-  width: 80px;
-  height: 80px;
+  font-size: 44px;
+  width: 76px;
+  height: 76px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
 
   &.correct {
-    background: rgba(34, 197, 94, 0.1);
-    color: rgb(34, 197, 94);
+    background: rgba(31, 157, 18, 0.12);
+    color: $correct;
+    box-shadow: 0 10px 24px rgba(31, 157, 18, 0.2);
   }
 }
 
 .status-text {
-  @mixin title 24px;
-  color: rgb(34, 197, 94);
+  @mixin title 22px;
+  color: $correct;
 }
 
 .character-display {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 16px;
-  background: $color3;
-  border-radius: 8px;
+  gap: 8px;
+  padding: 18px 16px;
+  background: linear-gradient(135deg, #eef7ff, #def1ff);
+  border-radius: 12px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  border: 1px solid rgba(50, 130, 184, 0.18);
 }
 
-.chinese {
-  @mixin title 36px;
-}
-
-.pinyin {
-  @mixin title-regular 16px;
-  color: $text2;
-}
-
-.english {
-  @mixin title-regular 14px;
-  color: $text2;
-}
-
-.continue-hint {
-  @mixin title-regular 12px;
-  color: $text2;
-  margin-top: 8px;
+@media (max-width: 640px) {
+  .chinese {
+    font-size: 30px;
+  }
 }
 </style>

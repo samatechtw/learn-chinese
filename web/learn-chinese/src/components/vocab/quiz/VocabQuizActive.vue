@@ -71,49 +71,55 @@ const getQuestionText = (): string => {
 @import '@theme/css/defines.postcss';
 
 .vocab-quiz-active {
-  padding: 24px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
 }
 
 .question-type {
-  @mixin title-regular 12px;
-  color: $text2;
+  @mixin title-regular 13px;
+  color: $color2;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.45px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(50, 130, 184, 0.25);
+  background: rgba(50, 130, 184, 0.12);
 }
 
 .question-text {
-  @mixin title 36px;
+  @mixin title 48px;
+  color: $text1;
   text-align: center;
-  min-height: 60px;
+  min-height: 64px;
   display: flex;
   align-items: center;
+  flex-grow: 1;
 }
 
 .options {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 16px;
   width: 100%;
   max-width: 100%;
-  box-sizing: border-box;
+  margin-top: 16px;
 }
 
 .option-button {
-  @mixin title 18px;
-  padding: 16px 12px;
-  background: $color3;
-  border: 2px solid $border1;
-  border-radius: 8px;
+  @mixin title 28px;
+  padding: 20px 14px;
+  background: linear-gradient(135deg, #3282b8, #5db8ff);
+  color: white;
+  border: none;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s;
-  min-height: 60px;
+  min-height: 68px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -121,14 +127,27 @@ const getQuestionText = (): string => {
   overflow: hidden;
   word-break: break-word;
   box-sizing: border-box;
+  box-shadow: 0 10px 20px rgba(50, 130, 184, 0.25);
 
   &:hover {
-    background: $color2;
-    border-color: $primary;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 24px rgba(50, 130, 184, 0.3);
   }
 
   &:active {
     transform: scale(0.98);
+  }
+}
+
+@media (max-width: 640px) {
+  .question-text {
+    font-size: 32px;
+  }
+  .options {
+    grid-template-columns: 1fr;
+  }
+  .option-button {
+    min-height: 64px;
   }
 }
 </style>

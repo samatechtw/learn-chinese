@@ -34,9 +34,7 @@
       </div>
     </div>
     <div class="buttons">
-      <button class="restart-button" @click="$emit('restart')">
-        Restart Quiz
-      </button>
+      <button class="restart-button" @click="$emit('restart')">Restart Quiz</button>
     </div>
   </div>
 </template>
@@ -63,7 +61,7 @@ const percentage = computed(() => {
 })
 
 const incorrectQuestions = computed(() => {
-  return props.questions.filter(q => q.wrongGuess)
+  return props.questions.filter((q) => q.wrongGuess)
 })
 
 const getCharInfo = (charId: string) => {
@@ -75,35 +73,36 @@ const getCharInfo = (charId: string) => {
 @import '@theme/css/defines.postcss';
 
 .vocab-quiz-complete {
-  padding: 16px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
 }
 
 .completion-icon {
-  font-size: 48px;
+  font-size: 46px;
 }
 
 .title {
-  @mixin title 28px;
+  @mixin title 26px;
+  color: $color2;
 }
 
 .score-display {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 20px;
-  background: $color3;
-  border-radius: 8px;
+  gap: 10px;
+  padding: 22px 20px;
+  background: linear-gradient(135deg, #f0f8ff, #e1f2ff);
+  border-radius: 14px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  border: 1px solid rgba(50, 130, 184, 0.2);
 }
 
 .score-label {
@@ -113,11 +112,11 @@ const getCharInfo = (charId: string) => {
 }
 
 .score-value {
-  @mixin title 36px;
+  @mixin title 34px;
 }
 
 .score-percentage {
-  @mixin title-regular 18px;
+  @mixin title-regular 17px;
   color: $text2;
 }
 
@@ -146,11 +145,12 @@ const getCharInfo = (charId: string) => {
 .mistake-item {
   display: flex;
   gap: 12px;
-  padding: 12px;
-  background: $color3;
-  border-radius: 8px;
-  border: 1px solid $border1;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  border: 1px solid rgba(50, 130, 184, 0.18);
   box-sizing: border-box;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
 }
 
 .mistake-char {
@@ -170,7 +170,7 @@ const getCharInfo = (charId: string) => {
 }
 
 .detail-row {
-  @mixin title-regular 13px;
+  @mixin title-regular 14px;
   display: flex;
   gap: 8px;
 
@@ -188,26 +188,36 @@ const getCharInfo = (charId: string) => {
 .buttons {
   display: flex;
   gap: 12px;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 .restart-button {
   @mixin title 14px;
-  padding: 10px 24px;
-  background: $primary;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #3282b8, #5db8ff);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s;
+  box-shadow: 0 10px 22px rgba(50, 130, 184, 0.26);
 
   &:hover {
-    opacity: 0.9;
     transform: translateY(-2px);
+    box-shadow: 0 14px 26px rgba(50, 130, 184, 0.3);
   }
 
   &:active {
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .score-value {
+    font-size: 30px;
+  }
+  .mistake-item {
+    flex-direction: column;
   }
 }
 </style>
