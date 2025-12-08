@@ -41,10 +41,13 @@ const click = () => {
 
 .tool-bubble {
   align-items: center;
+  justify-content: center;
   text-align: center;
   position: relative;
   color: black;
-  width: 220px;
+  width: 244px;
+  max-width: 260px;
+  height: 200px;
   border: 1px solid black;
   border-radius: 16px;
   padding: 28px 24px;
@@ -73,5 +76,44 @@ const click = () => {
 .tool-text {
   @mixin text 17px;
   margin-top: 12px;
+}
+@media (max-width: 900px) {
+  .tool-bubble {
+    width: 220px;
+    max-width: 220px;
+    padding: 24px 20px;
+    height: 190px;
+  }
+  .tool-title {
+    font-size: 19px;
+  }
+  .tool-text {
+    font-size: 16px;
+  }
+}
+@media (max-width: 620px) {
+  .tool-bubble {
+    width: 100%;
+    padding: 20px 16px;
+    height: 180px;
+  }
+  .tool-title {
+    font-size: 18px;
+  }
+  .tool-text {
+    font-size: 15px;
+  }
+}
+@media (max-width: 520px) {
+  .tool-bubble {
+    padding: 16px 12px;
+    height: 170px;
+  }
+  .tool-title {
+    font-size: 16px;
+  }
+  .tool-text {
+    font-size: 14px;
+  }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="learn-wrap">
     <div class="zhuyin-learn container f-col">
-      <PageNav :nav="['Home', 'Zhuyin', 'ZhuyinLearn']" />
+      <PageNav :nav="['Home', 'ZhuyinLearn']" />
       <h1 class="hero-title">
         {{ ts('zhuyin.symbols') }}
       </h1>

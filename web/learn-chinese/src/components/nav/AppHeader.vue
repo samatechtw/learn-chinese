@@ -73,14 +73,19 @@ header {
   align-items: center;
   margin: 0 auto;
   position: relative;
+  gap: 16px;
+  padding-left: 32px;
+  padding-right: 32px;
 }
 .logo-wrap {
   display: flex;
   align-items: center;
+  gap: 8px;
+  min-width: 0;
 }
 .company {
   @mixin title 24px;
-  margin-left: 8px;
+  white-space: nowrap;
 }
 .header-logo {
   width: 64px;
@@ -98,9 +103,13 @@ header {
 .header-drawer {
   display: none;
 }
+.auth-links-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 .login-button-wrap {
   @mixin title-regular 15px;
-  margin-right: 16px;
   padding: 8px 16px;
 }
 .sign-up-button-wrap {
@@ -115,7 +124,7 @@ header {
 }
 @media (max-width: 860px) {
   .company {
-    @mixin title 32px;
+    font-size: 22px;
   }
   .links a {
     margin: 0 12px;
@@ -130,6 +139,43 @@ header {
   }
   .burger {
     display: flex;
+  }
+}
+@media (max-width: 720px) {
+  .header {
+    padding-left: 24px;
+    padding-right: 24px;
+    gap: 12px;
+  }
+  .header-logo {
+    width: 56px;
+    height: 56px;
+  }
+  .company {
+    font-size: 22px;
+  }
+  .login-button-wrap,
+  .sign-up-button-wrap {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+@media (max-width: 600px) {
+  header {
+    height: 72px;
+  }
+  .header {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .company {
+    font-size: 20px;
+  }
+  .auth-links-wrap {
+    gap: 8px;
+  }
+  .sign-up-button-wrap {
+    padding: 6px 10px;
   }
 }
 </style>

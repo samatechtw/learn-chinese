@@ -1,7 +1,7 @@
 <template>
   <div class="zhuyin-typing-wrap">
     <div class="zhuyin-typing container f-col">
-      <PageNav :nav="['Home', 'Zhuyin', 'ZhuyinTyping']" />
+      <PageNav :nav="['Home', 'ZhuyinTyping']" />
       <h1 class="hero-title">
         {{ ts('zhuyin.practice') }}
       </h1>

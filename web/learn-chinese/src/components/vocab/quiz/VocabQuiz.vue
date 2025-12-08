@@ -3,7 +3,7 @@
     <div class="vocab-quiz container f-col">
       <div class="header">
         <div class="title-block">
-          <PageNav :nav="['Home', 'Vocab', 'VocabQuiz']" />
+          <PageNav :nav="['Home', 'VocabQuiz']" />
           <h1 class="hero-title">
             {{ ts('vocab.quiz') }}
           </h1>

@@ -41,17 +41,42 @@ const tools: IToolBubble[] = [
 .hero-text {
   @mixin title-thin 22px;
 }
-.tools {
-  justify-content: center;
+.home-hero .tools {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-items: center;
   gap: 24px;
-  max-width: 760px;
+  width: 100%;
+  max-width: 860px;
+  margin-top: 40px;
+  padding: 0 24px;
 }
-@media (max-width: 680px) {
+@media (max-width: 720px) {
   .home-hero {
     text-align: center;
   }
   .hero-title {
     font-size: 48px;
+  }
+  .home-hero .tools {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 540px;
+  }
+}
+@media (max-width: 620px) {
+  .home-hero {
+    padding: 80px 0 100px;
+  }
+  .hero-title {
+    font-size: 42px;
+  }
+  .hero-text {
+    font-size: 19px;
+  }
+  .home-hero .tools {
+    gap: 20px;
+    padding: 0 12px;
+    max-width: 400px;
   }
 }
 </style>

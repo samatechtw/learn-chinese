@@ -27,7 +27,7 @@
         <AppButton
           :text="ts('back')"
           class="back"
-          @click="router.push({ name: 'Zhuyin' })"
+          @click="router.push({ name: 'Home' })"
         />
       </div>
       <AppButton

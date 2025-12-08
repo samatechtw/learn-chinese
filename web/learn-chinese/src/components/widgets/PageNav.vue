@@ -17,11 +17,9 @@
 <script lang="ts">
 const navItems: Record<string, string> = {
   Home: 'Home',
-  Zhuyin: 'Zhuyin',
   ZhuyinLearn: 'Learn',
   ZhuyinQuiz: 'Quiz',
   ZhuyinTyping: 'Typing',
-  Vocab: 'Vocab',
   VocabQuiz: 'Quiz',
 }
 </script>

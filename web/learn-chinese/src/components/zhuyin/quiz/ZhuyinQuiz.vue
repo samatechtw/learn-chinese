@@ -1,7 +1,7 @@
 <template>
   <div class="zhuyin-quiz-wrap">
     <div class="zhuyin-quiz container f-col">
-      <PageNav :nav="['Home', 'Zhuyin', 'ZhuyinQuiz']" />
+      <PageNav :nav="['Home', 'ZhuyinQuiz']" />
       <h1 class="hero-title">
         {{ ts('zhuyin.quiz') }}
       </h1>
