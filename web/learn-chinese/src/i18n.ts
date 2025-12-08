@@ -51,9 +51,7 @@ const fallback: I18nObject = {
   typing_game: 'Typing Game',
   typing_game_text: 'Challenge yourself with a typing game.',
   typing_options: 'Typing Options',
-  vocab_text: 'Learn characters.',
   vocab: {
-    title: 'Vocabulary',
     learn: 'Learn Vocabulary',
     quiz: 'Vocabulary Quiz',
     quiz_text: 'Quiz yourself with vocabulary flashcards.',
@@ -69,8 +67,6 @@ const fallback: I18nObject = {
     coming_soon: 'Coming soon',
   },
   zhuyin: {
-    title: 'Zhuyin',
-    text: 'Flash cards and quiz for bopomofo/zhuyin.',
     learn: 'Learn Zhuyin Fuhao (Bopomofo)',
     quiz: 'Zhuyin Quiz',
     quiz_text: 'Quiz yourself with flashcards.',

@@ -20,8 +20,10 @@ import { ToolBubble } from '@frontend/components/widgets'
 import { ts } from '../../i18n'
 
 const tools: IToolBubble[] = [
-  { title: 'zhuyin.title', text: 'zhuyin.text', to: 'Zhuyin', disabled: false },
-  { title: 'vocab.title', text: 'vocab_text', to: 'Vocab', disabled: false },
+  { title: 'zhuyin.learn', text: 'zhuyin.learn_tool', to: 'ZhuyinLearn', disabled: false },
+  { title: 'zhuyin.quiz', text: 'zhuyin.quiz_text', to: 'ZhuyinQuiz', disabled: false },
+  { title: 'typing', text: 'zhuyin.typing_options_text', to: 'ZhuyinTyping', disabled: false },
+  { title: 'vocab.quiz', text: 'vocab.quiz_text', to: 'VocabQuiz', disabled: false },
   { title: 'typing_game', text: 'typing_game_text', to: 'not-found', disabled: true },
 ]
 </script>
@@ -38,6 +40,11 @@ const tools: IToolBubble[] = [
 }
 .hero-text {
   @mixin title-thin 22px;
+}
+.tools {
+  justify-content: center;
+  gap: 24px;
+  max-width: 760px;
 }
 @media (max-width: 680px) {
   .home-hero {

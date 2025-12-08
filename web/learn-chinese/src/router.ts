@@ -91,12 +91,6 @@ const router = createRouter({
       meta: { title: 'Privacy Policy' },
     },
     {
-      path: '/zhuyin',
-      name: 'Zhuyin',
-      component: () => import('./views/ZhuyinPage.vue'),
-      meta: { title: 'Zhuyin' },
-    },
-    {
       path: '/zhuyin/learn',
       name: 'ZhuyinLearn',
       meta: { title: 'Zhuyin Learn' },
@@ -113,12 +107,6 @@ const router = createRouter({
       name: 'ZhuyinTyping',
       meta: { title: 'Zhuyin Typing' },
       component: () => import('./views/ZhuyinTypingPage.vue'),
-    },
-    {
-      path: '/vocab',
-      name: 'Vocab',
-      component: () => import('./views/VocabPage.vue'),
-      meta: { title: 'Vocabulary' },
     },
     {
       path: '/vocab/quiz',
