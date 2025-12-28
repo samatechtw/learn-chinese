@@ -150,11 +150,11 @@ iptables -A OUTPUT -j REJECT --reject-with icmp-admin-prohibited
 
 echo "Firewall configuration complete"
 echo "Verifying firewall rules..."
-if curl --connect-timeout 5 https://example.com >/dev/null 2>&1; then
-    echo "ERROR: Firewall verification failed - was able to reach https://example.com"
+if curl --connect-timeout 5 https://example1.com >/dev/null 2>&1; then
+    echo "ERROR: Firewall verification failed - was able to reach https://example1.com"
     exit 1
 else
-    echo "Firewall verification passed - unable to reach https://example.com as expected"
+    echo "Firewall verification passed - unable to reach https://example1.com as expected"
 fi
 
 # Verify GitHub API access
