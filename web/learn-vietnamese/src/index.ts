@@ -1,0 +1,1 @@
+export { vietnameseRoutes } from './routes'

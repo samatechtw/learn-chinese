@@ -79,7 +79,7 @@ import { zhuyinSymbols } from '@frontend/util/zhuyin'
 import ZhuyinTypingOptions from './ZhuyinTypingOptions.vue'
 import ZhuyinTypingActive from './ZhuyinTypingActive.vue'
 import ZhuyinTypingCorrect from './ZhuyinTypingCorrect.vue'
-import { ts } from '../../../i18n'
+import { ts } from '@frontend/i18n'
 import { useScoreAnimate } from '@frontend/util/ui'
 
 const entry = ref<ITypingEntry[]>([])

@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
 import { IZhuyinKeyInfo, ICardQuestion } from '@frontend/types'
-import { ts } from '../../../i18n'
+import { ts } from '@frontend/i18n'
 import { store } from '@frontend/store'
 
 defineProps<{

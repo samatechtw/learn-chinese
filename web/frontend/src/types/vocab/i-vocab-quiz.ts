@@ -4,7 +4,7 @@ export type VocabHSKLevel = 'hsk1' | 'all'
 
 export type VocabQuizCount = 'all' | '5' | '10' | '15' | '20' | '30'
 
-export type QuizOrder = 'random' | 'difficult'
+export type VocabQuizOrder = 'random' | 'difficult'
 
 export type VocabQuestionType =
   | 'EnglishToChinese'
@@ -14,7 +14,7 @@ export type VocabQuestionType =
 export interface IVocabQuizOptions {
   hskLevel: VocabHSKLevel
   count: VocabQuizCount
-  order: QuizOrder
+  order: VocabQuizOrder
   cheating: boolean
 }
 

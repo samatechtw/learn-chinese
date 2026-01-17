@@ -44,7 +44,7 @@ import { zhuyinSymbols } from '@frontend/util/zhuyin'
 import { KeyType } from '@frontend/types'
 import { populateVoices, say, saySymbol } from '@frontend/util/speech'
 import { store } from '@frontend/store'
-import { ts } from '../../i18n'
+import { ts } from '@frontend/i18n'
 
 const selected = ref()
 

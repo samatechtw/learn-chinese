@@ -12,11 +12,13 @@ export default defineConfig({
     preserveSymlinks: true,
     alias: {
       '@theme/': `${resolve('./src/theme')}/`,
+      '@samatech/learn-chinese': resolve('../learn-chinese/src/index.ts'),
+      '@samatech/learn-vietnamese': resolve('../learn-vietnamese/src/index.ts'),
       ...tsconfigBaseAliases(__dirname),
     },
   },
   server: {
-    port: 3050,
+    port: Number(process.env.VITE_LEARN_FRONTEND_PORT || 3050),
     host: '127.0.0.1',
     allowedHosts: true,
   },

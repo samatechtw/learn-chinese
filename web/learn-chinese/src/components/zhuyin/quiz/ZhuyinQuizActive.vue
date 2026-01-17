@@ -19,7 +19,7 @@
 import { STInput } from '@samatech/vue-components'
 import { Sound } from '@frontend/components/svg'
 import { ICardQuestion, IZhuyinSymbol } from '@frontend/types'
-import { ts } from '../../../i18n'
+import { ts } from '@frontend/i18n'
 
 defineProps<{
   symbol: IZhuyinSymbol | undefined

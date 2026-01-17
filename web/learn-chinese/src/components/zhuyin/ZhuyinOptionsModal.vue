@@ -58,7 +58,7 @@ import { STMultiselect } from '@samatech/vue-components'
 import { AppButton, Checkbox, Modal } from '@frontend/components/widgets'
 import { store } from '@frontend/store'
 import { IZhuyinQuizOptions, QuizOrder, ZhuyinQuizCount } from '@frontend/types'
-import { ts } from '../../i18n'
+import { ts } from '@frontend/i18n'
 
 defineProps<{
   show: boolean

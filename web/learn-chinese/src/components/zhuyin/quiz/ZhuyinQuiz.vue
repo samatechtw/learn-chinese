@@ -68,7 +68,7 @@ import { IZhuyinKeyInfo, ICardQuestion, IZhuyinQuizState, KeyType } from '@front
 import { zhuyinSymbols } from '@frontend/util/zhuyin'
 import { shuffleArray } from '@frontend/util/misc'
 import { PageNav, ZhuyinKeyboard } from '@frontend/components/widgets'
-import { ts } from '../../../i18n'
+import { ts } from '@frontend/i18n'
 import { saySymbol } from '@frontend/util/speech'
 import ZhuyinQuizCorrect from './ZhuyinQuizCorrect.vue'
 import ZhuyinQuizIncorrect from './ZhuyinQuizIncorrect.vue'

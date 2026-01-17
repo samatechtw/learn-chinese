@@ -1,7 +1,7 @@
 {
-  "name": "@samatech/learn-chinese",
+  "name": "@samatech/learn-vietnamese",
   "version": "1.0.0",
-  "description": "Chinese language learning module.",
+  "description": "Vietnamese language learning module.",
   "type": "module",
   "main": "src/index.ts",
   "module": "src/index.ts",

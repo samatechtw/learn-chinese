@@ -56,7 +56,7 @@ export class SimpleI18n {
 
 export const getString =
   (i18n: SimpleI18n) =>
-  (key: string | undefined, copy?: I18nObject): string =>
+  (key: string | undefined, copy?: I18nObject): string | undefined =>
     i18n.s(key, copy)
 
 export const getArray =

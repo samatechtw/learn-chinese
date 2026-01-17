@@ -47,7 +47,7 @@ import { store } from '@frontend/store'
 import { AppButton } from '@frontend/components/widgets'
 import { roundTime } from '@frontend/util/misc'
 import { KeyType } from '@frontend/types'
-import { ts } from '../../../i18n'
+import { ts } from '@frontend/i18n'
 
 const router = useRouter()
 

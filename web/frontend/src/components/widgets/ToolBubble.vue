@@ -54,6 +54,7 @@ const click = () => {
   transition: all 0.25s ease;
   transform: scale(1);
   &.isDisabled {
+    cursor: default;
     pointer-events: none;
     color: rgba($color2, 0.4);
     border-color: rgba(0, 0, 0, 0.4);

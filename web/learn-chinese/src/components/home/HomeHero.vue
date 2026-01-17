@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import { IToolBubble } from '@frontend/types'
 import { ToolBubble } from '@frontend/components/widgets'
-import { ts } from '../../i18n'
+import { ts } from '@frontend/i18n'
 
 const tools: IToolBubble[] = [
   { title: 'zhuyin.learn', text: 'zhuyin.learn_tool', to: 'ZhuyinLearn', disabled: false },

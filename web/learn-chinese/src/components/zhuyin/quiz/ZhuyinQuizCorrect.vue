@@ -16,7 +16,7 @@ import { STInput } from '@samatech/vue-components'
 import { store } from '@frontend/store'
 import { roundTime } from '@frontend/util/misc'
 import { IZhuyinSymbol } from '@frontend/types'
-import { ts } from '../../../i18n'
+import { ts } from '@frontend/i18n'
 
 defineProps<{
   symbol: IZhuyinSymbol

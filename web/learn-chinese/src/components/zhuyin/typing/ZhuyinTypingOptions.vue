@@ -23,7 +23,7 @@
 <script lang="ts" setup>
 import { store } from '@frontend/store'
 import { AudioOptions, Checkbox } from '@frontend/components/widgets'
-import { ts } from '../../../i18n'
+import { ts } from '@frontend/i18n'
 
 const setCheating = (on: boolean) => {
   store.typing.setTypingOptions({ cheating: on })

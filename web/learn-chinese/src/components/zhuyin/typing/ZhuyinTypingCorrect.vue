@@ -22,7 +22,7 @@ import { computed } from 'vue'
 import { store } from '@frontend/store'
 import { roundTime } from '@frontend/util/misc'
 import { ITypingQuestion } from '@frontend/types'
-import { ts } from '../../../i18n'
+import { ts } from '@frontend/i18n'
 
 defineProps<{
   entry: string

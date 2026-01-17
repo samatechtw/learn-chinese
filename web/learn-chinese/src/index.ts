@@ -1,0 +1,1 @@
+export { chineseRoutes } from './routes'

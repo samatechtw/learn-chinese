@@ -62,9 +62,14 @@ const fallback: I18nObject = {
     difficult: 'Show characters you have trouble with first.',
   },
   home: {
-    hero: 'Learn Chinese',
-    hero_text: 'A collection of tools for learning traditional Chinese.',
+    hero: 'Learn Languages',
+    hero_text: 'A collection of tools for language learning.',
     coming_soon: 'Coming soon',
+    chinese: 'Learn Chinese',
+    chinese_text: 'Practice traditional Chinese (Zhuyin).',
+    vietnamese: 'Learn Vietnamese',
+    vietnamese_text: 'Practice Vietnamese language skills.',
+    vietnamese_coming_soon: 'Vietnamese learning tools are coming soon!',
   },
   zhuyin: {
     learn: 'Learn Zhuyin Fuhao (Bopomofo)',
@@ -141,8 +146,8 @@ const fallback: I18nObject = {
   },
   footer: {
     copyright: '© 2024 SamaTech Co., Ltd. - All Rights Reserved.',
-    title: 'Learn Chinese',
-    text: 'Learn and practice traditional Chinese.',
+    title: 'Learn Languages',
+    text: 'Learn and practice Chinese and Vietnamese.',
     faq: 'FAQ',
     about: 'About',
     terms: 'Terms',

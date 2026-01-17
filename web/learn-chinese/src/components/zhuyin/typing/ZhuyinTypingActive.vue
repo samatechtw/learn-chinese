@@ -50,7 +50,7 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import { STInput } from '@samatech/vue-components'
 import { Sound } from '@frontend/components/svg'
 import { ITypingQuestion, ITypingEntry } from '@frontend/types'
-import { ts } from '../../../i18n'
+import { ts } from '@frontend/i18n'
 import { AppButton } from '@frontend/components/widgets'
 import { store } from '@frontend/store'
 

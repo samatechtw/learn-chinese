@@ -62,7 +62,7 @@ import { STMultiselect } from '@samatech/vue-components'
 import { AppButton, Modal } from '@frontend/components/widgets'
 import { store } from '@frontend/store'
 import { IZhuyinTypingOptions, QuizOrder, ZhuyinTypingCount } from '@frontend/types'
-import { ts } from '../../i18n'
+import { ts } from '@frontend/i18n'
 import { characterSets, ICharacterSetName } from '@frontend/util/characters'
 
 defineProps<{
