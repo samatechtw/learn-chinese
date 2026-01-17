@@ -24,6 +24,7 @@
       </div>
       <div class="card-shell">
         <div class="card-wrap f-center-col">
+          <MoeDictionaryModal class="dictionary-lookup" :word="currentLookupWord" />
           <Transition name="fade" mode="out-in">
             <div
               v-if="questionState === 'init'"
@@ -75,10 +76,14 @@ import { IVocabQuizState, VocabQuestionType, IVocabQuizQuestion } from '@fronten
 import { PageNav } from '@frontend/components/widgets'
 import { ts } from '../../../i18n'
 import { hsk1 } from '@frontend/util/characters'
+import MoeDictionaryModal from '../MoeDictionaryModal.vue'
 import VocabQuizActive from './VocabQuizActive.vue'
 import VocabQuizCorrect from './VocabQuizCorrect.vue'
 import VocabQuizIncorrect from './VocabQuizIncorrect.vue'
 import VocabQuizComplete from './VocabQuizComplete.vue'
+
+const currentOptions = ref<string[]>([])
+const lastOptionIndex = ref<number | null>(null)
 
 const questionState = computed(() => {
   return store.vocab.quiz.value?.questionState ?? 'init'
@@ -114,8 +119,16 @@ const currentQuestion = computed(() => {
   return questions.value[currentIndex.value]
 })
 
-const currentOptions = ref<string[]>([])
-const lastOptionIndex = ref<number | null>(null)
+const currentLookupWord = computed(() => {
+  if (currentQuestion.value) {
+    return currentQuestion.value.characterId
+  }
+  if (characterIds.value.length === 0) {
+    return ''
+  }
+  const safeIndex = Math.min(currentIndex.value, characterIds.value.length - 1)
+  return characterIds.value[safeIndex] ?? ''
+})
 
 const getRandomQuestionType = (): VocabQuestionType => {
   const types: VocabQuestionType[] = [
@@ -378,11 +391,18 @@ onMounted(() => {
   background: rgba(255, 255, 255, 0.92);
   border: 1px solid rgba(50, 130, 184, 0.2);
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.12);
+  position: relative;
 }
 .init-card {
   cursor: pointer;
   width: 100%;
   padding: 28px 12px;
+}
+.dictionary-lookup {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
 }
 
 @media (max-width: 720px) {
