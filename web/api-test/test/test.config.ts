@@ -5,13 +5,13 @@ export const testConfig = convict({
   apiUrl: {
     doc: 'App API URL',
     format: String,
-    default: 'http://127.0.0.1:3000',
+    default: 'http://127.0.0.1:4051',
     env: 'API_URL',
   },
   apiTestHelperUrl: {
     doc: 'API Test Helper URL',
     format: String,
-    default: 'http://127.0.0.1:3001',
+    default: 'http://127.0.0.1:4052',
     env: 'API_TEST_HELPER_URL',
   },
   jobTestHelperUrl: {

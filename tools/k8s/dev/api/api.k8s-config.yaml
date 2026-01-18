@@ -10,7 +10,7 @@ data:
   EXEC_ENV: dev
   DB_NAME: db_app
   APP_API_HOST: '0.0.0.0'
-  APP_API_PORT: '3000'
+  APP_API_PORT: '4051'
   APP_API_CORS: "\
     http://localhost:8080,\
     http://localhost:8081,\

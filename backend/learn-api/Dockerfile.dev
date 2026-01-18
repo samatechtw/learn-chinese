@@ -47,8 +47,8 @@ ENV S3_SECRET_ACCESS_KEY=$S3_SECRET_ACCESS_KEY
 ARG SENDGRID_API_KEY
 ENV SENDGRID_API_KEY=$SENDGRID_API_KEY
 
-COPY ./backend/target/aarch64-unknown-linux-gnu/debug/liblearn_api.* ../target/aarch64-unknown-linux-gnu/debug/
-COPY ./backend/target/aarch64-unknown-linux-gnu/debug/learn-api* ../target/aarch64-unknown-linux-gnu/debug/
+COPY ./backend/target/debug/liblearn_api.* ../target/debug/
+COPY ./backend/target/debug/learn-api* ../target/debug/
 
 ENTRYPOINT ["/tini", "--"]
 CMD ["../run-docker.sh", "learn-api"]

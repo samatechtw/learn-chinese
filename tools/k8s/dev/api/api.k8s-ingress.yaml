@@ -16,4 +16,4 @@ spec:
               service:
                 name: learn-api
                 port:
-                  number: 3000
+                  number: 4051

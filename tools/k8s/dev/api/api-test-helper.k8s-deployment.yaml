@@ -22,7 +22,7 @@ spec:
           image: api-test-helper.dev
           imagePullPolicy: Never
           ports:
-            - containerPort: 3001
+            - containerPort: 4052
           envFrom:
             - configMapRef:
                 name: api-test-helper-config

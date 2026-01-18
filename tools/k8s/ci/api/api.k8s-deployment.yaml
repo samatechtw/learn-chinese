@@ -22,7 +22,7 @@ spec:
           image: learn-api.prod
           imagePullPolicy: Never
           ports:
-            - containerPort: 3000
+            - containerPort: 4051
           envFrom:
             - configMapRef:
                 name: learn-api-config

@@ -21,9 +21,9 @@ build:
           - src: 'backend/lib-types/src/**/*'
             dest: '/usr/src'
           # Copy pre-built app binaries
-          - src: 'backend/target/aarch64-unknown-linux-gnu/debug/learn-api*'
+          - src: 'backend/target/debug/learn-api*'
             dest: '/usr/src'
-          - src: 'backend/target/aarch64-unknown-linux-gnu/debug/liblearn_api.*'
+          - src: 'backend/target/debug/liblearn_api.*'
             dest: '/usr/src'
       docker:
         dockerfile: backend/learn-api/Dockerfile.dev
@@ -45,9 +45,9 @@ build:
             dest: '/usr/src'
           - src: 'backend/db-app/src/**/*'
             dest: '/usr/src'
-          - src: 'backend/target/aarch64-unknown-linux-gnu/debug/api-test-helper*'
+          - src: 'backend/target/debug/api-test-helper*'
             dest: '/usr/src'
-          - src: 'backend/target/aarch64-unknown-linux-gnu/debug/libapi_test_helper.*'
+          - src: 'backend/target/debug/libapi_test_helper.*'
             dest: '/usr/src'
       docker:
         dockerfile: backend/api-test-helper/Dockerfile.dev
@@ -62,14 +62,15 @@ manifests:
 
 deploy:
   # kubeContext: rancher-desktop
-  kubeContext: docker-desktop
+  # kubeContext: docker-desktop
+  kubeContext: k3d-learn-chinese-dev
   kubectl: {}
 portForward:
   # Expose API for local E2E run
   - resourceType: service
     resourceName: learn-api
-    port: 3000
+    port: 4051
   # Expose state manager app localhost connection
   - resourceType: service
     resourceName: api-test-helper
-    port: 3001
+    port: 4052

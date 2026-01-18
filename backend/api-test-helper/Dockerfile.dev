@@ -33,8 +33,8 @@ ENV API_TEST_HELPER_PORT=$API_TEST_HELPER_PORT
 ARG APP_AUTH_SECRET
 ENV APP_AUTH_SECRET=$APP_AUTH_SECRET
 
-COPY ./backend/target/aarch64-unknown-linux-gnu/debug/libapi_test_helper.* ../target/aarch64-unknown-linux-gnu/debug/
-COPY ./backend/target/aarch64-unknown-linux-gnu/debug/api-test-helper* ../target/aarch64-unknown-linux-gnu/debug/
+COPY ./backend/target/debug/libapi_test_helper.* ../target/debug/
+COPY ./backend/target/debug/api-test-helper* ../target/debug/
 
 ENTRYPOINT ["/tini", "--"]
 CMD ["../run-docker.sh", "api-test-helper"]

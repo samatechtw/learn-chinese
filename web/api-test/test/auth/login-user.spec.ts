@@ -28,6 +28,7 @@ describe('Login User', () => {
       payload = { email: 'admin1@samatech.tw', password: 'admin.password1' }
       const response = await api.post(testEndpoint).send(payload).expect(201)
       const body: ILoginUserApiResponse = response.body
+      console.log('AUTH', body)
 
       expect(body.auth_token).toMatch(new RegExp(commonRegex.authToken))
     })

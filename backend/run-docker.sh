@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BIN_FOLDER=../target/aarch64-unknown-linux-gnu/debug
+BIN_FOLDER=../target/debug
 COPIED_BIN=$BIN_FOLDER/$1
 ACTIVE_BIN=$BIN_FOLDER/$1-a
 

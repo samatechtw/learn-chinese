@@ -8,10 +8,10 @@ volumes:
       - server:0
       - agent:*
 ports:
-  - port: 3000:30000
+  - port: 4051:30000
     nodeFilters:
       - agent:0
-  - port: 3001:30001
+  - port: 4052:30001
     nodeFilters:
       - agent:0
   - port: 8545:38545

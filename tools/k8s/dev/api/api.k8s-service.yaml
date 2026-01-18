@@ -10,5 +10,5 @@ spec:
     component: learn-api
     tier: backend
   ports:
-    - port: 3000
-      targetPort: 3000
+    - port: 4051
+      targetPort: 4051

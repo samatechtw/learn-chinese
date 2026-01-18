@@ -1,6 +1,6 @@
 # API Test Helper
 
-The Learn API is written in Rust. Use the instructions below to install and run.
+The Fullstack API is written in Rust. Use the instructions below to install and run.
 
 ## Environment
 
@@ -29,16 +29,16 @@ cargo build --release
 ```bash
 docker build -t api-test-helper -f backend/api-test-helper/Dockerfile --target=dev .
 
-docker run -p 3001:3001 api-test-helper
+docker run -p 4052:4052 api-test-helper
 ```
 
 ## Usage
 
-Runs on port 3001 by default.
+Runs on port 4052 by default.
 
 A [requests.http](./requests.http) file is provided for testing the API. Install the VSCode extension "REST Client" to send the requests.
 
 ```bash
 # Reset Platform DB
-curl 'http://localhost:3001/actions/reset/db-app'
+curl 'http://localhost:4052/actions/reset/db-app'
 ```

@@ -34,8 +34,8 @@ COPY backend/db-app/src/*.rs ./src/
 COPY backend/db-app/src/seeds ./src/seeds/
 COPY backend/db-app/migrations ./migrations/
 
-COPY ./backend/target/aarch64-unknown-linux-gnu/debug/libdb_app.* ../target/aarch64-unknown-linux-gnu/debug/
-COPY ./backend/target/aarch64-unknown-linux-gnu/debug/db-app* ../target/aarch64-unknown-linux-gnu/debug/
+COPY ./backend/target/debug/libdb_app.* ../target/debug/
+COPY ./backend/target/debug/db-app* ../target/debug/
 
 ENTRYPOINT ["/tini", "--"]
 CMD ["../run-docker.sh", "db-app"]

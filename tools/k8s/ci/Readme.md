@@ -1,4 +1,4 @@
-# Learn API CI Cluster
+# Fullstack API CI Cluster
 
 K3D clusters are run in CI for API integration and Playwright E2E tests.
 
@@ -28,19 +28,19 @@ cp -rf backend/target/aarch64-unknown-linux-gnu/release backend/target
 **Create cluster**
 
 ```bash
-k3d cluster create learn-ci-cluster --config=./tools/k8s/ci/cluster-config.yaml
+k3d cluster create fullstack-ci-cluster --config=./tools/k8s/ci/cluster-config.yaml
 ```
 
 **Import images to cluster**
 
 ```bash
-k3d image import learn-api.prod -c learn-ci-cluster --verbose
-k3d image import jobs-test-helper.prod -c learn-ci-cluster --verbose
-k3d image import api-test-helper.prod -c learn-ci-cluster --verbose
-k3d image import db-app.prod -c learn-ci-cluster --verbose
+k3d image import learn-api.prod -c fullstack-ci-cluster --verbose
+k3d image import jobs-test-helper.prod -c fullstack-ci-cluster --verbose
+k3d image import api-test-helper.prod -c fullstack-ci-cluster --verbose
+k3d image import db-app.prod -c fullstack-ci-cluster --verbose
 
 # List images
-docker exec -it k3d-learn-ci-cluster-server-0 crictl images
+docker exec -it k3d-fullstack-ci-cluster-server-0 crictl images
 ```
 
 **Apply kubeconfigs**
@@ -69,5 +69,5 @@ EXEC_ENV=ci npm run api-test
 **Destroy cluster**
 
 ```bash
-k3d cluster delete learn-ci-cluster
+k3d cluster delete fullstack-ci-cluster
 ```

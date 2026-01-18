@@ -1,6 +1,5 @@
 {
   "include": ["**/*.ts", "**/*.js"],
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "../../",
     "types": ["node"],

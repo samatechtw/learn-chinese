@@ -1,6 +1,6 @@
-# Learn API
+# Fullstack API
 
-The Learn API is written in Rust. Use the instructions below to install and run.
+The Fullstack API is written in Rust. Use the instructions below to install and run.
 
 ## Environment
 
@@ -52,14 +52,14 @@ cargo build --release
 ```bash
 docker build -t learn-api -f backend/learn-api/Dockerfile --target=dev .
 
-docker run -p 3000:3000 learn-api
+docker run -p 4051:4051 learn-api
 ```
 
 ## Usage
 
-Runs on port 3000 by default.
+Runs on port 4051 by default.
 
 ```bash
 # Health check
-curl 'http://localhost:3000/api/healthz'
+curl 'http://localhost:4051/api/healthz'
 ```
