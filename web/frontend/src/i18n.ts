@@ -71,6 +71,13 @@ const fallback: I18nObject = {
     vietnamese_text: 'Practice Vietnamese language skills.',
     vietnamese_coming_soon: 'Vietnamese learning tools are coming soon!',
   },
+  vietnamese: {
+    hero: 'Learn Vietnamese',
+    hero_text: 'Build core vocabulary with quick flashcards.',
+    vocab_quiz: 'Vocabulary Quiz',
+    vocab_quiz_text: 'Quiz yourself with everyday Vietnamese words.',
+    vocab_quiz_action: 'Start the quiz',
+  },
   zhuyin: {
     learn: 'Learn Zhuyin Fuhao (Bopomofo)',
     quiz: 'Zhuyin Quiz',

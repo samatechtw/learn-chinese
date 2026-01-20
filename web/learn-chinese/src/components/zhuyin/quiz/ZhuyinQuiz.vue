@@ -1,7 +1,12 @@
 <template>
   <div class="zhuyin-quiz-wrap">
     <div class="zhuyin-quiz container f-col">
-      <PageNav :nav="['Home', 'ZhuyinQuiz']" />
+      <PageNav
+        :nav="[
+          { name: 'Home', label: 'Home' },
+          { name: 'ZhuyinQuiz', label: ts('zhuyin.quiz') || 'Zhuyin Quiz' },
+        ]"
+      />
       <h1 class="hero-title">
         {{ ts('zhuyin.quiz') }}
       </h1>
@@ -63,13 +68,15 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
-import { store } from '@frontend/store'
-import { IZhuyinKeyInfo, ICardQuestion, IZhuyinQuizState, KeyType } from '@frontend/types'
-import { zhuyinSymbols } from '@frontend/util/zhuyin'
+import { store } from '@learn-chinese/store'
+import { ICardQuestion, KeyType } from '@frontend/types'
+import { IZhuyinKeyInfo, IZhuyinQuizState } from '@learn-chinese/types'
+import { zhuyinSymbols } from '@learn-chinese/util/zhuyin'
 import { shuffleArray } from '@frontend/util/misc'
-import { PageNav, ZhuyinKeyboard } from '@frontend/components/widgets'
+import { PageNav } from '@frontend/components/widgets'
 import { ts } from '@frontend/i18n'
-import { saySymbol } from '@frontend/util/speech'
+import { saySymbol } from '@learn-chinese/util/speech'
+import { ZhuyinKeyboard } from '@learn-chinese/components/widgets'
 import ZhuyinQuizCorrect from './ZhuyinQuizCorrect.vue'
 import ZhuyinQuizIncorrect from './ZhuyinQuizIncorrect.vue'
 import ZhuyinQuizComplete from './ZhuyinQuizComplete.vue'

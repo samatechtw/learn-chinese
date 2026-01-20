@@ -1,27 +1,28 @@
+import { IBasicCardStats, KeyType } from '@frontend/types'
 import {
-  IBasicCardStats,
-  IVocabQuizDifficulty,
-  IVocabQuizHighScore,
-  IVocabQuizOptions,
-  IVocabQuizRecord,
-  IVocabQuizState,
-} from '@frontend/types'
+  IZhuyinQuizDifficulty,
+  IZhuyinQuizHighScore,
+  IZhuyinQuizOptions,
+  IZhuyinQuizRecord,
+  IZhuyinQuizState,
+} from '@learn-chinese/types'
+import { zhuyinSymbols } from '@learn-chinese/util/zhuyin'
 import { LocalStoragePlugin, useModule } from '@samatech/vue-store'
 
-export interface IVocabState {
+export interface IZhuyinState {
   cardStats: Record<string, IBasicCardStats>
-  quizOptions: IVocabQuizOptions
-  quiz: IVocabQuizState | null
-  quizHighScore: IVocabQuizHighScore
-  quizDifficulty: IVocabQuizDifficulty
+  quizOptions: IZhuyinQuizOptions
+  quiz: IZhuyinQuizState | null
+  quizHighScore: IZhuyinQuizHighScore
+  quizDifficulty: IZhuyinQuizDifficulty
   quizPlays: number
 }
 
-const defaultQuiz = (): IVocabQuizState => {
+const defaultQuiz = (): IZhuyinQuizState => {
   return {
     index: 0,
-    characterIds: [],
-    questions: [],
+    symbolKeys: Object.keys(zhuyinSymbols) as KeyType[],
+    incorrect: [],
     score: 0,
     quizStart: Date.now(),
     quizEnd: 0,
@@ -29,23 +30,23 @@ const defaultQuiz = (): IVocabQuizState => {
     questionTime: 0,
     questionState: 'init',
     cheated: false,
-    reviewing: false,
+    reviewing: true,
   }
 }
 
-const getters = (state: IVocabState) => ({
-  quizRecord: (): IVocabQuizRecord => ({
+const getters = (state: IZhuyinState) => ({
+  quizRecord: (): IZhuyinQuizRecord => ({
     highScore: state.quizHighScore,
     difficulty: state.quizDifficulty,
     plays: state.quizPlays,
   }),
 })
 
-const mutations = (state: IVocabState) => ({
+const mutations = (state: IZhuyinState) => ({
   setStats(id: string, stats: IBasicCardStats) {
     state.cardStats[id] = stats
   },
-  setQuizOptions(options: Partial<IVocabQuizOptions>) {
+  setQuizOptions(options: Partial<IZhuyinQuizOptions>) {
     state.quizOptions = { ...state.quizOptions, ...options }
   },
   clearQuiz() {
@@ -63,24 +64,25 @@ const mutations = (state: IVocabState) => ({
     }
     state.quizPlays = state.quizPlays + 1
   },
-  setQuiz(quiz: Partial<IVocabQuizState>) {
+  setQuiz(quiz: Partial<IZhuyinQuizState>) {
     const prev = state.quiz ?? defaultQuiz()
     state.quiz = { ...prev, ...quiz }
   },
 })
 
-export const vocabModule = useModule<
-  IVocabState,
+export const zhuyinModule = useModule<
+  IZhuyinState,
   ReturnType<typeof getters>,
   ReturnType<typeof mutations>
 >({
-  name: 'vocab-store',
-  version: 1,
+  name: 'zhuyin-store',
+  version: 11,
   stateInit: () => ({
     cardStats: {},
     quizOptions: {
-      hskLevel: 'hsk1',
+      reverse: false,
       order: 'random',
+      hideKeyboard: false,
       count: 'all',
       cheating: false,
     },

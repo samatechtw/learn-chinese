@@ -21,8 +21,9 @@
 </template>
 
 <script lang="ts" setup>
-import { store } from '@frontend/store'
-import { AudioOptions, Checkbox } from '@frontend/components/widgets'
+import { store } from '@learn-chinese/store'
+import { Checkbox } from '@frontend/components/widgets'
+import { AudioOptions } from '@learn-chinese/components/widgets'
 import { ts } from '@frontend/i18n'
 
 const setCheating = (on: boolean) => {

@@ -1,7 +1,12 @@
 <template>
   <div class="learn-wrap">
     <div class="zhuyin-learn container f-col">
-      <PageNav :nav="['Home', 'ZhuyinLearn']" />
+      <PageNav
+        :nav="[
+          { name: 'Home', label: 'Home' },
+          { name: 'ZhuyinLearn', label: ts('learn') || 'Learn' },
+        ]"
+      />
       <h1 class="hero-title">
         {{ ts('zhuyin.symbols') }}
       </h1>
@@ -34,17 +39,13 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-import {
-  AudioOptions,
-  ZhuyinKeyboard,
-  Checkbox,
-  PageNav,
-} from '@frontend/components/widgets'
-import { zhuyinSymbols } from '@frontend/util/zhuyin'
+import { Checkbox, PageNav } from '@frontend/components/widgets'
 import { KeyType } from '@frontend/types'
-import { populateVoices, say, saySymbol } from '@frontend/util/speech'
-import { store } from '@frontend/store'
 import { ts } from '@frontend/i18n'
+import { store } from '@learn-chinese/store'
+import { AudioOptions, ZhuyinKeyboard } from '@learn-chinese/components/widgets'
+import { zhuyinSymbols } from '@learn-chinese/util/zhuyin'
+import { populateVoices, saySymbol } from '@learn-chinese/util/speech'
 
 const selected = ref()
 

@@ -1,13 +1,12 @@
+import { IBasicCardStats, KeyType } from '@frontend/types'
 import {
-  IBasicCardStats,
   IZhuyinTypingRecord,
   IZhuyinTypingState,
   IZhuyinTypingDifficulty,
   IZhuyinTypingHighScore,
   IZhuyinTypingOptions,
-  KeyType,
-} from '@frontend/types'
-import { hsk1, ICharacterSetName } from '@frontend/util/characters'
+} from '@learn-chinese/types'
+import { hsk1, ICharacterSetName } from '@learn-chinese/util/characters'
 import { LocalStoragePlugin, useModule } from '@samatech/vue-store'
 
 export interface IZhuyinTypingStoreState {

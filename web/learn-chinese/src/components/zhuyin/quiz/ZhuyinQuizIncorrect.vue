@@ -23,9 +23,10 @@
 </template>
 
 <script lang="ts" setup>
-import { IZhuyinKeyInfo, ICardQuestion } from '@frontend/types'
+import { ICardQuestion } from '@frontend/types'
+import { IZhuyinKeyInfo } from '@learn-chinese/types'
 import { ts } from '@frontend/i18n'
-import { store } from '@frontend/store'
+import { store } from '@learn-chinese/store'
 
 defineProps<{
   entry: IZhuyinKeyInfo | undefined

@@ -19,10 +19,10 @@
 
 <script lang="ts" setup>
 import { STMultiselect } from '@samatech/vue-components'
-import { voices } from '@frontend/util/speech'
 import { store } from '@frontend/store'
-import { ts } from '../../i18n'
-import Checkbox from './Checkbox.vue'
+import { ts } from '@frontend/i18n'
+import { voices } from '@learn-chinese/util/speech'
+import { Checkbox } from '@frontend/components/widgets'
 
 defineProps<{
   hideVoice?: boolean

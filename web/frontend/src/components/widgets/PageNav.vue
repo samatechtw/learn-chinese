@@ -1,32 +1,26 @@
 <template>
   <div class="page-nav">
-    <div v-for="(key, idx) in nav">
+    <div v-for="(item, idx) in nav" :key="`${item.label}-${idx}`">
       <div v-if="idx >= nav.length - 1" class="nav-item">
-        {{ navItems[key] }}
+        {{ item.label }}
       </div>
       <div v-else class="nav-item">
-        <router-link :to="{ name: key }" class="nav-item">
-          {{ navItems[key] }}
+        <router-link v-if="item.name" :to="{ name: item.name }" class="nav-item">
+          {{ item.label }}
         </router-link>
+        <span v-else class="nav-item">{{ item.label }}</span>
         <span>&gt;</span>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-const navItems: Record<string, string> = {
-  Home: 'Home',
-  ZhuyinLearn: 'Learn',
-  ZhuyinQuiz: 'Quiz',
-  ZhuyinTyping: 'Typing',
-  VocabQuiz: 'Quiz',
-}
-</script>
-
 <script lang="ts" setup>
 defineProps<{
-  nav: string[]
+  nav: Array<{
+    label: string
+    name?: string
+  }>
 }>()
 </script>
 

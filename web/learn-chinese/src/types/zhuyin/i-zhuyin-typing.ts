@@ -1,5 +1,5 @@
-import { ICharacterSetName } from '@frontend/util/characters'
-import { ICardQuestion, QuestionState } from './i-shared'
+import { ICharacterSetName } from '@learn-chinese/util/characters'
+import { ICardQuestion, QuestionState } from '@frontend/types'
 
 export type TypingOrder = 'random' | 'difficult'
 

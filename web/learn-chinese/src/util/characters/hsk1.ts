@@ -1,4 +1,4 @@
-import { ICharacterInfo, ICharacterSet } from '@frontend/types'
+import { ICharacterInfo, ICharacterSet } from '@learn-chinese/types'
 
 const info = (p: string, z: string, e?: string, audio?: string): ICharacterInfo => {
   return { p, z, e, audio }

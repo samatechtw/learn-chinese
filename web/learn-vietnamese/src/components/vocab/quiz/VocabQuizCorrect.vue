@@ -2,33 +2,33 @@
   <div class="vocab-quiz-correct" @click="$emit('next')">
     <div class="status-icon correct">✓</div>
     <div class="status-text">Correct!</div>
-    <div class="character-display">
-      <div class="chinese">{{ question?.characterId }}</div>
-      <div class="pinyin">{{ getCharInfo()?.p }}</div>
-      <div class="english">{{ getCharInfo()?.e }}</div>
+    <div class="word-display">
+      <div class="vietnamese">{{ word?.v }}</div>
+      <div class="english">{{ word?.e }}</div>
     </div>
     <div class="continue-hint">Click to continue</div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { IVocabQuizQuestion } from '@learn-chinese/types'
-import { hsk1 } from '@learn-chinese/util/characters'
+import { computed } from 'vue'
+import { IVietnameseQuizQuestion } from '@learn-vietnamese/types'
+import { vietnameseVocabMap } from '@learn-vietnamese/data/vocab'
 
 interface Props {
-  question: IVocabQuizQuestion | null
+  question: IVietnameseQuizQuestion | null
 }
 
 const props = defineProps<Props>()
 
-const emit = defineEmits<{
+defineEmits<{
   next: []
 }>()
 
-const getCharInfo = () => {
+const word = computed(() => {
   if (!props.question) return null
-  return hsk1[props.question.characterId]
-}
+  return vietnameseVocabMap[props.question.wordId]
+})
 </script>
 
 <style lang="postcss" scoped>
@@ -66,23 +66,27 @@ const getCharInfo = () => {
   color: $correct;
 }
 
-.character-display {
+.word-display {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
   padding: 18px 16px;
-  background: linear-gradient(135deg, #eef7ff, #def1ff);
+  background: linear-gradient(135deg, #fff7ed, #ffedd5);
   border-radius: 12px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  border: 1px solid rgba(50, 130, 184, 0.18);
+  border: 1px solid rgba(194, 65, 12, 0.18);
 }
 
-@media (max-width: 640px) {
-  .chinese {
-    font-size: 30px;
-  }
+.vietnamese {
+  @mixin title 32px;
+  color: #9a3412;
+}
+
+.english {
+  @mixin text 18px;
+  color: $text2;
 }
 </style>

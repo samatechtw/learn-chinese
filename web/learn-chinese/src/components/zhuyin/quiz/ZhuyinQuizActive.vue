@@ -18,7 +18,8 @@
 <script lang="ts" setup>
 import { STInput } from '@samatech/vue-components'
 import { Sound } from '@frontend/components/svg'
-import { ICardQuestion, IZhuyinSymbol } from '@frontend/types'
+import { ICardQuestion } from '@frontend/types'
+import { IZhuyinSymbol } from '@learn-chinese/types'
 import { ts } from '@frontend/i18n'
 
 defineProps<{

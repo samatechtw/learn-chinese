@@ -20,28 +20,25 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { IVocabQuizQuestion } from '@learn-chinese/types'
-import { hsk1 } from '@learn-chinese/util/characters'
+import { IVietnameseQuizQuestion } from '@learn-vietnamese/types'
+import { vietnameseVocabMap } from '@learn-vietnamese/data/vocab'
 
 interface Props {
-  question: IVocabQuizQuestion | null
+  question: IVietnameseQuizQuestion | null
   options: string[]
 }
 
 const props = defineProps<Props>()
 
-const emit = defineEmits<{
+defineEmits<{
   selectAnswer: [answer: string]
 }>()
 
 const getQuestionTypeLabel = (type: string): string => {
   switch (type) {
-    case 'EnglishToChinese':
-      return 'Select the Chinese character'
-    case 'ChineseToPinyin':
-      return 'Select the pinyin'
-    case 'ChineseToEnglish':
+    case 'EnglishToVietnamese':
+      return 'Select the Vietnamese word'
+    case 'VietnameseToEnglish':
       return 'Select the English translation'
     default:
       return ''
@@ -51,16 +48,14 @@ const getQuestionTypeLabel = (type: string): string => {
 const getQuestionText = (): string => {
   if (!props.question) return ''
 
-  const char = hsk1[props.question.characterId]
-  if (!char) return ''
+  const entry = vietnameseVocabMap[props.question.wordId]
+  if (!entry) return ''
 
   switch (props.question.questionType) {
-    case 'EnglishToChinese':
-      return char.e || ''
-    case 'ChineseToPinyin':
-      return props.question.characterId
-    case 'ChineseToEnglish':
-      return props.question.characterId
+    case 'EnglishToVietnamese':
+      return entry.e
+    case 'VietnameseToEnglish':
+      return entry.v
     default:
       return ''
   }
@@ -82,13 +77,13 @@ const getQuestionText = (): string => {
 
 .question-type {
   @mixin title-regular 13px;
-  color: $color2;
+  color: #c2410c;
   text-transform: uppercase;
   letter-spacing: 0.45px;
   padding: 8px 16px;
   border-radius: 999px;
-  border: 1px solid rgba(50, 130, 184, 0.25);
-  background: rgba(50, 130, 184, 0.12);
+  border: 1px solid rgba(194, 65, 12, 0.25);
+  background: rgba(194, 65, 12, 0.12);
 }
 
 .question-text {
@@ -111,9 +106,9 @@ const getQuestionText = (): string => {
 }
 
 .option-button {
-  @mixin title 28px;
+  @mixin title 24px;
   padding: 20px 14px;
-  background: linear-gradient(135deg, #3282b8, #5db8ff);
+  background: linear-gradient(135deg, #f97316, #ea580c);
   color: white;
   border: none;
   border-radius: 12px;
@@ -127,11 +122,11 @@ const getQuestionText = (): string => {
   overflow: hidden;
   word-break: break-word;
   box-sizing: border-box;
-  box-shadow: 0 10px 20px rgba(50, 130, 184, 0.25);
+  box-shadow: 0 10px 20px rgba(249, 115, 22, 0.25);
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 24px rgba(50, 130, 184, 0.3);
+    box-shadow: 0 14px 24px rgba(249, 115, 22, 0.3);
   }
 
   &:active {

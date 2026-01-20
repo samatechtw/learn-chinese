@@ -60,8 +60,13 @@
 <script lang="ts" setup>
 import { STMultiselect } from '@samatech/vue-components'
 import { AppButton, Modal } from '@frontend/components/widgets'
-import { store } from '@frontend/store'
-import { IVocabQuizOptions, QuizOrder, VocabHSKLevel, VocabQuizCount } from '@frontend/types'
+import { store } from '@learn-chinese/store'
+import {
+  IVocabQuizOptions,
+  VocabQuizOrder,
+  VocabHSKLevel,
+  VocabQuizCount,
+} from '@learn-chinese/types'
 import { ts } from '@frontend/i18n'
 
 defineProps<{
@@ -75,7 +80,7 @@ const emit = defineEmits<{
 
 const hskLevelOptions: VocabHSKLevel[] = ['hsk1', 'all']
 
-const orderOptions: QuizOrder[] = ['random', 'difficult']
+const orderOptions: VocabQuizOrder[] = ['random', 'difficult']
 
 const countOptions: VocabQuizCount[] = ['all', '5', '10', '15', '20', '30']
 

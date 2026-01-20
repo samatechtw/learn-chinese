@@ -12,33 +12,33 @@
         <div class="value">{{ question?.correctAnswer }}</div>
       </div>
     </div>
-    <div class="character-display">
-      <div class="chinese">{{ question?.characterId }}</div>
-      <div class="pinyin">{{ getCharInfo()?.p }}</div>
-      <div class="english">{{ getCharInfo()?.e }}</div>
+    <div class="word-display">
+      <div class="vietnamese">{{ word?.v }}</div>
+      <div class="english">{{ word?.e }}</div>
     </div>
     <div class="continue-hint">Click to continue</div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { IVocabQuizQuestion } from '@learn-chinese/types'
-import { hsk1 } from '@learn-chinese/util/characters'
+import { computed } from 'vue'
+import { IVietnameseQuizQuestion } from '@learn-vietnamese/types'
+import { vietnameseVocabMap } from '@learn-vietnamese/data/vocab'
 
 interface Props {
-  question: IVocabQuizQuestion | null
+  question: IVietnameseQuizQuestion | null
 }
 
 const props = defineProps<Props>()
 
-const emit = defineEmits<{
+defineEmits<{
   next: []
 }>()
 
-const getCharInfo = () => {
+const word = computed(() => {
   if (!props.question) return null
-  return hsk1[props.question.characterId]
-}
+  return vietnameseVocabMap[props.question.wordId]
+})
 </script>
 
 <style lang="postcss" scoped>
@@ -111,13 +111,13 @@ const getCharInfo = () => {
   }
 }
 
-.character-display {
+.word-display {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
   padding: 18px 16px;
-  background: linear-gradient(135deg, #fff2f2, #ffecec);
+  background: linear-gradient(135deg, #fff1f2, #ffe4e6);
   border-radius: 12px;
   width: 100%;
   max-width: 100%;
@@ -125,13 +125,20 @@ const getCharInfo = () => {
   border: 1px solid rgba(224, 40, 24, 0.15);
 }
 
+.vietnamese {
+  @mixin title 30px;
+  color: #9f1239;
+}
+
+.english {
+  @mixin text 18px;
+  color: $text2;
+}
+
 @media (max-width: 640px) {
   .answer-info {
     flex-direction: column;
     align-items: stretch;
-  }
-  .chinese {
-    font-size: 30px;
   }
 }
 </style>

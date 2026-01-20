@@ -5,21 +5,24 @@
         <div class="title-block">
           <PageNav
             :nav="[
-              { name: 'Home', label: 'Home' },
-              { name: 'VocabQuiz', label: ts('vocab.quiz') || 'Vocabulary Quiz' },
+              { name: 'VietnameseHome', label: 'Home' },
+              {
+                name: 'VietnameseVocabQuiz',
+                label: ts('vietnamese.vocab_quiz') || 'Vocabulary Quiz',
+              },
             ]"
           />
           <h1 class="hero-title">
-            {{ ts('vocab.quiz') }}
+            {{ ts('vietnamese.vocab_quiz') }}
           </h1>
           <p class="subtitle">
-            {{ ts('vocab.quiz_text') }}
+            {{ ts('vietnamese.vocab_quiz_text') }}
           </p>
         </div>
         <div class="meta">
           <div class="pill">
             <span>{{ ts('progress') }}</span>
-            <strong>{{ `${displayIndex} / ${characterIds.length}` }}</strong>
+            <strong>{{ `${displayIndex} / ${wordIds.length}` }}</strong>
           </div>
           <div class="pill score-pill">
             <span>{{ ts('score') }}</span>
@@ -29,13 +32,8 @@
       </div>
       <div class="card-shell">
         <div class="card-wrap f-center-col">
-          <MoeDictionaryModal class="dictionary-lookup" :word="currentLookupWord" />
           <Transition name="fade" mode="out-in">
-            <div
-              v-if="questionState === 'init'"
-              class="card init-card"
-              @click="checkInactive"
-            >
+            <div v-if="questionState === 'init'" class="card init-card" @click="checkInactive">
               <div class="card-title">
                 {{ ts('start_quiz') }}
               </div>
@@ -76,12 +74,15 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
-import { store } from '@learn-chinese/store'
-import { IVocabQuizState, VocabQuestionType, IVocabQuizQuestion } from '@learn-chinese/types'
 import { PageNav } from '@frontend/components/widgets'
 import { ts } from '@frontend/i18n'
-import { hsk1 } from '@learn-chinese/util/characters'
-import MoeDictionaryModal from '../MoeDictionaryModal.vue'
+import { store } from '@learn-vietnamese/store'
+import {
+  IVietnameseQuizQuestion,
+  IVietnameseQuizState,
+  VietnameseQuestionType,
+} from '@learn-vietnamese/types'
+import { vietnameseVocabMap } from '@learn-vietnamese/data/vocab'
 import VocabQuizActive from './VocabQuizActive.vue'
 import VocabQuizCorrect from './VocabQuizCorrect.vue'
 import VocabQuizIncorrect from './VocabQuizIncorrect.vue'
@@ -100,13 +101,13 @@ const currentIndex = computed(() => {
 
 const displayIndex = computed(() => {
   if (store.vocab.quiz.value?.questionState === 'complete') {
-    return characterIds.value.length
+    return wordIds.value.length
   }
   return currentIndex.value + 1
 })
 
-const characterIds = computed(() => {
-  return store.vocab.quiz.value?.characterIds ?? []
+const wordIds = computed(() => {
+  return store.vocab.quiz.value?.wordIds ?? []
 })
 
 const questions = computed(() => {
@@ -124,67 +125,48 @@ const currentQuestion = computed(() => {
   return questions.value[currentIndex.value]
 })
 
-const currentLookupWord = computed(() => {
-  if (currentQuestion.value) {
-    return currentQuestion.value.characterId
-  }
-  if (characterIds.value.length === 0) {
-    return ''
-  }
-  const safeIndex = Math.min(currentIndex.value, characterIds.value.length - 1)
-  return characterIds.value[safeIndex] ?? ''
-})
-
-const getRandomQuestionType = (): VocabQuestionType => {
-  const types: VocabQuestionType[] = [
-    'EnglishToChinese',
-    'ChineseToPinyin',
-    'ChineseToEnglish',
-  ]
+const getRandomQuestionType = (): VietnameseQuestionType => {
+  const types: VietnameseQuestionType[] = ['EnglishToVietnamese', 'VietnameseToEnglish']
   return types[Math.floor(Math.random() * types.length)]
 }
 
-const generateQuestion = (charId: string): IVocabQuizQuestion => {
-  const char = hsk1[charId]
-  if (!char) {
-    throw new Error(`Character ${charId} not found in HSK1`)
+const generateQuestion = (wordId: string): IVietnameseQuizQuestion => {
+  const entry = vietnameseVocabMap[wordId]
+  if (!entry) {
+    throw new Error(`Word ${wordId} not found in Vietnamese vocab list`)
   }
 
   const questionType = getRandomQuestionType()
   let correctAnswer = ''
 
   switch (questionType) {
-    case 'EnglishToChinese':
-      correctAnswer = charId
+    case 'EnglishToVietnamese':
+      correctAnswer = entry.v
       break
-    case 'ChineseToPinyin':
-      correctAnswer = char.p
-      break
-    case 'ChineseToEnglish':
-      correctAnswer = char.e || ''
+    case 'VietnameseToEnglish':
+      correctAnswer = entry.e
       break
   }
 
   return {
-    characterId: charId,
+    wordId: entry.v,
     questionType,
     correctAnswer,
   }
 }
 
-const generateOptions = (question: IVocabQuizQuestion): string[] => {
-  const allChars = Object.keys(hsk1)
+const generateOptions = (question: IVietnameseQuizQuestion): string[] => {
+  const allWords = Object.keys(vietnameseVocabMap)
   const options: string[] = [question.correctAnswer]
 
-  const optionFn: (char: string) => string = {
-    EnglishToChinese: (char: string) => char,
-    ChineseToPinyin: (char: string) => hsk1[char].p,
-    ChineseToEnglish: (char: string) => hsk1[char].e || '',
+  const optionFn: (wordId: string) => string = {
+    EnglishToVietnamese: (wordId: string) => vietnameseVocabMap[wordId].v,
+    VietnameseToEnglish: (wordId: string) => vietnameseVocabMap[wordId].e,
   }[question.questionType]
 
   while (options.length < 4) {
-    const randomChar = allChars[Math.floor(Math.random() * allChars.length)]
-    const randomOption = optionFn(randomChar)
+    const randomWord = allWords[Math.floor(Math.random() * allWords.length)]
+    const randomOption = optionFn(randomWord)
 
     if (!options.includes(randomOption)) {
       options.push(randomOption)
@@ -211,7 +193,7 @@ const syncOptions = () => {
 
 const startQuestion = () => {
   const now = Date.now()
-  const state: Partial<IVocabQuizState> = {
+  const state: Partial<IVietnameseQuizState> = {
     questionState: 'active',
     questionStart: now,
   }
@@ -223,12 +205,11 @@ const startQuestion = () => {
   }
 
   store.vocab.setQuiz(state)
-
   syncOptions()
 }
 
 const checkInactive = (): boolean => {
-  const isLast = currentIndex.value >= characterIds.value.length - 1
+  const isLast = currentIndex.value >= wordIds.value.length - 1
 
   if (questionState.value === 'complete') {
     return true
@@ -276,25 +257,24 @@ const selectAnswer = (answer: string) => {
 
 const restartQuiz = () => {
   const order = store.vocab.quizOptions.value.order
-  const hskLevel = store.vocab.quizOptions.value.hskLevel
 
-  let characterIds = Object.keys(hsk1)
+  let wordIds = Object.keys(vietnameseVocabMap)
 
   if (order === 'random') {
-    characterIds = characterIds.sort(() => Math.random() - 0.5)
+    wordIds = wordIds.sort(() => Math.random() - 0.5)
   }
 
   const limit = store.vocab.quizOptions.value.count || 'all'
   if (limit !== 'all') {
-    characterIds = characterIds.slice(0, parseInt(limit))
+    wordIds = wordIds.slice(0, parseInt(limit))
   }
 
-  const generatedQuestions = characterIds.map((charId) => generateQuestion(charId))
+  const generatedQuestions = wordIds.map((wordId) => generateQuestion(wordId))
 
   store.vocab.setQuizOptions({ cheating: false })
   store.vocab.setQuiz({
     index: 0,
-    characterIds,
+    wordIds,
     questions: generatedQuestions,
     score: 0,
     questionState: 'init',
@@ -305,7 +285,7 @@ const restartQuiz = () => {
 }
 
 onMounted(() => {
-  if (!store.vocab.quiz.value || characterIds.value.length === 0) {
+  if (!store.vocab.quiz.value || wordIds.value.length === 0) {
     restartQuiz()
   } else {
     syncOptions()
@@ -317,13 +297,13 @@ onMounted(() => {
 @import '@theme/css/defines.postcss';
 
 .vocab-quiz-wrap {
-  background: linear-gradient(130deg, #bbe1fa 0%, #e6f1ff 45%, #f7fbff 100%);
+  background: radial-gradient(circle at top, #ffe8d1 0%, #fff7ed 45%, #ffffff 100%);
   color: $text1;
 }
 .hero-title {
   @mixin title 36px;
   margin: 12px 0 6px 0;
-  color: $color2;
+  color: #c2410c;
 }
 .vocab-quiz {
   min-height: calc(100vh - $header-height);
@@ -353,8 +333,8 @@ onMounted(() => {
   justify-content: flex-end;
 }
 .pill {
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(50, 130, 184, 0.18);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(194, 65, 12, 0.18);
   border-radius: 14px;
   padding: 12px 16px;
   min-width: 160px;
@@ -374,7 +354,7 @@ onMounted(() => {
   color: $text1;
 }
 .score-pill {
-  background: linear-gradient(135deg, #3282b8, #5db8ff);
+  background: linear-gradient(135deg, #f97316, #ea580c);
   border: none;
   color: white;
 }
@@ -393,8 +373,8 @@ onMounted(() => {
 .card-wrap {
   margin-top: 0;
   max-width: 760px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(50, 130, 184, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(194, 65, 12, 0.18);
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.12);
   position: relative;
 }
@@ -402,29 +382,5 @@ onMounted(() => {
   cursor: pointer;
   width: 100%;
   padding: 28px 12px;
-}
-.dictionary-lookup {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 2;
-}
-
-@media (max-width: 720px) {
-  .vocab-quiz {
-    padding: 88px 0 120px;
-  }
-  .hero-title {
-    font-size: 30px;
-  }
-  .subtitle {
-    font-size: 15px;
-  }
-  .pill {
-    min-width: 140px;
-  }
-  .card-wrap {
-    padding: 22px 20px;
-  }
 }
 </style>

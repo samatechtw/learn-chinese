@@ -34,15 +34,14 @@
       "@frontend/util/config": ["web/frontend/src/util/config/index.ts"],
       "@frontend/util/i18n": ["web/frontend/src/util/i18n/index.ts"],
       "@frontend/util/app": ["web/frontend/src/util/app/index.ts"],
-      "@frontend/util/characters": ["web/frontend/src/util/characters/index.ts"],
       "@frontend/util/misc": ["web/frontend/src/util/misc/index.ts"],
       "@frontend/util/format": ["web/frontend/src/util/format/index.ts"],
       "@frontend/util/api": ["web/frontend/src/util/api/index.ts"],
-      "@frontend/util/speech": ["web/frontend/src/util/speech/index.ts"],
       "@frontend/util/ui": ["web/frontend/src/util/ui/index.ts"],
-      "@frontend/util/zhuyin": ["web/frontend/src/util/zhuyin/index.ts"],
       "@samatech/learn-chinese": ["web/learn-chinese/src/index.ts"],
       "@samatech/learn-vietnamese": ["web/learn-vietnamese/src/index.ts"],
+      "@learn-chinese/*": ["web/learn-chinese/src/*"],
+      "@learn-vietnamese/*": ["web/learn-vietnamese/src/*"],
       "@theme/*": ["web/frontend/src/theme/*"]
     }
   },

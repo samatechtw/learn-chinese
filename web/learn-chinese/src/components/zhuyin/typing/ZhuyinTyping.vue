@@ -1,7 +1,12 @@
 <template>
   <div class="zhuyin-typing-wrap">
     <div class="zhuyin-typing container f-col">
-      <PageNav :nav="['Home', 'ZhuyinTyping']" />
+      <PageNav
+        :nav="[
+          { name: 'Home', label: 'Home' },
+          { name: 'ZhuyinTyping', label: ts('typing') || 'Typing' },
+        ]"
+      />
       <h1 class="hero-title">
         {{ ts('zhuyin.practice') }}
       </h1>
@@ -62,25 +67,24 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
-import { store } from '@frontend/store'
 import { shuffleArray } from '@frontend/util/misc'
-import { PageNav, ZhuyinKeyboard } from '@frontend/components/widgets'
-import { characterSets } from '@frontend/util/characters'
+import { PageNav } from '@frontend/components/widgets'
+import { ITypingEntry, Keys, KeyType } from '@frontend/types'
+import { ts } from '@frontend/i18n'
+import { useScoreAnimate } from '@frontend/util/ui'
+import { store } from '@learn-chinese/store'
+import { ZhuyinKeyboard } from '@learn-chinese/components/widgets'
+import { characterSets } from '@learn-chinese/util/characters'
+import { saySymbol } from '@learn-chinese/util/speech'
+import { zhuyinSymbols } from '@learn-chinese/util/zhuyin'
 import {
   ITypingQuestion,
   ICharacterSet,
-  ITypingEntry,
   IZhuyinTypingState,
-  Keys,
-  KeyType,
-} from '@frontend/types'
-import { saySymbol } from '@frontend/util/speech'
-import { zhuyinSymbols } from '@frontend/util/zhuyin'
+} from '@learn-chinese/types'
 import ZhuyinTypingOptions from './ZhuyinTypingOptions.vue'
 import ZhuyinTypingActive from './ZhuyinTypingActive.vue'
 import ZhuyinTypingCorrect from './ZhuyinTypingCorrect.vue'
-import { ts } from '@frontend/i18n'
-import { useScoreAnimate } from '@frontend/util/ui'
 
 const entry = ref<ITypingEntry[]>([])
 const hint = ref()

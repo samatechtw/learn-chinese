@@ -28,7 +28,7 @@
 
 <script lang="ts" setup>
 import { KeyType } from '@frontend/types'
-import { zhuyinSymbols } from '@frontend/util/zhuyin'
+import { zhuyinSymbols } from '@learn-chinese/util/zhuyin'
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
 
 const emit = defineEmits<{

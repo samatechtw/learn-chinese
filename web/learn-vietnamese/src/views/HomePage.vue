@@ -2,10 +2,17 @@
   <div class="home-wrap">
     <div class="home-hero container f-center-col">
       <h1 class="hero-title">
-        {{ ts('home.vietnamese') }}
+        {{ ts('vietnamese.hero') }}
       </h1>
       <div class="hero-text">
-        {{ ts('home.vietnamese_coming_soon') }}
+        {{ ts('vietnamese.hero_text') }}
+      </div>
+      <div class="tool-grid">
+        <router-link to="/vietnamese/vocab-quiz" class="tool-card">
+          <div class="tool-title">{{ ts('vietnamese.vocab_quiz') }}</div>
+          <div class="tool-text">{{ ts('vietnamese.vocab_quiz_text') }}</div>
+          <div class="tool-action">{{ ts('vietnamese.vocab_quiz_action') }}</div>
+        </router-link>
       </div>
       <router-link to="/" class="back-link">
         {{ ts('back') }}
@@ -32,10 +39,51 @@ import { ts } from '@frontend/i18n'
 .hero-title {
   @mixin title 56px;
   margin-bottom: 16px;
+  color: #b45309;
 }
 .hero-text {
   @mixin title-thin 22px;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
+  color: $text2;
+  text-align: center;
+  max-width: 640px;
+}
+.tool-grid {
+  width: 100%;
+  max-width: 680px;
+  display: grid;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+.tool-card {
+  background: linear-gradient(140deg, #fff7ed, #ffedd5);
+  border: 1px solid rgba(194, 65, 12, 0.18);
+  border-radius: 18px;
+  padding: 28px 24px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.tool-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+}
+.tool-title {
+  @mixin title 26px;
+  color: #c2410c;
+  margin-bottom: 10px;
+}
+.tool-text {
+  @mixin text 16px;
+  color: $text2;
+  margin-bottom: 16px;
+}
+.tool-action {
+  @mixin title-regular 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #b45309;
 }
 .back-link {
   @mixin text 18px;

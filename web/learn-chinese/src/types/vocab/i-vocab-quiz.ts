@@ -1,4 +1,4 @@
-import { QuestionState } from '../zhuyin/i-shared'
+import { QuestionState } from '@frontend/types'
 
 export type VocabHSKLevel = 'hsk1' | 'all'
 

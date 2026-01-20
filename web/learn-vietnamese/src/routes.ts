@@ -7,4 +7,10 @@ export const vietnameseRoutes: RouteRecordRaw[] = [
     component: () => import('./views/HomePage.vue'),
     meta: { title: 'Learn Vietnamese' },
   },
+  {
+    path: '/vietnamese/vocab-quiz',
+    name: 'VietnameseVocabQuiz',
+    component: () => import('./views/VocabQuizPage.vue'),
+    meta: { title: 'Vietnamese Vocabulary Quiz' },
+  },
 ]

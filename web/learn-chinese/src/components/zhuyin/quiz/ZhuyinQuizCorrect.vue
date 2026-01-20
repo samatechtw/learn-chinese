@@ -13,9 +13,9 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { STInput } from '@samatech/vue-components'
-import { store } from '@frontend/store'
+import { store } from '@learn-chinese/store'
 import { roundTime } from '@frontend/util/misc'
-import { IZhuyinSymbol } from '@frontend/types'
+import { IZhuyinSymbol } from '@learn-chinese/types'
 import { ts } from '@frontend/i18n'
 
 defineProps<{

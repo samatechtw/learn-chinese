@@ -1,4 +1,4 @@
-import { ICharacterSet } from '@frontend/types'
+import { ICharacterSet } from '@learn-chinese/types'
 import { hsk1 } from './hsk1'
 
 export type ICharacterSetName = 'hsk1'

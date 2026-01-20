@@ -1,4 +1,5 @@
-import { IZhuyinKeyInfo, IZhuyinSymbol, KeyType } from '@frontend/types'
+import { KeyType } from '@frontend/types'
+import { IZhuyinKeyInfo, IZhuyinSymbol } from '@learn-chinese/types'
 
 const info = (s: IZhuyinSymbol, p: string, audio?: string): IZhuyinKeyInfo => {
   return { s, p, audio }

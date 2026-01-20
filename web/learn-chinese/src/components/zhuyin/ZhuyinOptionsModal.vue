@@ -56,8 +56,8 @@
 <script lang="ts" setup>
 import { STMultiselect } from '@samatech/vue-components'
 import { AppButton, Checkbox, Modal } from '@frontend/components/widgets'
-import { store } from '@frontend/store'
-import { IZhuyinQuizOptions, QuizOrder, ZhuyinQuizCount } from '@frontend/types'
+import { store } from '@learn-chinese/store'
+import { IZhuyinQuizOptions, QuizOrder, ZhuyinQuizCount } from '@learn-chinese/types'
 import { ts } from '@frontend/i18n'
 
 defineProps<{

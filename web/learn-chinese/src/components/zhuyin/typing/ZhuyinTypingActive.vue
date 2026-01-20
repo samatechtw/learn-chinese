@@ -49,10 +49,11 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { STInput } from '@samatech/vue-components'
 import { Sound } from '@frontend/components/svg'
-import { ITypingQuestion, ITypingEntry } from '@frontend/types'
+import { ITypingEntry } from '@frontend/types'
+import { ITypingQuestion } from '@learn-chinese/types'
 import { ts } from '@frontend/i18n'
 import { AppButton } from '@frontend/components/widgets'
-import { store } from '@frontend/store'
+import { store } from '@learn-chinese/store'
 
 const { hint } = defineProps<{
   entry: ITypingEntry[]

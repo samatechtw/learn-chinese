@@ -1,5 +1,4 @@
-import { KeyType } from '../ui'
-import { QuestionState } from './i-shared'
+import { KeyType, QuestionState } from '@frontend/types'
 
 export type QuizOrder = 'random' | 'difficult'
 

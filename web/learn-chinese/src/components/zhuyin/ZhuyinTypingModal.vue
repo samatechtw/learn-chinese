@@ -60,10 +60,10 @@
 <script lang="ts" setup>
 import { STMultiselect } from '@samatech/vue-components'
 import { AppButton, Modal } from '@frontend/components/widgets'
-import { store } from '@frontend/store'
-import { IZhuyinTypingOptions, QuizOrder, ZhuyinTypingCount } from '@frontend/types'
+import { store } from '@learn-chinese/store'
+import { IZhuyinTypingOptions, QuizOrder, ZhuyinTypingCount } from '@learn-chinese/types'
 import { ts } from '@frontend/i18n'
-import { characterSets, ICharacterSetName } from '@frontend/util/characters'
+import { characterSets, ICharacterSetName } from '@learn-chinese/util/characters'
 
 defineProps<{
   show: boolean
