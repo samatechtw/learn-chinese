@@ -4,13 +4,7 @@
       <div class="header">
         <div class="title-block">
           <PageNav
-            :nav="[
-              { name: 'VietnameseHome', label: 'Home' },
-              {
-                name: 'VietnameseVocabQuiz',
-                label: ts('vietnamese.vocab_quiz') || 'Vocabulary Quiz',
-              },
-            ]"
+            :nav="getLanguageBreadcrumbs('vietnamese', { name: 'VietnameseVocabQuiz', label: ts('vietnamese.vocab_quiz') })"
           />
           <h1 class="hero-title">
             {{ ts('vietnamese.vocab_quiz') }}
@@ -76,6 +70,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { PageNav } from '@frontend/components/widgets'
 import { ts } from '@frontend/i18n'
+import { getLanguageBreadcrumbs } from '@frontend/util/misc'
 import { store } from '@learn-vietnamese/store'
 import {
   IVietnameseQuizQuestion,

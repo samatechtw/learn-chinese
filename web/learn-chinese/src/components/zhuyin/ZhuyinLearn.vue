@@ -2,10 +2,7 @@
   <div class="learn-wrap">
     <div class="zhuyin-learn container f-col">
       <PageNav
-        :nav="[
-          { name: 'Home', label: 'Home' },
-          { name: 'ZhuyinLearn', label: ts('learn') || 'Learn' },
-        ]"
+        :nav="getLanguageBreadcrumbs('chinese', { name: 'ZhuyinLearn', label: ts('learn') })"
       />
       <h1 class="hero-title">
         {{ ts('zhuyin.symbols') }}
@@ -42,6 +39,7 @@ import { onMounted, ref } from 'vue'
 import { Checkbox, PageNav } from '@frontend/components/widgets'
 import { KeyType } from '@frontend/types'
 import { ts } from '@frontend/i18n'
+import { getLanguageBreadcrumbs } from '@frontend/util/misc'
 import { store } from '@learn-chinese/store'
 import { AudioOptions, ZhuyinKeyboard } from '@learn-chinese/components/widgets'
 import { zhuyinSymbols } from '@learn-chinese/util/zhuyin'

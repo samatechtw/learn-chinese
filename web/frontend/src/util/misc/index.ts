@@ -1,3 +1,4 @@
+export * from './breadcrumbs'
 export * from './debounce'
 export * from './type-helpers'
 export * from './identicon'

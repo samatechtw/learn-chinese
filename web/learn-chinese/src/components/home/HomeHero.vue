@@ -1,6 +1,7 @@
 <template>
   <div class="hero-wrap">
     <div class="home-hero container f-center-col">
+      <PageNav :nav="getLanguageBreadcrumbs('chinese')" />
       <h1 class="hero-title">
         {{ ts('home.hero') }}
       </h1>
@@ -16,8 +17,9 @@
 
 <script lang="ts" setup>
 import { IToolBubble } from '@frontend/types'
-import { ToolBubble } from '@frontend/components/widgets'
+import { PageNav, ToolBubble } from '@frontend/components/widgets'
 import { ts } from '@frontend/i18n'
+import { getLanguageBreadcrumbs } from '@frontend/util/misc'
 
 const tools: IToolBubble[] = [
   { title: 'zhuyin.learn', text: 'zhuyin.learn_tool', to: 'ZhuyinLearn', disabled: false },

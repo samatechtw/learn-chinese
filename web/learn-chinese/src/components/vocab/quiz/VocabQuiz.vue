@@ -4,10 +4,7 @@
       <div class="header">
         <div class="title-block">
           <PageNav
-            :nav="[
-              { name: 'Home', label: 'Home' },
-              { name: 'VocabQuiz', label: ts('vocab.quiz') || 'Vocabulary Quiz' },
-            ]"
+            :nav="getLanguageBreadcrumbs('chinese', { name: 'VocabQuiz', label: ts('vocab.quiz') })"
           />
           <h1 class="hero-title">
             {{ ts('vocab.quiz') }}
@@ -80,6 +77,7 @@ import { store } from '@learn-chinese/store'
 import { IVocabQuizState, VocabQuestionType, IVocabQuizQuestion } from '@learn-chinese/types'
 import { PageNav } from '@frontend/components/widgets'
 import { ts } from '@frontend/i18n'
+import { getLanguageBreadcrumbs } from '@frontend/util/misc'
 import { hsk1 } from '@learn-chinese/util/characters'
 import MoeDictionaryModal from '../MoeDictionaryModal.vue'
 import VocabQuizActive from './VocabQuizActive.vue'

@@ -2,10 +2,7 @@
   <div class="zhuyin-typing-wrap">
     <div class="zhuyin-typing container f-col">
       <PageNav
-        :nav="[
-          { name: 'Home', label: 'Home' },
-          { name: 'ZhuyinTyping', label: ts('typing') || 'Typing' },
-        ]"
+        :nav="getLanguageBreadcrumbs('chinese', { name: 'ZhuyinTyping', label: ts('typing') })"
       />
       <h1 class="hero-title">
         {{ ts('zhuyin.practice') }}
@@ -71,6 +68,7 @@ import { shuffleArray } from '@frontend/util/misc'
 import { PageNav } from '@frontend/components/widgets'
 import { ITypingEntry, Keys, KeyType } from '@frontend/types'
 import { ts } from '@frontend/i18n'
+import { getLanguageBreadcrumbs } from '@frontend/util/misc'
 import { useScoreAnimate } from '@frontend/util/ui'
 import { store } from '@learn-chinese/store'
 import { ZhuyinKeyboard } from '@learn-chinese/components/widgets'

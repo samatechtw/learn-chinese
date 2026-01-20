@@ -1,6 +1,7 @@
 <template>
   <div class="home-wrap">
     <div class="home-hero container f-center-col">
+      <PageNav :nav="getLanguageBreadcrumbs('vietnamese')" />
       <h1 class="hero-title">
         {{ ts('vietnamese.hero') }}
       </h1>
@@ -14,14 +15,13 @@
           <div class="tool-action">{{ ts('vietnamese.vocab_quiz_action') }}</div>
         </router-link>
       </div>
-      <router-link to="/" class="back-link">
-        {{ ts('back') }}
-      </router-link>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { PageNav } from '@frontend/components/widgets'
+import { getLanguageBreadcrumbs } from '@frontend/util/misc'
 import { ts } from '@frontend/i18n'
 </script>
 
@@ -84,18 +84,5 @@ import { ts } from '@frontend/i18n'
   text-transform: uppercase;
   letter-spacing: 0.4px;
   color: #b45309;
-}
-.back-link {
-  @mixin text 18px;
-  color: $color1;
-  text-decoration: none;
-  padding: 12px 24px;
-  border: 2px solid $color1;
-  border-radius: 8px;
-  transition: background 0.2s, color 0.2s;
-}
-.back-link:hover {
-  background: $color1;
-  color: white;
 }
 </style>

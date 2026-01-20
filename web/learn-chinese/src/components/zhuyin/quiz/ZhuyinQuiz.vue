@@ -2,10 +2,7 @@
   <div class="zhuyin-quiz-wrap">
     <div class="zhuyin-quiz container f-col">
       <PageNav
-        :nav="[
-          { name: 'Home', label: 'Home' },
-          { name: 'ZhuyinQuiz', label: ts('zhuyin.quiz') || 'Zhuyin Quiz' },
-        ]"
+        :nav="getLanguageBreadcrumbs('chinese', { name: 'ZhuyinQuiz', label: ts('zhuyin.quiz') })"
       />
       <h1 class="hero-title">
         {{ ts('zhuyin.quiz') }}
@@ -75,6 +72,7 @@ import { zhuyinSymbols } from '@learn-chinese/util/zhuyin'
 import { shuffleArray } from '@frontend/util/misc'
 import { PageNav } from '@frontend/components/widgets'
 import { ts } from '@frontend/i18n'
+import { getLanguageBreadcrumbs } from '@frontend/util/misc'
 import { saySymbol } from '@learn-chinese/util/speech'
 import { ZhuyinKeyboard } from '@learn-chinese/components/widgets'
 import ZhuyinQuizCorrect from './ZhuyinQuizCorrect.vue'
