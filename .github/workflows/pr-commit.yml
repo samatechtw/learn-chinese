@@ -168,6 +168,8 @@ jobs:
           build-args: |
             "S3_SECRET_ACCESS_KEY=ci"
             "SENDGRID_API_KEY=ci"
+            "AZURE_TTS_SUBSCRIPTION_KEY=ci"
+            "AZURE_TTS_REGION=ci"
           file: ${{env.WORKSPACE_ROOT}}/backend/${{env.APP_NAME}}/Dockerfile
           target: prod
           tags: ${{env.APP_NAME}}.prod

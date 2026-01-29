@@ -7,6 +7,7 @@ use learn_api::api_context::ApiContext;
 use learn_api::app::app_router::app_router;
 use learn_api::config::Config;
 use learn_api::db::app_repo::AppRepo;
+use lib_api::clients::azure_tts_client::AzureTtsClient;
 use lib_api::clients::s3_client::S3Client;
 use lib_api::util::log::{create_trace_layer, setup_logging};
 use tower::ServiceBuilder;
@@ -48,10 +49,16 @@ async fn main() {
         config.s3_secret_access_key.clone(),
     );
 
+    let azure_tts_client = AzureTtsClient::new(
+        config.azure_tts_subscription_key.clone(),
+        config.azure_tts_region.clone(),
+    );
+
     let context = ApiContext {
         config: Arc::new(config),
         repo: app_repo,
         s3_client,
+        azure_tts_client,
     };
 
     // Setup CORS

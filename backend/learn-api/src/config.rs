@@ -56,4 +56,12 @@ pub struct Config {
     /// S3 secret key
     #[clap(long, env = "S3_SECRET_ACCESS_KEY", value_parser = NonEmptyStringValueParser::new())]
     pub s3_secret_access_key: String,
+
+    /// Azure TTS subscription key
+    #[clap(long, env = "AZURE_TTS_SUBSCRIPTION_KEY", value_parser = NonEmptyStringValueParser::new())]
+    pub azure_tts_subscription_key: String,
+
+    /// Azure TTS region
+    #[clap(long, env = "AZURE_TTS_REGION", value_parser = NonEmptyStringValueParser::new())]
+    pub azure_tts_region: String,
 }

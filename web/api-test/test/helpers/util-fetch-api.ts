@@ -46,14 +46,24 @@ export class BasicFetchApi extends FetchApi<ApiResponse> {
   }
 
   override async request<T>(config: BasicFetchRequestConfig): Promise<ApiResponse<T>> {
-    const { retries, data, transform, ...rest } = config
+    const { retries, data, transform, timeout, ...rest } = config
     const finalConfig: FetchRequestConfig = {
       ...rest,
       requestJson: transform,
       data: transform ? transformRequestData(data as Record<string, unknown>) : data,
       mode: 'cors',
     }
-    let requestPromise = super.request(finalConfig)
+    const runRequest = (): Promise<ApiResponse<T>> => {
+      if (!timeout) {
+        return super.request(finalConfig) as Promise<ApiResponse<T>>
+      }
+      const controller = new AbortController()
+      const timer = setTimeout(() => controller.abort(), timeout)
+      return super
+        .request({ ...finalConfig, signal: controller.signal })
+        .finally(() => clearTimeout(timer)) as Promise<ApiResponse<T>>
+    }
+    let requestPromise = runRequest()
     if (!retries) {
       return requestPromise as Promise<ApiResponse<T>>
     }
@@ -68,7 +78,7 @@ export class BasicFetchApi extends FetchApi<ApiResponse> {
           console.log(e.body)
         }
       }
-      requestPromise = super.request(finalConfig)
+      requestPromise = runRequest()
     }
     throw new Error(`Request failed, retries exhausted: ${retries}`)
   }

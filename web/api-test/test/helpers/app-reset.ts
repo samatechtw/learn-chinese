@@ -21,7 +21,7 @@ export const apiRequest = async <T>(
   const { baseUrl, timeout, ...rest } = options
   const api = new BasicFetchApi({ baseUrl, timeout })
   try {
-    return await api.request<T>(rest)
+    return await api.request<T>({ ...rest, timeout })
   } catch (e) {
     const err = JSON.stringify(e)
     throw new Error(

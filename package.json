@@ -23,7 +23,7 @@
     "prod:api:build": "cd backend && cargo build --release",
     "api-test": "./web/api-test/node_modules/.bin/vitest run -r ./web/api-test",
     "e2e": "pnpm --filter web-e2e test",
-    "skaffold:basic": "(skaffold dev -f tools/skaffold.basic.yaml --cache-artifacts=true)",
+    "skaffold:basic": "tools/scripts/skaffold-dev.sh",
     "prune": "tools/scripts/prune-all.sh",
     "create-app": "tsx tools/scripts/create-app.ts"
   },

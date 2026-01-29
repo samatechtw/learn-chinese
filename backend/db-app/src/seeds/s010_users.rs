@@ -8,12 +8,34 @@ use lib_types::{
     shared::user::{UserStatus, UserType},
 };
 use sqlx::PgPool;
+use tokio::sync::OnceCell;
 use uuid::Uuid;
 
 use crate::util::bulk_insert;
 
+static ADMIN_PASSWORD_HASH: OnceCell<String> = OnceCell::const_new();
+static USER1_PASSWORD_HASH: OnceCell<String> = OnceCell::const_new();
+static USER2_PASSWORD_HASH: OnceCell<String> = OnceCell::const_new();
+static USER3_PASSWORD_HASH: OnceCell<String> = OnceCell::const_new();
+
 pub async fn seed(db: &PgPool) -> Result<(), DbError> {
     let table = "users";
+    let admin_password_hash = ADMIN_PASSWORD_HASH
+        .get_or_init(|| async { hash("admin.password1".into()).await.unwrap() })
+        .await
+        .clone();
+    let user1_password_hash = USER1_PASSWORD_HASH
+        .get_or_init(|| async { hash("password1".into()).await.unwrap() })
+        .await
+        .clone();
+    let user2_password_hash = USER2_PASSWORD_HASH
+        .get_or_init(|| async { hash("password2".into()).await.unwrap() })
+        .await
+        .clone();
+    let user3_password_hash = USER3_PASSWORD_HASH
+        .get_or_init(|| async { hash("password3".into()).await.unwrap() })
+        .await
+        .clone();
 
     let data = vec![
         UserEntity {
@@ -23,7 +45,7 @@ pub async fn seed(db: &PgPool) -> Result<(), DbError> {
             link: "https://samatech.tw".into(),
             location: "Hong Kong".into(),
             email: "admin1@samatech.tw".into(),
-            password_hash: hash("admin.password1".into()).await.unwrap(),
+            password_hash: admin_password_hash,
             created_at: Utc::now(),
             updated_at: Utc::now(),
             user_type: UserType::Admin,
@@ -37,7 +59,7 @@ pub async fn seed(db: &PgPool) -> Result<(), DbError> {
             link: "https://samatech.tw/user/2213d9fc-3693-47ed-a495-cd5e7fc6dd0e".into(),
             location: "Japan".into(),
             email: "user1@samatech.tw".into(),
-            password_hash: hash("password1".into()).await.unwrap(),
+            password_hash: user1_password_hash,
             created_at: Utc::now(),
             updated_at: Utc::now(),
             user_type: UserType::User,
@@ -51,7 +73,7 @@ pub async fn seed(db: &PgPool) -> Result<(), DbError> {
             link: "https://me.hello.com".into(),
             location: "California".into(),
             email: "user2@samatech.tw".into(),
-            password_hash: hash("password2".into()).await.unwrap(),
+            password_hash: user2_password_hash,
             created_at: Utc::now(),
             updated_at: Utc::now(),
             user_type: UserType::User,
@@ -65,7 +87,7 @@ pub async fn seed(db: &PgPool) -> Result<(), DbError> {
             link: "".into(),
             location: "Europe".into(),
             email: "user3@samatech.tw".into(),
-            password_hash: hash("password3".into()).await.unwrap(),
+            password_hash: user3_password_hash,
             created_at: Utc::now(),
             updated_at: Utc::now(),
             user_type: UserType::User,

@@ -7,6 +7,7 @@ pub mod app_router;
 pub mod auth;
 pub mod health;
 pub mod helpers;
+pub mod tts;
 pub mod user;
 
 // Workaround for query string arrays

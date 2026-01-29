@@ -1,6 +1,6 @@
 use crate::{
     api_context::ApiContext,
-    app::{auth, user},
+    app::{auth, tts, user},
     util::auth::{auth_admin, auth_admin_user, auth_admin_user_anonymous},
 };
 use axum::{
@@ -53,6 +53,11 @@ pub fn api_router(context: &ApiContext) -> Router<ApiContext> {
         .route(
             "/auth/resend-confirm-email",
             post(auth::resend_confirm_email::resend_confirm_email)
+                .route_layer(from_fn_with_state(context.clone(), auth_admin_user)),
+        )
+        .route(
+            "/tts/{language}",
+            get(tts::get_tts::get_tts)
                 .route_layer(from_fn_with_state(context.clone(), auth_admin_user)),
         )
         .route("/{*path}", get(handler_404)) // Handle unknown routes under /api

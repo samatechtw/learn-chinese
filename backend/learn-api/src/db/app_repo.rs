@@ -6,12 +6,14 @@ use lib_api::{
 };
 use sqlx::{PgPool, Postgres, Transaction};
 
+use super::tts_cache_repo::{DynTtsCacheRepo, TtsCacheRepo};
 use super::user_repo::{DynUserRepo, UserRepo};
 
 #[derive(Clone)]
 pub struct AppRepo {
     pub db: PgPool,
     pub user: DynUserRepo,
+    pub tts_cache: DynTtsCacheRepo,
 }
 
 pub async fn start_transaction(db: &PgPool) -> Result<Transaction<'_, Postgres>, DbError> {
@@ -27,6 +29,7 @@ impl AppRepo {
         Ok(AppRepo {
             db: db.clone(),
             user: Arc::new(UserRepo { db: db.clone() }) as DynUserRepo,
+            tts_cache: Arc::new(TtsCacheRepo { db: db.clone() }) as DynTtsCacheRepo,
         })
     }
 

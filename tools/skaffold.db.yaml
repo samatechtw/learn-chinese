@@ -31,7 +31,7 @@ manifests:
     - k8s/dev/api/db-app*.yaml
 
 deploy:
-  kubeContext: k3d-learn-chinese-dev
+  kubeContext: k3d-learn-dev
   kubectl: {}
 
 portForward:

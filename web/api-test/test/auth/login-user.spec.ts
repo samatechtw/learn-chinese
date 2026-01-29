@@ -23,7 +23,7 @@ describe('Login User', () => {
     payload = { email: 'user1@samatech.tw', password: 'password1' }
   })
 
-  describe('when requestor is admin', () => {
+  describe('when requestor is admin', async () => {
     test('logs in user with password', async () => {
       payload = { email: 'admin1@samatech.tw', password: 'admin.password1' }
       const response = await api.post(testEndpoint).send(payload).expect(201)

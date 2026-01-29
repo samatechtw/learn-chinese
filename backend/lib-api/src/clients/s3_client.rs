@@ -111,4 +111,50 @@ impl S3Client {
     pub async fn delete_site_asset(&self, object_key: &str) -> Result<(), ApiError> {
         self.delete_asset(&self.site_asset_bucket, object_key).await
     }
+
+    pub fn presign_get_site_asset(&self, object_key: &str, expires: u64) -> Url {
+        let get_object = self
+            .site_asset_bucket
+            .get_object(Some(&self.credentials), object_key);
+        let expires_in = Duration::from_secs(expires);
+        get_object.sign(expires_in)
+    }
+
+    pub async fn upload_site_asset(
+        &self,
+        object_key: &str,
+        data: Vec<u8>,
+        content_type: &str,
+    ) -> Result<(), ApiError> {
+        let size = data.len() as i64;
+        let presigned_url = self.presign_put(
+            &self.site_asset_bucket,
+            object_key,
+            600,
+            content_type,
+            size.to_string(),
+        )?;
+
+        let response = reqwest::Client::new()
+            .put(presigned_url)
+            .header("Content-Type", content_type)
+            .header("Content-Length", size.to_string())
+            .body(data)
+            .send()
+            .await
+            .map_err(|e| {
+                ApiError::internal_error().message(format!("Failed to upload to S3: {}", e))
+            })?;
+
+        if !response.status().is_success() {
+            let error_text = response
+                .text()
+                .await
+                .unwrap_or_else(|_| "Unknown error".to_string());
+            return Err(ApiError::internal_error()
+                .message(format!("S3 upload failed: {}", error_text)));
+        }
+
+        Ok(())
+    }
 }

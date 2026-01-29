@@ -21,4 +21,4 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - k3d-fullstack-template-ci-cluster-agent-0
+                - k3d-learn-template-ci-cluster-agent-0

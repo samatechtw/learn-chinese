@@ -63,13 +63,11 @@ manifests:
 deploy:
   # kubeContext: rancher-desktop
   # kubeContext: docker-desktop
-  kubeContext: k3d-learn-chinese-dev
+  kubeContext: k3d-learn-dev
   kubectl: {}
 portForward:
-  # Expose API for local E2E run
-  - resourceType: service
-    resourceName: learn-api
-    port: 4051
+  # Note: learn-api port-forward is handled by tools/scripts/skaffold-dev.sh
+  # because skaffold incorrectly detects port 4051 as in-use (nginx binds to network interface)
   # Expose state manager app localhost connection
   - resourceType: service
     resourceName: api-test-helper

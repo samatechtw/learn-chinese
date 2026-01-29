@@ -1,4 +1,10 @@
 import supertest from 'supertest'
 import TestAgent from 'supertest/lib/agent'
 
-export { TestAgent, supertest as testagent }
+const defaultTimeout = { response: 10000, deadline: 15000 }
+
+export const testagent = (baseUrl: string): TestAgent => {
+  return supertest.agent(baseUrl).timeout(defaultTimeout)
+}
+
+export { TestAgent }

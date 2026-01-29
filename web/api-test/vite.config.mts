@@ -15,5 +15,6 @@ export default defineConfig({
     setupFiles: ['./vitest-setup.ts'],
     isolate: false,
     fileParallelism: false,
+    printConsoleTrace: true,
   },
 })
