@@ -26,6 +26,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: learn-api-config
+            - secretRef:
+                name: learn-api-secrets
             - configMapRef:
                 name: db-app-config
             - configMapRef:

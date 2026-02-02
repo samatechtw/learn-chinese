@@ -4,13 +4,18 @@
       <div class="header">
         <div class="title-block">
           <PageNav
-            :nav="getLanguageBreadcrumbs('vietnamese', { name: 'VietnameseVocabQuiz', label: ts('vietnamese.vocab_quiz') })"
+            :nav="
+              getLanguageBreadcrumbs('vietnamese', {
+                name: navRouteName,
+                label: navLabel,
+              })
+            "
           />
           <h1 class="hero-title">
-            {{ ts('vietnamese.vocab_quiz') }}
+            {{ quizTitle }}
           </h1>
           <p class="subtitle">
-            {{ ts('vietnamese.vocab_quiz_text') }}
+            {{ quizSubtitle }}
           </p>
         </div>
         <div class="meta">
@@ -67,7 +72,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { PageNav } from '@frontend/components/widgets'
 import { ts } from '@frontend/i18n'
 import { getLanguageBreadcrumbs } from '@frontend/util/misc'
@@ -75,6 +80,7 @@ import { store } from '@learn-vietnamese/store'
 import {
   IVietnameseQuizQuestion,
   IVietnameseQuizState,
+  VietnameseQuizMode,
   VietnameseQuestionType,
 } from '@learn-vietnamese/types'
 import { vietnameseVocabMap } from '@learn-vietnamese/data/vocab'
@@ -83,8 +89,44 @@ import VocabQuizCorrect from './VocabQuizCorrect.vue'
 import VocabQuizIncorrect from './VocabQuizIncorrect.vue'
 import VocabQuizComplete from './VocabQuizComplete.vue'
 
+interface Props {
+  questionMode?: VietnameseQuizMode
+  title?: string
+  subtitle?: string
+  routeName?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  questionMode: 'EnglishToVietnamese',
+})
+
 const currentOptions = ref<string[]>([])
 const lastOptionIndex = ref<number | null>(null)
+
+const navRouteName = computed(() => {
+  if (props.routeName) return props.routeName
+  return props.questionMode === 'VietnameseToEnglish'
+    ? 'VietnameseVocabQuizReverse'
+    : 'VietnameseVocabQuiz'
+})
+
+const quizTitle = computed(() => {
+  if (props.title) return props.title
+  if (props.questionMode === 'VietnameseToEnglish') {
+    return ts('vietnamese.vocab_quiz_reverse')
+  }
+  return ts('vietnamese.vocab_quiz')
+})
+
+const quizSubtitle = computed(() => {
+  if (props.subtitle) return props.subtitle
+  if (props.questionMode === 'VietnameseToEnglish') {
+    return ts('vietnamese.vocab_quiz_reverse_text')
+  }
+  return ts('vietnamese.vocab_quiz_text')
+})
+
+const navLabel = computed(() => quizTitle.value)
 
 const questionState = computed(() => {
   return store.vocab.quiz.value?.questionState ?? 'init'
@@ -125,13 +167,20 @@ const getRandomQuestionType = (): VietnameseQuestionType => {
   return types[Math.floor(Math.random() * types.length)]
 }
 
+const getQuestionType = (): VietnameseQuestionType => {
+  if (props.questionMode === 'Mixed') {
+    return getRandomQuestionType()
+  }
+  return props.questionMode
+}
+
 const generateQuestion = (wordId: string): IVietnameseQuizQuestion => {
   const entry = vietnameseVocabMap[wordId]
   if (!entry) {
     throw new Error(`Word ${wordId} not found in Vietnamese vocab list`)
   }
 
-  const questionType = getRandomQuestionType()
+  const questionType = getQuestionType()
   let correctAnswer = ''
 
   switch (questionType) {
@@ -286,6 +335,13 @@ onMounted(() => {
     syncOptions()
   }
 })
+
+watch(
+  () => props.questionMode,
+  () => {
+    restartQuiz()
+  },
+)
 </script>
 
 <style lang="postcss" scoped>

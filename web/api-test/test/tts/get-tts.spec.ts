@@ -62,10 +62,24 @@ describe('TTS endpoint', () => {
     expect(response.status).toBe(200)
   })
 
+  test('returns 400 for invalid voice', async () => {
+    const response = await api
+      .get('/api/tts/chinese?query=你好&voice=vi-VN-HoaiMyNeural')
+      .set('Authorization', userAuth)
+    expect(response.status).toBe(400)
+  })
+
   test('accepts optional rate parameter', async () => {
     const response = await api
       .get('/api/tts/chinese?query=你好&rate=0.8')
       .set('Authorization', userAuth)
     expect(response.status).toBe(200)
+  })
+
+  test('returns 400 for invalid rate', async () => {
+    const response = await api
+      .get('/api/tts/chinese?query=你好&rate=fastest')
+      .set('Authorization', userAuth)
+    expect(response.status).toBe(400)
   })
 })

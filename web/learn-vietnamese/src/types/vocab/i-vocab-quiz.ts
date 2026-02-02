@@ -6,6 +6,8 @@ export type VietnameseQuizOrder = 'random' | 'difficult'
 
 export type VietnameseQuestionType = 'EnglishToVietnamese' | 'VietnameseToEnglish'
 
+export type VietnameseQuizMode = VietnameseQuestionType | 'Mixed'
+
 export interface IVietnameseQuizOptions {
   count: VietnameseQuizCount
   order: VietnameseQuizOrder

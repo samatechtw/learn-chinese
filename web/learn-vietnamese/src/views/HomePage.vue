@@ -14,6 +14,11 @@
           <div class="tool-text">{{ ts('vietnamese.vocab_quiz_text') }}</div>
           <div class="tool-action">{{ ts('vietnamese.vocab_quiz_action') }}</div>
         </router-link>
+        <router-link to="/vietnamese/vocab-quiz-reverse" class="tool-card">
+          <div class="tool-title">{{ ts('vietnamese.vocab_quiz_reverse') }}</div>
+          <div class="tool-text">{{ ts('vietnamese.vocab_quiz_reverse_text') }}</div>
+          <div class="tool-action">{{ ts('vietnamese.vocab_quiz_reverse_action') }}</div>
+        </router-link>
       </div>
     </div>
   </div>

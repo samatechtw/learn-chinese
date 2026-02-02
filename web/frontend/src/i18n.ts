@@ -77,6 +77,9 @@ const fallback: I18nObject = {
     vocab_quiz: 'Vocabulary Quiz',
     vocab_quiz_text: 'Quiz yourself with everyday Vietnamese words.',
     vocab_quiz_action: 'Start the quiz',
+    vocab_quiz_reverse: 'Reverse Vocabulary Quiz',
+    vocab_quiz_reverse_text: 'See Vietnamese words and choose the English meaning.',
+    vocab_quiz_reverse_action: 'Try the reverse quiz',
   },
   zhuyin: {
     learn: 'Learn Zhuyin Fuhao (Bopomofo)',

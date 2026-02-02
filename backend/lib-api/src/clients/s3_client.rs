@@ -7,26 +7,31 @@ use tracing::warn;
 #[derive(Clone)]
 pub struct S3Client {
     credentials: Credentials,
-    pub site_asset_bucket: Bucket,
+    pub tts_asset_bucket: Bucket,
 }
+
+pub const DEV_PLACEHOLDER_KEYS: [&str; 2] = ["dev", "ci"];
 
 impl S3Client {
     pub fn new(s3_url: String, s3_access_key_id: String, s3_secret_access_key: String) -> S3Client {
         if s3_url.is_empty() || s3_secret_access_key.is_empty() || s3_access_key_id.is_empty() {
             warn!("Missing S3 configuration, please check the following information is provided: S3_URL, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY")
         }
+        if DEV_PLACEHOLDER_KEYS.contains(&s3_secret_access_key.as_str()) {
+            warn!("S3 client in dev mode");
+        }
         let endpoint: Url = s3_url.parse().expect("s3 endpoint is invalid");
         let path_style = UrlStyle::Path;
-        let site_asset_name = "site-assets";
+        let tts_asset_name = "tts-assets";
         let region = "auto";
-        let site_asset_bucket = Bucket::new(endpoint.clone(), path_style, site_asset_name, region)
+        let tts_asset_bucket = Bucket::new(endpoint.clone(), path_style, tts_asset_name, region)
             .expect("site-asset bucket url is invalid");
 
         let credentials = Credentials::new(s3_access_key_id, s3_secret_access_key);
 
         S3Client {
             credentials,
-            site_asset_bucket,
+            tts_asset_bucket,
         }
     }
 
@@ -77,7 +82,7 @@ impl S3Client {
         }
     }
 
-    pub fn presign_put_site_asset(
+    pub fn presign_put_tts_asset(
         &self,
         filename: &str,
         expires: u64,
@@ -85,7 +90,7 @@ impl S3Client {
         size: i64,
     ) -> Result<Url, ApiError> {
         self.presign_put(
-            &self.site_asset_bucket,
+            &self.tts_asset_bucket,
             filename,
             expires,
             content_type,
@@ -93,9 +98,9 @@ impl S3Client {
         )
     }
 
-    pub async fn verify_site_asset(&self, object_key: &str) -> Result<bool, ApiError> {
+    pub async fn verify_tts_asset(&self, object_key: &str) -> Result<bool, ApiError> {
         let head_object = self
-            .site_asset_bucket
+            .tts_asset_bucket
             .head_object(Some(&self.credentials), &object_key);
 
         let expires_in = Duration::from_secs(600);
@@ -108,19 +113,19 @@ impl S3Client {
         }
     }
 
-    pub async fn delete_site_asset(&self, object_key: &str) -> Result<(), ApiError> {
-        self.delete_asset(&self.site_asset_bucket, object_key).await
+    pub async fn delete_tts_asset(&self, object_key: &str) -> Result<(), ApiError> {
+        self.delete_asset(&self.tts_asset_bucket, object_key).await
     }
 
-    pub fn presign_get_site_asset(&self, object_key: &str, expires: u64) -> Url {
+    pub fn presign_get_tts_asset(&self, object_key: &str, expires: u64) -> Url {
         let get_object = self
-            .site_asset_bucket
+            .tts_asset_bucket
             .get_object(Some(&self.credentials), object_key);
         let expires_in = Duration::from_secs(expires);
         get_object.sign(expires_in)
     }
 
-    pub async fn upload_site_asset(
+    pub async fn upload_tts_asset(
         &self,
         object_key: &str,
         data: Vec<u8>,
@@ -128,7 +133,7 @@ impl S3Client {
     ) -> Result<(), ApiError> {
         let size = data.len() as i64;
         let presigned_url = self.presign_put(
-            &self.site_asset_bucket,
+            &self.tts_asset_bucket,
             object_key,
             600,
             content_type,
@@ -151,8 +156,9 @@ impl S3Client {
                 .text()
                 .await
                 .unwrap_or_else(|_| "Unknown error".to_string());
-            return Err(ApiError::internal_error()
-                .message(format!("S3 upload failed: {}", error_text)));
+            return Err(
+                ApiError::internal_error().message(format!("S3 upload failed: {}", error_text))
+            );
         }
 
         Ok(())

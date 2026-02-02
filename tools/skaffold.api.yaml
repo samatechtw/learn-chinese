@@ -30,9 +30,13 @@ build:
         target: dev
         buildArgs:
           # These vars can be overridden in order to manually test stg/prod environments
+          S3_ACCESS_KEY_ID: '{{or .S3_ACCESS_KEY_ID "dev"}}'
+          S3_URL: '{{or .S3_URL "dev"}}'
           S3_SECRET_ACCESS_KEY: '{{or .S3_SECRET_ACCESS_KEY "dev"}}'
           SENDGRID_API_KEY: '{{or .SENDGRID_API_KEY "dev"}}'
           APP_AUTH_SECRET: '{{or .APP_AUTH_SECRET "dev"}}'
+          AZURE_TTS_SUBSCRIPTION_KEY: '{{or .AZURE_TTS_SUBSCRIPTION_KEY "dev"}}'
+          AZURE_TTS_REGION: '{{or .AZURE_TTS_REGION "dev"}}'
     - image: api-test-helper.dev
       context: ../
       sync:

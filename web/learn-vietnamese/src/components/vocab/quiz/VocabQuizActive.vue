@@ -6,6 +6,18 @@
     <div class="question-text">
       {{ getQuestionText() }}
     </div>
+    <button
+      class="audio-button"
+      type="button"
+      :disabled="ttsLoading"
+      :aria-label="ttsLoading ? 'Loading audio' : 'Play audio'"
+      @click="playAudio"
+    >
+      <span class="audio-icon">🔊</span>
+    </button>
+    <div v-if="ttsError" class="audio-error">
+      {{ ttsError }}
+    </div>
     <div class="options">
       <button
         v-for="(option, index) in options"
@@ -20,8 +32,10 @@
 </template>
 
 <script lang="ts" setup>
+import { computed, ref, watch } from 'vue'
 import { IVietnameseQuizQuestion } from '@learn-vietnamese/types'
 import { vietnameseVocabMap } from '@learn-vietnamese/data/vocab'
+import { getVietnameseTtsAudioUrl } from '@learn-vietnamese/util/tts'
 
 interface Props {
   question: IVietnameseQuizQuestion | null
@@ -60,6 +74,43 @@ const getQuestionText = (): string => {
       return ''
   }
 }
+
+const ttsLoading = ref(false)
+const ttsError = ref<string | null>(null)
+const audioPlayer = ref<HTMLAudioElement | null>(null)
+
+const spokenWord = computed(() => {
+  if (!props.question) return ''
+  return vietnameseVocabMap[props.question.wordId]?.v ?? ''
+})
+
+const playAudio = async () => {
+  if (!spokenWord.value) return
+
+  ttsLoading.value = true
+  ttsError.value = null
+
+  try {
+    const audioUrl = await getVietnameseTtsAudioUrl(spokenWord.value)
+    if (!audioPlayer.value) {
+      audioPlayer.value = new Audio()
+    }
+    audioPlayer.value.src = audioUrl
+    await audioPlayer.value.play()
+  } catch (error) {
+    ttsError.value = 'Audio unavailable. Try again.'
+  } finally {
+    ttsLoading.value = false
+  }
+}
+
+watch(
+  () => props.question?.wordId,
+  () => {
+    ttsError.value = null
+    ttsLoading.value = false
+  },
+)
 </script>
 
 <style lang="postcss" scoped>
@@ -94,6 +145,41 @@ const getQuestionText = (): string => {
   display: flex;
   align-items: center;
   flex-grow: 1;
+}
+
+.audio-button {
+  @mixin title-regular 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(194, 65, 12, 0.2);
+  background: rgba(255, 247, 237, 0.9);
+  color: #9a3412;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 8px 16px rgba(194, 65, 12, 0.12);
+}
+
+.audio-button:disabled {
+  cursor: default;
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+.audio-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(194, 65, 12, 0.2);
+}
+
+.audio-icon {
+  font-size: 18px;
+}
+
+.audio-error {
+  @mixin text 13px;
+  color: $incorrect;
 }
 
 .options {

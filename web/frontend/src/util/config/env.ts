@@ -7,4 +7,4 @@ export const WEB_URL =
   EXEC_ENV === ExecEnv.Production ? 'learn.samatech.tw' : `${EXEC_ENV}.learn.samatech.tw`
 
 // R2 public bucket URL
-export const S3_SITE_ASSETS_URL = import.meta.env.VITE_S3_SITE_ASSETS_URL || ''
+export const S3_TTS_ASSETS_URL = import.meta.env.VITE_S3_TTS_ASSETS_URL || ''

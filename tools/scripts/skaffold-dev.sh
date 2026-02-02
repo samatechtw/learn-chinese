@@ -34,6 +34,15 @@ trap cleanup SIGINT SIGTERM
 
 # Start skaffold in background
 echo "Starting skaffold..."
+echo "Applying dev secrets from env..."
+kubectl create secret generic learn-api-secrets \
+    --from-literal=AZURE_TTS_SUBSCRIPTION_KEY="${AZURE_TTS_SUBSCRIPTION_KEY:-dev}" \
+    --from-literal=AZURE_TTS_REGION="${AZURE_TTS_REGION:-dev}" \
+    --from-literal=S3_URL="${S3_URL:-dev}" \
+    --from-literal=S3_ACCESS_KEY_ID="${S3_ACCESS_KEY_ID:-dev}" \
+    --from-literal=S3_SECRET_ACCESS_KEY="${S3_SECRET_ACCESS_KEY:-dev}" \
+    --dry-run=client -o yaml | kubectl apply -f - >/dev/null
+
 skaffold dev -f "$TOOLS_DIR/skaffold.basic.yaml" --cache-artifacts=true &
 SKAFFOLD_PID=$!
 
