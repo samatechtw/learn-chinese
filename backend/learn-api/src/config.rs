@@ -4,6 +4,12 @@
 use clap::{builder::NonEmptyStringValueParser, Parser};
 use lib_types::shared::core::ExecEnv;
 
+#[derive(clap::ValueEnum, Clone, Copy, Debug, PartialEq, Eq)]
+pub enum TtsProvider {
+    Azure,
+    Vieneu,
+}
+
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 pub struct Config {
@@ -64,4 +70,20 @@ pub struct Config {
     /// Azure TTS region
     #[clap(long, env = "AZURE_TTS_REGION", value_parser = NonEmptyStringValueParser::new())]
     pub azure_tts_region: String,
+
+    /// TTS provider used for vietnamese synthesis
+    #[clap(long, env = "APP_TTS_PROVIDER", value_enum, default_value = "vieneu")]
+    pub tts_provider: TtsProvider,
+
+    /// VieNeu TTS server base URL (used when APP_TTS_PROVIDER=vieneu)
+    #[clap(long, env = "VIENEU_TTS_BASE_URL", default_value = "http://127.0.0.1:3000", value_parser = NonEmptyStringValueParser::new())]
+    pub vieneu_tts_base_url: String,
+
+    /// VieNeu model key to set on startup
+    #[clap(long, env = "VIENEU_TTS_MODEL_KEY", default_value = "pnnbao-ump/VieNeu-TTS-q8-gguf", value_parser = NonEmptyStringValueParser::new())]
+    pub vieneu_tts_model_key: String,
+
+    /// Default VieNeu voice_id if request voice is not provided (optional)
+    #[clap(long, env = "VIENEU_TTS_VOICE_ID")]
+    pub vieneu_tts_voice_id: Option<String>,
 }

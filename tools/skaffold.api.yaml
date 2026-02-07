@@ -37,6 +37,7 @@ build:
           APP_AUTH_SECRET: '{{or .APP_AUTH_SECRET "dev"}}'
           AZURE_TTS_SUBSCRIPTION_KEY: '{{or .AZURE_TTS_SUBSCRIPTION_KEY "dev"}}'
           AZURE_TTS_REGION: '{{or .AZURE_TTS_REGION "dev"}}'
+          VIENEU_TTS_BASE_URL: '{{or .VIENEU_TTS_BASE_URL "http://127.0.0.1:3000"}}'
     - image: api-test-helper.dev
       context: ../
       sync:

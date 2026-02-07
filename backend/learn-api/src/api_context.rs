@@ -1,5 +1,6 @@
 use lib_api::clients::azure_tts_client::AzureTtsClient;
 use lib_api::clients::s3_client::S3Client;
+use lib_api::clients::vieneu_tts_client::VieneuTtsClient;
 
 use crate::{config::Config, db::app_repo::AppRepo};
 use std::sync::Arc;
@@ -10,4 +11,5 @@ pub struct ApiContext {
     pub repo: AppRepo,
     pub s3_client: S3Client,
     pub azure_tts_client: AzureTtsClient,
+    pub vieneu_tts_client: VieneuTtsClient,
 }

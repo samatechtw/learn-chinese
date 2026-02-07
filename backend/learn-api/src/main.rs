@@ -9,6 +9,7 @@ use learn_api::config::Config;
 use learn_api::db::app_repo::AppRepo;
 use lib_api::clients::azure_tts_client::AzureTtsClient;
 use lib_api::clients::s3_client::S3Client;
+use lib_api::clients::vieneu_tts_client::VieneuTtsClient;
 use lib_api::util::log::{create_trace_layer, setup_logging};
 use tower::ServiceBuilder;
 use tower_http::cors::CorsLayer;
@@ -53,12 +54,18 @@ async fn main() {
         config.azure_tts_subscription_key.clone(),
         config.azure_tts_region.clone(),
     );
+    let vieneu_tts_client = VieneuTtsClient::new(
+        config.vieneu_tts_base_url.clone(),
+        Some(config.vieneu_tts_model_key.clone()),
+    );
+    vieneu_tts_client.configure_model().await;
 
     let context = ApiContext {
         config: Arc::new(config),
         repo: app_repo,
         s3_client,
         azure_tts_client,
+        vieneu_tts_client,
     };
 
     // Setup CORS
