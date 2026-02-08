@@ -21,4 +21,13 @@ export const vietnameseRoutes: RouteRecordRaw[] = [
     props: { questionMode: 'VietnameseToEnglish' },
     meta: { title: 'Vietnamese Reverse Vocabulary Quiz' },
   },
+  {
+    path: '/vietnamese/segments/:segmentId',
+    name: 'VietnameseSegmentLesson',
+    component: () => import('./views/SegmentLessonPage.vue'),
+    props: (route) => ({
+      segmentId: String(route.params.segmentId ?? ''),
+    }),
+    meta: { title: 'Vietnamese Segment Lesson' },
+  },
 ]

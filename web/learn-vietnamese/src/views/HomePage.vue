@@ -19,6 +19,21 @@
           <div class="tool-text">{{ ts('vietnamese.vocab_quiz_reverse_text') }}</div>
           <div class="tool-action">{{ ts('vietnamese.vocab_quiz_reverse_action') }}</div>
         </router-link>
+        <div class="tool-card segment-card">
+          <div class="tool-title">{{ ts('vietnamese.segment_lessons') }}</div>
+          <div class="tool-text">{{ ts('vietnamese.segment_lessons_text') }}</div>
+          <div class="bubble-wrap">
+            <router-link
+              v-for="segment in vietnameseLearningSegments"
+              :key="segment.id"
+              class="segment-bubble"
+              :to="`/vietnamese/segments/${segment.id}`"
+            >
+              {{ segment.title }}
+            </router-link>
+          </div>
+          <div class="tool-action">{{ ts('vietnamese.segment_lessons_action') }}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -28,6 +43,7 @@
 import { PageNav } from '@frontend/components/widgets'
 import { getLanguageBreadcrumbs } from '@frontend/util/misc'
 import { ts } from '@frontend/i18n'
+import { vietnameseLearningSegments } from '@learn-vietnamese/data/segments'
 </script>
 
 <style lang="postcss" scoped>
@@ -89,5 +105,27 @@ import { ts } from '@frontend/i18n'
   text-transform: uppercase;
   letter-spacing: 0.4px;
   color: #b45309;
+}
+.segment-card {
+  text-align: left;
+}
+.bubble-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.segment-bubble {
+  @mixin title-regular 14px;
+  text-decoration: none;
+  color: #9a3412;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(194, 65, 12, 0.2);
+  padding: 10px 12px;
+  border-radius: 999px;
+  transition: transform 0.2s;
+}
+.segment-bubble:hover {
+  transform: translateY(-1px);
 }
 </style>
