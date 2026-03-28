@@ -1,47 +1,43 @@
 import path from 'path'
-import fs from 'fs'
+import ts from 'typescript'
 
-const offsetToFile = (
-  searchPath: string,
-  configName = 'tsconfig.base.json',
-): string | undefined => {
-  let offset = './'
-  let prevConfigPath = ''
-  // eslint-disable-next-line no-constant-condition
-  while (true) {
-    const configPath = path.join(searchPath, offset, configName)
-    if (fs.existsSync(configPath)) {
-      return offset
-      // Exit if we've reached the FS root
-    } else if (configPath === prevConfigPath) {
-      return undefined
-    }
-    offset += '../'
-    prevConfigPath = configPath
-  }
+const parseTsconfig = (tsconfigPath: string): ts.ParsedCommandLine | undefined => {
+  const parsed = ts.getParsedCommandLineOfConfigFile(tsconfigPath, {}, {
+    ...ts.sys,
+    onUnRecoverableConfigFileDiagnostic: () => undefined,
+  })
+
+  return parsed ?? undefined
 }
 
-export const tsconfigBaseAliases = (fromPath: string): Record<string, string> => {
-  const resolve = (p: string): string => path.resolve(fromPath, p)
+export const tsconfigBaseAliases = (
+  fromPath: string,
+  configName = 'tsconfig.json',
+): Record<string, string> => {
+  const tsconfigPath = path.resolve(fromPath, configName)
+  const parsed = parseTsconfig(tsconfigPath)
 
+  if (!parsed) {
+    return {}
+  }
+
+  const baseUrl = parsed.options.baseUrl ?? path.dirname(tsconfigPath)
+  const paths = parsed.options.paths ?? {}
   const aliases: Record<string, string> = {}
-  const rootOffset = offsetToFile(fromPath)
-  if (!rootOffset) {
-    return aliases
-  }
-  const tsconfigPath = path.join(fromPath, rootOffset, 'tsconfig.base.json')
-  const tsconfigBase = JSON.parse(fs.readFileSync(tsconfigPath, 'utf-8'))
 
-  const paths: Record<string, string> = tsconfigBase.compilerOptions?.paths || {}
-  for (const [name, path] of Object.entries(paths)) {
-    const simplePath = path[0].replace('/*', '/')
-    const relative = `${rootOffset}${simplePath}`
-    if (name.includes('/*')) {
-      const resolved = `${resolve(relative)}/`
-      aliases[name.replace('/*', '/')] = resolved
-    } else {
-      aliases[name] = resolve(relative)
+  for (const [name, targets] of Object.entries(paths)) {
+    const target = targets[0]
+    if (!target) {
+      continue
     }
+
+    if (name.endsWith('/*')) {
+      aliases[name.slice(0, -1)] = `${path.resolve(baseUrl, target.slice(0, -1))}/`
+      continue
+    }
+
+    aliases[name] = path.resolve(baseUrl, target)
   }
+
   return aliases
 }

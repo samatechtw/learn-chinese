@@ -1,15 +1,18 @@
 <template>
-  <div class="hero-wrap">
-    <div class="home-hero container f-center-col">
-      <PageNav :nav="getLanguageBreadcrumbs('chinese')" />
-      <h1 class="hero-title">
-        {{ ts('home.hero') }}
-      </h1>
-      <div class="hero-text">
-        {{ ts('home.hero_text') }}
-      </div>
-      <div class="tools">
-        <ToolBubble v-for="tool in tools" :tool="tool" />
+  <div>
+    <div class="hero-wrap">
+      <div class="home-hero container f-center-col">
+        <PageNav :nav="getLanguageBreadcrumbs('chinese')" />
+        <h1 class="hero-title">
+          {{ ts('home.hero') }}
+        </h1>
+        <div class="hero-text">
+          {{ ts('home.hero_text') }}
+        </div>
+        <div class="tools">
+          <ToolBubble v-for="tool in tools" :tool="tool" />
+        </div>
+        <UnitsSection />
       </div>
     </div>
   </div>
@@ -20,11 +23,22 @@ import { IToolBubble } from '@frontend/types'
 import { PageNav, ToolBubble } from '@frontend/components/widgets'
 import { ts } from '@frontend/i18n'
 import { getLanguageBreadcrumbs } from '@frontend/util/misc'
+import UnitsSection from '../units/UnitsSection.vue'
 
 const tools: IToolBubble[] = [
-  { title: 'zhuyin.learn', text: 'zhuyin.learn_tool', to: 'ZhuyinLearn', disabled: false },
+  {
+    title: 'zhuyin.learn',
+    text: 'zhuyin.learn_tool',
+    to: 'ZhuyinLearn',
+    disabled: false,
+  },
   { title: 'zhuyin.quiz', text: 'zhuyin.quiz_text', to: 'ZhuyinQuiz', disabled: false },
-  { title: 'typing', text: 'zhuyin.typing_options_text', to: 'ZhuyinTyping', disabled: false },
+  {
+    title: 'typing',
+    text: 'zhuyin.typing_options_text',
+    to: 'ZhuyinTyping',
+    disabled: false,
+  },
   { title: 'vocab.quiz', text: 'vocab.quiz_text', to: 'VocabQuiz', disabled: false },
   { title: 'typing_game', text: 'typing_game_text', to: 'not-found', disabled: true },
 ]
