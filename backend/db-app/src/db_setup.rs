@@ -1,5 +1,5 @@
-use lib_api::db::db_setup::wait_db;
 use lib_api::db::db_error::DbError;
+use lib_api::db::db_setup::wait_db;
 use lib_types::shared::core::ExecEnv;
 use sqlx::PgPool;
 

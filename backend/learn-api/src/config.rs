@@ -8,6 +8,7 @@ use lib_types::shared::core::ExecEnv;
 pub enum TtsProvider {
     Azure,
     Vieneu,
+    OpenaiCompatible,
 }
 
 #[derive(Parser, Debug)]
@@ -86,4 +87,20 @@ pub struct Config {
     /// Default VieNeu voice_id if request voice is not provided (optional)
     #[clap(long, env = "VIENEU_TTS_VOICE_ID")]
     pub vieneu_tts_voice_id: Option<String>,
+
+    /// OpenAI-compatible TTS server base URL for Chinese synthesis
+    #[clap(long, env = "OPENAI_TTS_BASE_URL")]
+    pub openai_tts_base_url: Option<String>,
+
+    /// Optional bearer token for the OpenAI-compatible TTS server
+    #[clap(long, env = "OPENAI_TTS_API_KEY")]
+    pub openai_tts_api_key: Option<String>,
+
+    /// Default model for the OpenAI-compatible Chinese TTS server
+    #[clap(long, env = "OPENAI_TTS_MODEL", default_value = "MediaTek-Research/BreezyVoice-300M", value_parser = NonEmptyStringValueParser::new())]
+    pub openai_tts_model: String,
+
+    /// Default voice for the OpenAI-compatible Chinese TTS server
+    #[clap(long, env = "OPENAI_TTS_VOICE", default_value = "default", value_parser = NonEmptyStringValueParser::new())]
+    pub openai_tts_voice: String,
 }

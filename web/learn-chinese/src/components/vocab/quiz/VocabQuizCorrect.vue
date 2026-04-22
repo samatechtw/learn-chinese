@@ -2,6 +2,9 @@
   <div class="vocab-quiz-correct" @click="$emit('next')">
     <div class="status-icon correct">✓</div>
     <div class="status-text">Correct!</div>
+    <button class="audio-button" :disabled="isPlaying" @click.stop="$emit('playAudio')">
+      {{ isPlaying ? 'Playing...' : 'Listen' }}
+    </button>
     <div class="character-display">
       <div class="chinese">{{ question?.characterId }}</div>
       <div class="pinyin">{{ getCharInfo()?.p }}</div>
@@ -16,6 +19,7 @@ import { IVocabQuizQuestion } from '@learn-chinese/types'
 import { hsk1 } from '@learn-chinese/util/characters'
 
 interface Props {
+  isPlaying: boolean
   question: IVocabQuizQuestion | null
 }
 
@@ -23,6 +27,7 @@ const props = defineProps<Props>()
 
 const emit = defineEmits<{
   next: []
+  playAudio: []
 }>()
 
 const getCharInfo = () => {
@@ -64,6 +69,21 @@ const getCharInfo = () => {
 .status-text {
   @mixin title 22px;
   color: $correct;
+}
+
+.audio-button {
+  @mixin title-regular 15px;
+  border: 1px solid rgba(31, 157, 18, 0.24);
+  background: rgba(31, 157, 18, 0.08);
+  color: $correct;
+  border-radius: 999px;
+  padding: 10px 18px;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
 }
 
 .character-display {

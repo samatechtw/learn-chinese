@@ -2,6 +2,9 @@
   <div class="vocab-quiz-incorrect" @click="$emit('next')">
     <div class="status-icon incorrect">✗</div>
     <div class="status-text">Incorrect</div>
+    <button class="audio-button" :disabled="isPlaying" @click.stop="$emit('playAudio')">
+      {{ isPlaying ? 'Playing...' : 'Listen' }}
+    </button>
     <div class="answer-info">
       <div class="your-answer">
         <div class="label">Your answer:</div>
@@ -26,6 +29,7 @@ import { IVocabQuizQuestion } from '@learn-chinese/types'
 import { hsk1 } from '@learn-chinese/util/characters'
 
 interface Props {
+  isPlaying: boolean
   question: IVocabQuizQuestion | null
 }
 
@@ -33,6 +37,7 @@ const props = defineProps<Props>()
 
 const emit = defineEmits<{
   next: []
+  playAudio: []
 }>()
 
 const getCharInfo = () => {
@@ -74,6 +79,21 @@ const getCharInfo = () => {
 .status-text {
   @mixin title 22px;
   color: $incorrect;
+}
+
+.audio-button {
+  @mixin title-regular 15px;
+  border: 1px solid rgba(224, 40, 24, 0.2);
+  background: rgba(224, 40, 24, 0.08);
+  color: $incorrect;
+  border-radius: 999px;
+  padding: 10px 18px;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
 }
 
 .answer-info {

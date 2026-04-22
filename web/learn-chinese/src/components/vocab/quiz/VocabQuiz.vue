@@ -47,21 +47,27 @@
             />
             <VocabQuizCorrect
               v-else-if="questionState === 'correct'"
+              :is-playing="isPlaying"
               :question="currentQuestion"
               class="card"
+              @play-audio="playAudio"
               @next="checkInactive()"
             />
             <VocabQuizIncorrect
               v-else-if="questionState === 'incorrect'"
+              :is-playing="isPlaying"
               :question="currentQuestion"
               class="card"
+              @play-audio="playAudio"
               @next="checkInactive()"
             />
             <VocabQuizActive
               v-else-if="questionState === 'active'"
+              :is-playing="isPlaying"
               :question="currentQuestion"
               :options="currentOptions"
               class="card"
+              @play-audio="playAudio"
               @selectAnswer="selectAnswer"
             />
           </Transition>
@@ -84,9 +90,11 @@ import VocabQuizActive from './VocabQuizActive.vue'
 import VocabQuizCorrect from './VocabQuizCorrect.vue'
 import VocabQuizIncorrect from './VocabQuizIncorrect.vue'
 import VocabQuizComplete from './VocabQuizComplete.vue'
+import { sayChineseText } from '@learn-chinese/util/speech'
 
 const currentOptions = ref<string[]>([])
 const lastOptionIndex = ref<number | null>(null)
+const isPlaying = ref(false)
 
 const questionState = computed(() => {
   return store.vocab.quiz.value?.questionState ?? 'init'
@@ -269,6 +277,20 @@ const selectAnswer = (answer: string) => {
       questionTime,
       questionState: 'incorrect',
     })
+  }
+}
+
+const playAudio = async () => {
+  const text = currentQuestion.value?.characterId ?? ''
+  if (!text || isPlaying.value) {
+    return
+  }
+
+  isPlaying.value = true
+  try {
+    await sayChineseText(text)
+  } finally {
+    isPlaying.value = false
   }
 }
 

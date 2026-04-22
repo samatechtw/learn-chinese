@@ -94,7 +94,7 @@ import { PageNav } from '@frontend/components/widgets'
 import { getLanguageBreadcrumbs } from '@frontend/util/misc'
 import { IUnit, IUnitPhrase, IUnitQuestion, UnitQuestionType } from '@learn-chinese/types'
 import { buildUnitQuestions } from '@learn-chinese/util/units'
-import { saySymbol } from '@learn-chinese/util/speech'
+import { sayChineseText } from '@learn-chinese/util/speech'
 import UnitComplete from './UnitComplete.vue'
 import UnitInit from './UnitInit.vue'
 import UnitQuestionFillBlank from './UnitQuestionFillBlank.vue'
@@ -235,10 +235,11 @@ const skipQuestion = () => {
 const playAudio = async (text: string) => {
   if (!text || isPlaying.value) return
   isPlaying.value = true
-  await saySymbol(text)
-  setTimeout(() => {
+  try {
+    await sayChineseText(text)
+  } finally {
     isPlaying.value = false
-  }, 1200)
+  }
 }
 
 watch(

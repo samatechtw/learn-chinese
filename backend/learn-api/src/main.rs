@@ -8,6 +8,7 @@ use learn_api::app::app_router::app_router;
 use learn_api::config::Config;
 use learn_api::db::app_repo::AppRepo;
 use lib_api::clients::azure_tts_client::AzureTtsClient;
+use lib_api::clients::openai_tts_client::OpenAiTtsClient;
 use lib_api::clients::s3_client::S3Client;
 use lib_api::clients::vieneu_tts_client::VieneuTtsClient;
 use lib_api::util::log::{create_trace_layer, setup_logging};
@@ -54,6 +55,12 @@ async fn main() {
         config.azure_tts_subscription_key.clone(),
         config.azure_tts_region.clone(),
     );
+    let openai_tts_client = OpenAiTtsClient::new(
+        config.openai_tts_base_url.clone(),
+        config.openai_tts_api_key.clone(),
+        config.openai_tts_model.clone(),
+        config.openai_tts_voice.clone(),
+    );
     let vieneu_tts_client = VieneuTtsClient::new(
         config.vieneu_tts_base_url.clone(),
         Some(config.vieneu_tts_model_key.clone()),
@@ -65,6 +72,7 @@ async fn main() {
         repo: app_repo,
         s3_client,
         azure_tts_client,
+        openai_tts_client,
         vieneu_tts_client,
     };
 

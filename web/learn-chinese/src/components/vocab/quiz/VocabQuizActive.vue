@@ -6,6 +6,9 @@
     <div class="question-text">
       {{ getQuestionText() }}
     </div>
+    <button class="audio-button" :disabled="isPlaying" @click="emit('playAudio')">
+      {{ isPlaying ? 'Playing...' : 'Listen' }}
+    </button>
     <div class="options">
       <button
         v-for="(option, index) in options"
@@ -25,6 +28,7 @@ import { IVocabQuizQuestion } from '@learn-chinese/types'
 import { hsk1 } from '@learn-chinese/util/characters'
 
 interface Props {
+  isPlaying: boolean
   question: IVocabQuizQuestion | null
   options: string[]
 }
@@ -32,6 +36,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
+  playAudio: []
   selectAnswer: [answer: string]
 }>()
 
@@ -99,6 +104,21 @@ const getQuestionText = (): string => {
   display: flex;
   align-items: center;
   flex-grow: 1;
+}
+
+.audio-button {
+  @mixin title-regular 15px;
+  border: 1px solid rgba(50, 130, 184, 0.28);
+  background: rgba(50, 130, 184, 0.1);
+  color: $color2;
+  border-radius: 999px;
+  padding: 10px 18px;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
 }
 
 .options {

@@ -120,9 +120,7 @@ fn normalize_rate(rate: &str) -> String {
     }
 
     match trimmed {
-        "default" | "x-slow" | "slow" | "medium" | "fast" | "x-fast" => {
-            return trimmed.to_string()
-        }
+        "default" | "x-slow" | "slow" | "medium" | "fast" | "x-fast" => return trimmed.to_string(),
         _ => {}
     }
 

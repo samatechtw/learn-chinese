@@ -7,6 +7,7 @@
 
     <div class="type-config">
       <div class="type-config-label">Question Types</div>
+      <div class="type-config-sublabel">(click to toggle)</div >
       <div class="type-toggles">
         <button
           v-for="t in allTypes"

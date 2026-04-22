@@ -1,4 +1,5 @@
 use lib_api::clients::azure_tts_client::AzureTtsClient;
+use lib_api::clients::openai_tts_client::OpenAiTtsClient;
 use lib_api::clients::s3_client::S3Client;
 use lib_api::clients::vieneu_tts_client::VieneuTtsClient;
 
@@ -11,5 +12,6 @@ pub struct ApiContext {
     pub repo: AppRepo,
     pub s3_client: S3Client,
     pub azure_tts_client: AzureTtsClient,
+    pub openai_tts_client: OpenAiTtsClient,
     pub vieneu_tts_client: VieneuTtsClient,
 }
