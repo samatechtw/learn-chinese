@@ -9,6 +9,9 @@
     <div class="question">
       {{ card.question }}
     </div>
+    <div class="pinyin">
+      {{ card.pinyin }}
+    </div>
     <div class="entry">
       <div class="text">
         {{ entry }}
@@ -42,6 +45,11 @@ const questionTime = computed(() => {
   @mixin title 30px;
   margin-top: 12px;
 }
+.pinyin {
+  @mixin title-regular 18px;
+  margin-top: 8px;
+}
+
 .entry {
   margin-top: 8px;
   max-width: unset;
