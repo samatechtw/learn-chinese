@@ -7,7 +7,7 @@
 
     <div class="type-config">
       <div class="type-config-label">Question Types</div>
-      <div class="type-config-sublabel">(click to toggle)</div >
+      <div class="type-config-sublabel">(click to toggle)</div>
       <div class="type-toggles">
         <button
           v-for="t in allTypes"
@@ -20,7 +20,11 @@
       </div>
     </div>
 
-    <button class="start-btn" :disabled="selectedTypes.length === 0" @click="emit('startLesson', selectedTypes)">
+    <button
+      class="start-btn"
+      :disabled="selectedTypes.length === 0"
+      @click="emit('startLesson', selectedTypes)"
+    >
       Start Lesson
     </button>
   </div>

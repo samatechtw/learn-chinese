@@ -4,7 +4,12 @@
       <div class="header">
         <div class="title-block">
           <PageNav
-            :nav="getLanguageBreadcrumbs('chinese', { name: 'VocabQuiz', label: ts('vocab.quiz') })"
+            :nav="
+              getLanguageBreadcrumbs('chinese', {
+                name: 'VocabQuiz',
+                label: ts('vocab.quiz'),
+              })
+            "
           />
           <h1 class="hero-title">
             {{ ts('vocab.quiz') }}
@@ -80,10 +85,14 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
 import { store } from '@learn-chinese/store'
-import { IVocabQuizState, VocabQuestionType, IVocabQuizQuestion } from '@learn-chinese/types'
+import {
+  IVocabQuizState,
+  VocabQuestionType,
+  IVocabQuizQuestion,
+} from '@learn-chinese/types'
 import { PageNav } from '@frontend/components/widgets'
 import { ts } from '@frontend/i18n'
-import { getLanguageBreadcrumbs } from '@frontend/util/misc'
+import { getLanguageBreadcrumbs, shuffleArray } from '@frontend/util/misc'
 import { hsk1 } from '@learn-chinese/util/characters'
 import MoeDictionaryModal from '../MoeDictionaryModal.vue'
 import VocabQuizActive from './VocabQuizActive.vue'
@@ -197,7 +206,7 @@ const generateOptions = (question: IVocabQuizQuestion): string[] => {
     }
   }
 
-  return options.sort(() => Math.random() - 0.5)
+  return shuffleArray(options)
 }
 
 const syncOptions = () => {
@@ -301,7 +310,7 @@ const restartQuiz = () => {
   let characterIds = Object.keys(hsk1)
 
   if (order === 'random') {
-    characterIds = characterIds.sort(() => Math.random() - 0.5)
+    characterIds = shuffleArray(characterIds)
   }
 
   const limit = store.vocab.quizOptions.value.count || 'all'

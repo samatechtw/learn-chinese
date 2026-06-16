@@ -63,7 +63,9 @@ import { ts } from '../i18n'
   border-radius: 16px;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 .language-card:hover {

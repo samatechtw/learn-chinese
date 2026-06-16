@@ -20,7 +20,9 @@ const parseDataUrlMimeType = (dataUrl: string): string => {
   return match?.[1]?.toLowerCase() ?? 'audio/wav'
 }
 
-export const getVietnameseTtsAudio = async (query: string): Promise<IVietnameseTtsAudio> => {
+export const getVietnameseTtsAudio = async (
+  query: string,
+): Promise<IVietnameseTtsAudio> => {
   const key = query.trim()
   if (!key) {
     throw new Error('TTS query is empty')

@@ -2,7 +2,9 @@
   <div class="learn-wrap">
     <div class="zhuyin-learn container f-col">
       <PageNav
-        :nav="getLanguageBreadcrumbs('chinese', { name: 'ZhuyinLearn', label: ts('learn') })"
+        :nav="
+          getLanguageBreadcrumbs('chinese', { name: 'ZhuyinLearn', label: ts('learn') })
+        "
       />
       <h1 class="hero-title">
         {{ ts('zhuyin.symbols') }}

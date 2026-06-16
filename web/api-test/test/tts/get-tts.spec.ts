@@ -27,9 +27,7 @@ describe('TTS endpoint', () => {
   })
 
   test('returns 400 for missing query', async () => {
-    const response = await api
-      .get('/api/tts/chinese')
-      .set('Authorization', userAuth)
+    const response = await api.get('/api/tts/chinese').set('Authorization', userAuth)
     expect(response.status).toBe(400)
   })
 

@@ -10,7 +10,11 @@
     <div v-if="incorrectQuestions.length > 0" class="mistakes-section">
       <div class="mistakes-title">Questions to Review:</div>
       <div class="mistakes-list">
-        <div v-for="(question, index) in incorrectQuestions" :key="index" class="mistake-item">
+        <div
+          v-for="(question, index) in incorrectQuestions"
+          :key="index"
+          class="mistake-item"
+        >
           <div class="mistake-word">{{ question.wordId }}</div>
           <div class="mistake-details">
             <div class="detail-row">

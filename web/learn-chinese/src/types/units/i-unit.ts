@@ -1,4 +1,8 @@
-export type UnitQuestionType = 'FillInBlank' | 'TranslatePhrase' | 'OrderCharacters' | 'ListenSelect'
+export type UnitQuestionType =
+  | 'FillInBlank'
+  | 'TranslatePhrase'
+  | 'OrderCharacters'
+  | 'ListenSelect'
 
 export interface IUnitPhrase {
   id: string

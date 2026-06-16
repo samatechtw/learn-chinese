@@ -36,7 +36,9 @@
             <div class="result-icon">🎯</div>
             <div class="card-title">Segment complete</div>
             <div class="result-score">{{ displayScore }} / {{ questions.length }}</div>
-            <div class="card-text">You can restart and get a new mix of question types.</div>
+            <div class="card-text">
+              You can restart and get a new mix of question types.
+            </div>
             <button class="action-button" @click="restartLesson">Restart Segment</button>
           </div>
           <div v-else-if="phase === 'correct'" class="card result-card" @click="goNext">
@@ -65,12 +67,17 @@
             <div class="status-icon graded">≈</div>
             <div class="status-text">Sentence graded</div>
             <div class="grade-line">
-              {{ Math.round((typedGrade?.totalScore ?? 0) * 100) }}% • {{ typedGrade?.label }}
+              {{ Math.round((typedGrade?.totalScore ?? 0) * 100) }}% •
+              {{ typedGrade?.label }}
             </div>
             <div class="grade-breakdown">
-              <div>Spelling {{ Math.round((typedGrade?.spellingScore ?? 0) * 100) }}%</div>
+              <div>
+                Spelling {{ Math.round((typedGrade?.spellingScore ?? 0) * 100) }}%
+              </div>
               <div>Accents {{ Math.round((typedGrade?.accentScore ?? 0) * 100) }}%</div>
-              <div>Punctuation {{ Math.round((typedGrade?.punctuationScore ?? 0) * 100) }}%</div>
+              <div>
+                Punctuation {{ Math.round((typedGrade?.punctuationScore ?? 0) * 100) }}%
+              </div>
             </div>
             <div class="answer-box">
               <div class="label">Your sentence</div>
@@ -81,12 +88,17 @@
             <div class="continue-hint">Click to continue</div>
           </div>
           <div v-else-if="phase === 'active'" class="card active-card">
-            <div class="question-type">{{ getQuestionTypeLabel(currentQuestion?.type) }}</div>
+            <div class="question-type">
+              {{ getQuestionTypeLabel(currentQuestion?.type) }}
+            </div>
             <div class="question-prompt">{{ currentQuestion?.prompt }}</div>
             <div v-if="currentQuestion?.displayText" class="question-text">
               {{ currentQuestion?.displayText }}
             </div>
-            <div v-if="currentQuestion?.type === 'ChooseEnglishMeaning'" class="future-note">
+            <div
+              v-if="currentQuestion?.type === 'ChooseEnglishMeaning'"
+              class="future-note"
+            >
               Temporary mode. Sentence reconstruction mode will replace this later.
             </div>
             <AudioButton :audio-text="currentQuestion?.audioText ?? ''" />

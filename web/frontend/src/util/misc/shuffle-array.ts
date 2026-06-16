@@ -1,7 +1,9 @@
-// Source: https://stackoverflow.com/a/12646864
-export function shuffleArray(array: unknown[]) {
-  for (let i = array.length - 1; i >= 0; i--) {
+// Returns a new array with the elements shuffled using Fisher-Yates.
+export function shuffleArray<T>(array: readonly T[]): T[] {
+  const result = array.slice()
+  for (let i = result.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
+    ;[result[i], result[j]] = [result[j], result[i]]
   }
+  return result
 }

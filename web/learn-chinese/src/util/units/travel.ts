@@ -4,7 +4,8 @@ export const travelUnit: IUnit = {
   id: 'travel',
   title: 'Travel & Transport',
   titleChinese: '交通',
-  description: 'Getting around Taiwan — vehicles, directions, asking for help, and navigating public transit.',
+  description:
+    'Getting around Taiwan — vehicles, directions, asking for help, and navigating public transit.',
   icon: '🚇',
   color: '#0369a1',
   phrases: [
@@ -26,7 +27,12 @@ export const travelUnit: IUnit = {
     { id: 'dong', chinese: '東', pinyin: 'dōng', english: 'east' },
     { id: 'xi', chinese: '西', pinyin: 'xī', english: 'west' },
     // Asking for help
-    { id: 'qingwen', chinese: '請問', pinyin: 'qǐngwèn', english: 'excuse me / may I ask' },
+    {
+      id: 'qingwen',
+      chinese: '請問',
+      pinyin: 'qǐngwèn',
+      english: 'excuse me / may I ask',
+    },
     { id: 'milu', chinese: '迷路', pinyin: 'mílù', english: 'to get lost' },
     // Transit vocabulary
     { id: 'yuetai', chinese: '月台', pinyin: 'yuètái', english: 'platform' },
@@ -54,7 +60,7 @@ export const travelUnit: IUnit = {
       id: 's3',
       template: '往___走就到了。',
       answer: '直',
-      english: 'Go straight ahead and you\'ll be there.',
+      english: "Go straight ahead and you'll be there.",
       distractors: ['左', '右', '北'],
     },
     {

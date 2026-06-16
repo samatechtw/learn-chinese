@@ -5,7 +5,9 @@
       <PageNav :nav="getLanguageBreadcrumbs('vietnamese')" />
       <h1>Segment not found</h1>
       <p>That lesson segment does not exist.</p>
-      <router-link class="back-link" to="/vietnamese">Back to Vietnamese Home</router-link>
+      <router-link class="back-link" to="/vietnamese"
+        >Back to Vietnamese Home</router-link
+      >
     </div>
   </div>
 </template>

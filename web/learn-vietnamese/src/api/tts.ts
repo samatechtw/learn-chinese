@@ -8,12 +8,13 @@ export interface ITtsResponse {
 }
 
 export const apiGetVietnameseTts = async (query: string): Promise<ITtsResponse> => {
-  if (!query.trim()) {
+  const trimmed = query.trim()
+  if (!trimmed) {
     throw new Error('TTS query is empty')
   }
 
   const { data } = await rootApi.authOptRequest<ITtsResponse>({
-    url: `tts/vietnamese?query=${encodeURIComponent(query)}`,
+    url: `tts/vietnamese?query=${encodeURIComponent(trimmed)}`,
     method: 'GET',
   })
 

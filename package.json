@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "setup-all": "pnpm i && tsx tools/scripts/setup-all.ts",
-    "format": "prettier -w \"{**/*,*}.{ts,js,json}\"",
+    "format": "prettier -w \"{**/*,*}.{ts,js,json,vue}\"",
     "format:check": "prettier --check \"{**/*,*}.{ts,js,json,vue}\"",
     "lint": "oxlint -c .oxlintrc.json .",
     "lint:style": "./node_modules/.bin/stylelint \"**/src/**/*.{css,vue}\"",

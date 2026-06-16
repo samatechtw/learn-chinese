@@ -1,3 +1,4 @@
+import { shuffleArray as shuffle } from '@frontend/util/misc'
 import {
   ILearningSegment,
   ILearningSegmentQuestion,
@@ -10,9 +11,7 @@ const escapeRegExp = (value: string): string => {
 }
 
 const normalizeSpace = (value: string): string => {
-  return value
-    .trim()
-    .replace(/\s+/g, ' ')
+  return value.trim().replace(/\s+/g, ' ')
 }
 
 const normalizeTypedAnswer = (value: string): string => {
@@ -46,11 +45,7 @@ const levenshteinDistance = (a: string, b: string): number => {
     for (let j = 1; j <= b.length; j += 1) {
       const temp = row[j]
       const cost = a[i - 1] === b[j - 1] ? 0 : 1
-      row[j] = Math.min(
-        row[j] + 1,
-        row[j - 1] + 1,
-        prev + cost,
-      )
+      row[j] = Math.min(row[j] + 1, row[j - 1] + 1, prev + cost)
       prev = temp
     }
   }
@@ -93,10 +88,7 @@ export const gradeSegmentTypedAnswer = (
 
   const totalScore = Math.max(
     0,
-    Math.min(
-      1,
-      spellingScore * 0.7 + accentScore * 0.25 + punctuationScore * 0.05,
-    ),
+    Math.min(1, spellingScore * 0.7 + accentScore * 0.25 + punctuationScore * 0.05),
   )
 
   const label =
@@ -122,16 +114,11 @@ const replaceTargetOnce = (input: string, target: string): string => {
   return input.replace(pattern, '____')
 }
 
-const shuffle = <T>(items: T[]): T[] => {
-  const next = [...items]
-  for (let i = next.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[next[i], next[j]] = [next[j], next[i]]
-  }
-  return next
-}
-
-const sampleOptions = (pool: string[], correctAnswer: string, count: number): string[] => {
+const sampleOptions = (
+  pool: string[],
+  correctAnswer: string,
+  count: number,
+): string[] => {
   const filtered = pool.filter((item) => item !== correctAnswer)
   const sampled = shuffle(filtered).slice(0, count)
   return shuffle([correctAnswer, ...sampled])

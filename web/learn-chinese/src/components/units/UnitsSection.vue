@@ -2,7 +2,9 @@
   <div class="units-section">
     <div class="units-inner container">
       <h2 class="section-title">Learning Units</h2>
-      <p class="section-sub">Structured lessons combining vocabulary, phrases, and sentence practice.</p>
+      <p class="section-sub">
+        Structured lessons combining vocabulary, phrases, and sentence practice.
+      </p>
       <div class="units-grid">
         <router-link
           v-for="unit in allUnits"
@@ -136,7 +138,9 @@ import { allUnits } from '@learn-chinese/util/units'
   flex-shrink: 0;
   align-self: center;
   transition: transform 0.2s;
-  .unit-card:hover & { transform: translateX(4px); }
+  .unit-card:hover & {
+    transform: translateX(4px);
+  }
 }
 
 .coming-soon-tag {
@@ -152,9 +156,18 @@ import { allUnits } from '@learn-chinese/util/units'
 }
 
 @media (max-width: 720px) {
-  .units-inner { padding: 56px 0 72px; }
-  .section-title { font-size: 26px; }
-  .section-sub { font-size: 15px; margin-bottom: 28px; }
-  .units-grid { grid-template-columns: 1fr; }
+  .units-inner {
+    padding: 56px 0 72px;
+  }
+  .section-title {
+    font-size: 26px;
+  }
+  .section-sub {
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+  .units-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

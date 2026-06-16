@@ -28,7 +28,11 @@
             placeholder="Enter a Chinese word (e.g. 愛)"
             autocomplete="off"
           />
-          <button class="lookup-button" type="submit" :disabled="loading || !searchQuery.trim()">
+          <button
+            class="lookup-button"
+            type="submit"
+            :disabled="loading || !searchQuery.trim()"
+          >
             <Spinner v-if="loading" :size="12" color="#fff" />
             <span v-else>Lookup</span>
           </button>
@@ -62,17 +66,17 @@
           <div v-if="englishTranslations.length" class="translations">
             <div class="label">English</div>
             <div class="values">
-              <div v-for="(t, idx) in englishTranslations" :key="idx" class="translation-line">
+              <div
+                v-for="(t, idx) in englishTranslations"
+                :key="idx"
+                class="translation-line"
+              >
                 {{ t }}
               </div>
             </div>
           </div>
         </div>
-        <div
-          v-for="(heteronym, idx) in entry.h ?? []"
-          :key="idx"
-          class="heteronym"
-        >
+        <div v-for="(heteronym, idx) in entry.h ?? []" :key="idx" class="heteronym">
           <div class="pronunciation">
             <span v-if="heteronym.b" class="bopomofo">{{ cleanText(heteronym.b) }}</span>
             <span v-if="heteronym.p" class="pinyin">{{ heteronym.p }}</span>
@@ -83,7 +87,9 @@
             class="definition"
           >
             <div class="definition-head">
-              <span v-if="definition.type" class="type">{{ cleanText(definition.type) }}</span>
+              <span v-if="definition.type" class="type">{{
+                cleanText(definition.type)
+              }}</span>
             </div>
             <div v-if="definition.f" class="definition-text">
               {{ cleanText(definition.f) }}
@@ -175,7 +181,9 @@ const lookup = async (query: string) => {
   loading.value = true
   error.value = ''
   try {
-    const res = await fetch(`https://www.moedict.tw/a/${encodeURIComponent(trimmed)}.json`)
+    const res = await fetch(
+      `https://www.moedict.tw/a/${encodeURIComponent(trimmed)}.json`,
+    )
     if (!res.ok) {
       throw new Error('No entry found for that word.')
     }
@@ -239,7 +247,9 @@ watch(
   color: white;
   box-shadow: 0 10px 18px rgba(50, 130, 184, 0.28);
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .dictionary-trigger:hover {

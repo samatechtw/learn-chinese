@@ -32,7 +32,11 @@
       <div class="card-shell">
         <div class="card-wrap f-center-col">
           <Transition name="fade" mode="out-in">
-            <div v-if="questionState === 'init'" class="card init-card" @click="checkInactive">
+            <div
+              v-if="questionState === 'init'"
+              class="card init-card"
+              @click="checkInactive"
+            >
               <div class="card-title">
                 {{ ts('start_quiz') }}
               </div>
@@ -75,7 +79,7 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { PageNav } from '@frontend/components/widgets'
 import { ts } from '@frontend/i18n'
-import { getLanguageBreadcrumbs } from '@frontend/util/misc'
+import { getLanguageBreadcrumbs, shuffleArray } from '@frontend/util/misc'
 import { store } from '@learn-vietnamese/store'
 import {
   IVietnameseQuizQuestion,
@@ -217,7 +221,7 @@ const generateOptions = (question: IVietnameseQuizQuestion): string[] => {
     }
   }
 
-  return options.sort(() => Math.random() - 0.5)
+  return shuffleArray(options)
 }
 
 const syncOptions = () => {
@@ -305,7 +309,7 @@ const restartQuiz = () => {
   let wordIds = Object.keys(vietnameseVocabMap)
 
   if (order === 'random') {
-    wordIds = wordIds.sort(() => Math.random() - 0.5)
+    wordIds = shuffleArray(wordIds)
   }
 
   const limit = store.vocab.quizOptions.value.count || 'all'

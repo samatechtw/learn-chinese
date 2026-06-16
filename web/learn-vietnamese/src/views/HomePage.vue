@@ -84,7 +84,9 @@ import { vietnameseLearningSegments } from '@learn-vietnamese/data/segments'
   text-decoration: none;
   color: inherit;
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 .tool-card:hover {
   transform: translateY(-3px);

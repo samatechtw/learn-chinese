@@ -1,6 +1,5 @@
+import { shuffleArray as shuffle } from '@frontend/util/misc'
 import { IUnit, IUnitQuestion, UnitQuestionType } from '@learn-chinese/types'
-
-const shuffle = <T>(arr: T[]): T[] => arr.slice().sort(() => Math.random() - 0.5)
 
 const pickDistractors = (pool: string[], exclude: string, count: number): string[] =>
   shuffle(pool.filter((x) => x !== exclude)).slice(0, count)
@@ -32,7 +31,10 @@ export function buildUnitQuestions(
       phraseId: phrase.id,
       displayText: phrase.english,
       correctAnswer: phrase.chinese,
-      options: shuffle([phrase.chinese, ...pickDistractors(allChinese, phrase.chinese, 3)]),
+      options: shuffle([
+        phrase.chinese,
+        ...pickDistractors(allChinese, phrase.chinese, 3),
+      ]),
     }))
 
   const fillIn: IUnitQuestion[] = unit.sentences.map((sentence) => ({
@@ -62,14 +64,19 @@ export function buildUnitQuestions(
       phraseId: phrase.id,
       displayText: phrase.pinyin,
       correctAnswer: phrase.chinese,
-      options: shuffle([phrase.chinese, ...pickDistractors(allChinese, phrase.chinese, 3)]),
+      options: shuffle([
+        phrase.chinese,
+        ...pickDistractors(allChinese, phrase.chinese, 3),
+      ]),
       audioText: phrase.chinese,
       skippable: true,
     }))
 
   // Interleave for natural progression: intro vocab → context → construction → audio
   const allQuestions: IUnitQuestion[] = [
-    ...(enabled('TranslatePhrase') ? [...shuffle(translateCE).slice(0, 8), ...shuffle(translateEC).slice(0, 5)] : []),
+    ...(enabled('TranslatePhrase')
+      ? [...shuffle(translateCE).slice(0, 8), ...shuffle(translateEC).slice(0, 5)]
+      : []),
     ...(enabled('FillInBlank') ? shuffle(fillIn) : []),
     ...(enabled('OrderCharacters') ? shuffle(orderQ) : []),
     ...(enabled('ListenSelect') ? shuffle(listenQ) : []),

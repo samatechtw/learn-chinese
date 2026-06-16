@@ -2,7 +2,12 @@
   <div class="zhuyin-quiz-wrap">
     <div class="zhuyin-quiz container f-col">
       <PageNav
-        :nav="getLanguageBreadcrumbs('chinese', { name: 'ZhuyinQuiz', label: ts('zhuyin.quiz') })"
+        :nav="
+          getLanguageBreadcrumbs('chinese', {
+            name: 'ZhuyinQuiz',
+            label: ts('zhuyin.quiz'),
+          })
+        "
       />
       <h1 class="hero-title">
         {{ ts('zhuyin.quiz') }}
@@ -244,7 +249,7 @@ const restartQuiz = () => {
     (s) => !['3', '4', '6', '7'].includes(s),
   ) as KeyType[]
   if (order === 'random') {
-    shuffleArray(symbolKeys)
+    symbolKeys = shuffleArray(symbolKeys)
   } else {
     const d = store.zhuyin.quizDifficulty.value
     symbolKeys = symbolKeys.sort((a, b) => (d[a] ?? 0) - (d[b] ?? 0))

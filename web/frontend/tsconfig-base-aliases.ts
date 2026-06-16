@@ -2,10 +2,14 @@ import path from 'path'
 import ts from 'typescript'
 
 const parseTsconfig = (tsconfigPath: string): ts.ParsedCommandLine | undefined => {
-  const parsed = ts.getParsedCommandLineOfConfigFile(tsconfigPath, {}, {
-    ...ts.sys,
-    onUnRecoverableConfigFileDiagnostic: () => undefined,
-  })
+  const parsed = ts.getParsedCommandLineOfConfigFile(
+    tsconfigPath,
+    {},
+    {
+      ...ts.sys,
+      onUnRecoverableConfigFileDiagnostic: () => undefined,
+    },
+  )
 
   return parsed ?? undefined
 }

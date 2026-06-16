@@ -2,7 +2,9 @@
   <div class="zhuyin-typing-wrap">
     <div class="zhuyin-typing container f-col">
       <PageNav
-        :nav="getLanguageBreadcrumbs('chinese', { name: 'ZhuyinTyping', label: ts('typing') })"
+        :nav="
+          getLanguageBreadcrumbs('chinese', { name: 'ZhuyinTyping', label: ts('typing') })
+        "
       />
       <h1 class="hero-title">
         {{ ts('zhuyin.practice') }}
@@ -75,11 +77,7 @@ import { ZhuyinKeyboard } from '@learn-chinese/components/widgets'
 import { characterSets } from '@learn-chinese/util/characters'
 import { saySymbol } from '@learn-chinese/util/speech'
 import { zhuyinSymbols } from '@learn-chinese/util/zhuyin'
-import {
-  ITypingQuestion,
-  ICharacterSet,
-  IZhuyinTypingState,
-} from '@learn-chinese/types'
+import { ITypingQuestion, ICharacterSet, IZhuyinTypingState } from '@learn-chinese/types'
 import ZhuyinTypingOptions from './ZhuyinTypingOptions.vue'
 import ZhuyinTypingActive from './ZhuyinTypingActive.vue'
 import ZhuyinTypingCorrect from './ZhuyinTypingCorrect.vue'
@@ -265,7 +263,7 @@ const restartQuiz = () => {
   const order = store.typing.typingOptions.value.order
   let chars = characters.value
   if (order === 'random') {
-    shuffleArray(chars)
+    chars = shuffleArray(chars)
   } else {
     const d = store.typing.typingDifficulty.value
     chars = chars.sort((a, b) => (d[a] ?? 0) - (d[b] ?? 0))

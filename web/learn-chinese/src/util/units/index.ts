@@ -8,4 +8,5 @@ import { IUnit } from '@learn-chinese/types'
 
 export const allUnits: IUnit[] = [restaurantUnit, travelUnit]
 
-export const getUnit = (id: string): IUnit | undefined => allUnits.find((u) => u.id === id)
+export const getUnit = (id: string): IUnit | undefined =>
+  allUnits.find((u) => u.id === id)
