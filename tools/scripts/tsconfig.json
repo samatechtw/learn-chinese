@@ -5,7 +5,7 @@
     "types": ["node"],
     "lib": ["esnext", "dom"],
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "target": "esnext",
     "esModuleInterop": true,
     "importHelpers": false

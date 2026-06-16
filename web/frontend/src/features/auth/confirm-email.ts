@@ -35,7 +35,7 @@ export const confirmEmail = async (code: string) => {
   let jwt
   try {
     jwt = jwtDecode<JwtPayload>(code)
-  } catch (_) {
+  } catch {
     // Let the next check set the error
   }
   try {

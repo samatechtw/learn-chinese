@@ -20,6 +20,7 @@ export default defineConfig({
   server: {
     port: Number(process.env.VITE_LEARN_FRONTEND_PORT || 3050),
     host: '127.0.0.1',
+    strictPort: true,
     allowedHosts: true,
   },
   build: {

@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Learn to read and type traditional Chinese mandarin.",
   "engines": {
-    "node": ">=18",
-    "npm": ">=8"
+    "node": ">=20.19.0"
   },
   "type": "module",
   "scripts": {
@@ -40,9 +39,9 @@
   "author": "Sam Pullman",
   "devDependencies": {
     "esno": "^4.8.0",
-    "oxlint": "^0.15.10",
-    "prettier": "^3.5.1",
-    "stylelint": "^16.14.1",
-    "stylelint-config-recommended-vue": "^1.6.0"
+    "oxlint": "^1.70.0",
+    "prettier": "^3.8.4",
+    "stylelint": "^17.13.0",
+    "stylelint-config-recommended-vue": "^1.6.1"
   }
 }

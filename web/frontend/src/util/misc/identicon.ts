@@ -32,7 +32,7 @@ export function minidenticon(
     [...Array(seed ? 25 : 0)].reduce(
       (acc, e, i) =>
         // testing the 15 lowest weight bits of the hash
-        hash & (1 << i % 15)
+        hash & (1 << (i % 15))
           ? acc +
             `<rect x="${i > 14 ? 7 - ~~(i / 5) : ~~(i / 5)}" y="${
               i % 5
