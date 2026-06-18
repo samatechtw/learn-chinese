@@ -14,7 +14,6 @@
           :item="{ label: ts('zhuyin.pinyin'), checked: store.misc.showPinyin.value }"
           @checked="store.misc.setShowPinyin($event)"
         />
-        <AudioOptions />
       </div>
       <div class="preview f-center-col">
         <div class="symbol">
@@ -37,15 +36,14 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { Checkbox, PageNav } from '@frontend/components/widgets'
 import { KeyType } from '@frontend/types'
 import { ts } from '@frontend/i18n'
 import { getLanguageBreadcrumbs } from '@frontend/util/misc'
 import { store } from '@learn-chinese/store'
-import { AudioOptions, ZhuyinKeyboard } from '@learn-chinese/components/widgets'
+import { ZhuyinKeyboard } from '@learn-chinese/components/widgets'
 import { zhuyinSymbols } from '@learn-chinese/util/zhuyin'
-import { populateVoices, saySymbol } from '@learn-chinese/util/speech'
 
 const selected = ref()
 
@@ -59,13 +57,8 @@ const selectKey = (key: KeyType, event?: KeyboardEvent) => {
   const symbol = zhuyinSymbols[key]
   if (symbol) {
     selected.value = symbol
-    saySymbol(symbol.s)
   }
 }
-
-onMounted(() => {
-  populateVoices()
-})
 </script>
 
 <style lang="postcss" scoped>

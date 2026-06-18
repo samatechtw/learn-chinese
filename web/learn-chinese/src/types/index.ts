@@ -1,4 +1,5 @@
 export * from './characters'
+export * from './phrases'
 export * from './units'
 export * from './vocab'
 export * from './zhuyin'

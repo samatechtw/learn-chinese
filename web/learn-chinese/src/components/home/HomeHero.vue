@@ -30,17 +30,44 @@ const tools: IToolBubble[] = [
     title: 'zhuyin.learn',
     text: 'zhuyin.learn_tool',
     to: 'ZhuyinLearn',
+    icon: '注',
     disabled: false,
   },
-  { title: 'zhuyin.quiz', text: 'zhuyin.quiz_text', to: 'ZhuyinQuiz', disabled: false },
+  {
+    title: 'zhuyin.quiz',
+    text: 'zhuyin.quiz_text',
+    to: 'ZhuyinQuiz',
+    icon: '🎯',
+    disabled: false,
+  },
   {
     title: 'typing',
     text: 'zhuyin.typing_options_text',
     to: 'ZhuyinTyping',
+    icon: '⌨️',
     disabled: false,
   },
-  { title: 'vocab.quiz', text: 'vocab.quiz_text', to: 'VocabQuiz', disabled: false },
-  { title: 'typing_game', text: 'typing_game_text', to: 'not-found', disabled: true },
+  {
+    title: 'vocab.quiz',
+    text: 'vocab.quiz_text',
+    to: 'VocabQuiz',
+    icon: '🗂️',
+    disabled: false,
+  },
+  {
+    title: 'phrases.title',
+    text: 'phrases.tool_text',
+    to: 'ChinesePhrases',
+    icon: '💬',
+    disabled: false,
+  },
+  {
+    title: 'typing_game',
+    text: 'typing_game_text',
+    to: 'not-found',
+    icon: '🎮',
+    disabled: true,
+  },
 ]
 </script>
 

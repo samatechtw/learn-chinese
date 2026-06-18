@@ -57,8 +57,10 @@ pub fn api_router(context: &ApiContext) -> Router<ApiContext> {
         )
         .route(
             "/tts/{language}",
-            get(tts::get_tts::get_tts)
-                .route_layer(from_fn_with_state(context.clone(), auth_admin_user)),
+            get(tts::get_tts::get_tts).route_layer(from_fn_with_state(
+                context.clone(),
+                auth_admin_user_anonymous,
+            )),
         )
         .route("/{*path}", get(handler_404)) // Handle unknown routes under /api
 }

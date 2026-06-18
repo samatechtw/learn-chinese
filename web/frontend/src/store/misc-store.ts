@@ -5,7 +5,6 @@ import { LocalStoragePlugin, useModule } from '@samatech/vue-store'
 export interface IMiscState {
   cookiesAccepted: boolean
   locale: string
-  voiceName: string | null
   playAudio: boolean
   showPinyin: boolean
 }
@@ -21,9 +20,6 @@ const mutations = (state: IMiscState) => ({
   setLocale: (locale: string) => {
     state.locale = locale
   },
-  setVoice: (voice: string | undefined) => {
-    state.voiceName = voice || null
-  },
   setPlayAudio(play: boolean) {
     state.playAudio = play
   },
@@ -38,11 +34,10 @@ export const miscModule = useModule<
   ReturnType<typeof mutations>
 >({
   name: 'misc-store',
-  version: 6,
+  version: 7,
   stateInit: () => ({
     cookiesAccepted: false,
     locale: 'en',
-    voiceName: null,
     playAudio: true,
     showPinyin: false,
   }),

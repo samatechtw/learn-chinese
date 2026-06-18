@@ -1,10 +1,11 @@
 <template>
   <div class="moe-dictionary-modal">
     <button
+      v-if="!hideTrigger"
       type="button"
       class="dictionary-trigger"
       :title="word ? `Look up ${word}` : 'Open dictionary'"
-      @click="openModal"
+      @click="openModal()"
     >
       <svg viewBox="0 0 24 24" aria-hidden="true" class="dictionary-icon">
         <path
@@ -140,6 +141,7 @@ import { IMoeDictEntry, IMoeDictHeteronym } from '@frontend/types/api'
 
 const props = defineProps<{
   word?: string
+  hideTrigger?: boolean
 }>()
 
 const showModal = ref(false)
@@ -199,14 +201,17 @@ const lookup = async (query: string) => {
   }
 }
 
-const openModal = () => {
+const openModal = (lookupWord?: string) => {
   showModal.value = true
   error.value = ''
-  if (props.word) {
-    searchQuery.value = props.word
-    lookup(props.word)
+  const target = lookupWord ?? props.word
+  if (target) {
+    searchQuery.value = target
+    lookup(target)
   }
 }
+
+defineExpose({ open: openModal })
 
 const closeModal = () => {
   showModal.value = false

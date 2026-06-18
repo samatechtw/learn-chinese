@@ -4,7 +4,6 @@
       <div class="question">
         {{ card.question }}
       </div>
-      <Sound class="sound" @click="emit('sayCurrentChar')" />
     </div>
     <div class="hint-wrap f-col">
       <Transition name="fade" mode="out-in">
@@ -48,7 +47,6 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 import { STInput } from '@samatech/vue-components'
-import { Sound } from '@frontend/components/svg'
 import { ITypingEntry } from '@frontend/types'
 import { ITypingQuestion } from '@learn-chinese/types'
 import { ts } from '@frontend/i18n'
@@ -61,7 +59,6 @@ const { hint } = defineProps<{
   hint: string | undefined
 }>()
 const emit = defineEmits<{
-  (e: 'sayCurrentChar'): void
   (e: 'keyPress', char: string): void
   (e: 'showHint', show: boolean): void
 }>()
@@ -93,12 +90,6 @@ onUnmounted(() => {
 }
 .question {
   @mixin title 48px;
-}
-.sound {
-  @mixin size 26px;
-  margin-left: 24px;
-  cursor: pointer;
-  margin-top: 8px;
 }
 .input-wrap {
   position: relative;

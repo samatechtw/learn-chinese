@@ -4,7 +4,6 @@
       <div class="question">
         {{ card.question }}
       </div>
-      <Sound class="sound" @click="emit('sayCurrentSymbol')" />
     </div>
     <STInput
       :modelValue="symbol"
@@ -17,7 +16,6 @@
 
 <script lang="ts" setup>
 import { STInput } from '@samatech/vue-components'
-import { Sound } from '@frontend/components/svg'
 import { ICardQuestion } from '@frontend/types'
 import { IZhuyinSymbol } from '@learn-chinese/types'
 import { ts } from '@frontend/i18n'
@@ -27,7 +25,6 @@ defineProps<{
   card: ICardQuestion
 }>()
 const emit = defineEmits<{
-  (e: 'sayCurrentSymbol'): void
   (e: 'setAnswer', char: string): void
 }>()
 </script>
@@ -41,12 +38,6 @@ const emit = defineEmits<{
 }
 .question {
   @mixin title 48px;
-}
-.sound {
-  @mixin size 26px;
-  margin-left: 24px;
-  cursor: pointer;
-  margin-top: 8px;
 }
 .entry {
   margin-top: 24px;

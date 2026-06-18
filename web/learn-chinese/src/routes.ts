@@ -32,6 +32,12 @@ export const chineseRoutes: RouteRecordRaw[] = [
     component: () => import('./views/VocabQuizPage.vue'),
   },
   {
+    path: '/chinese/phrases',
+    name: 'ChinesePhrases',
+    meta: { title: 'Common Phrases' },
+    component: () => import('./views/PhrasesPage.vue'),
+  },
+  {
     path: '/units/:unitId',
     name: 'UnitLesson',
     meta: { title: 'Unit Lesson' },

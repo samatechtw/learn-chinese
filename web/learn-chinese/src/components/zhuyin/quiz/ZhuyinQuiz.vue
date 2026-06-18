@@ -51,7 +51,6 @@
             :symbol="entry?.s"
             :card="card"
             class="card"
-            @sayCurrentSymbol="sayCurrentSymbol"
             @setAnswer="setAnswer"
           />
         </Transition>
@@ -78,7 +77,6 @@ import { shuffleArray } from '@frontend/util/misc'
 import { PageNav } from '@frontend/components/widgets'
 import { ts } from '@frontend/i18n'
 import { getLanguageBreadcrumbs } from '@frontend/util/misc'
-import { saySymbol } from '@learn-chinese/util/speech'
 import { ZhuyinKeyboard } from '@learn-chinese/components/widgets'
 import ZhuyinQuizCorrect from './ZhuyinQuizCorrect.vue'
 import ZhuyinQuizIncorrect from './ZhuyinQuizIncorrect.vue'
@@ -123,14 +121,6 @@ const card = computed<ICardQuestion>(() => {
   }
 })
 
-const sayCurrentSymbol = () => {
-  const key = symbolKeys.value[index.value] as KeyType
-  if (key) {
-    const symbol = zhuyinSymbols[key] as IZhuyinKeyInfo
-    saySymbol(symbol.s)
-  }
-}
-
 const startQuestion = () => {
   entry.value = undefined
   const now = Date.now()
@@ -144,7 +134,6 @@ const startQuestion = () => {
     state.index = index.value + 1
   }
   store.zhuyin.setQuiz(state)
-  sayCurrentSymbol()
 }
 
 const recordCorrect = () => {
@@ -239,7 +228,6 @@ const reviewMissed = () => {
       questionStart: Date.now(),
       reviewing: true,
     })
-    sayCurrentSymbol()
   }
 }
 

@@ -16,14 +16,12 @@
       class="cheat"
       @checked="setCheating"
     />
-    <AudioOptions :hideVoice="true" class="audio" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { store } from '@learn-chinese/store'
 import { Checkbox } from '@frontend/components/widgets'
-import { AudioOptions } from '@learn-chinese/components/widgets'
 import { ts } from '@frontend/i18n'
 
 const setCheating = (on: boolean) => {
@@ -37,9 +35,6 @@ const setCheating = (on: boolean) => {
 <style lang="postcss" scoped>
 @import '@theme/css/defines.postcss';
 
-.audio {
-  margin-left: 16px;
-}
 .options {
   display: flex;
   align-items: center;

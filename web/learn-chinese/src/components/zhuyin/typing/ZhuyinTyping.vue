@@ -42,7 +42,6 @@
             :card="card"
             :hint="hint"
             class="card"
-            @sayCurrentChar="sayCurrentChar"
             @showHint="showHint"
           />
           <ZhuyinTypingCorrect
@@ -75,7 +74,6 @@ import { useScoreAnimate } from '@frontend/util/ui'
 import { store } from '@learn-chinese/store'
 import { ZhuyinKeyboard } from '@learn-chinese/components/widgets'
 import { characterSets } from '@learn-chinese/util/characters'
-import { saySymbol } from '@learn-chinese/util/speech'
 import { zhuyinSymbols } from '@learn-chinese/util/zhuyin'
 import { ITypingQuestion, ICharacterSet, IZhuyinTypingState } from '@learn-chinese/types'
 import ZhuyinTypingOptions from './ZhuyinTypingOptions.vue'
@@ -126,12 +124,6 @@ const card = computed<ITypingQuestion>(() => {
   }
 })
 
-const sayCurrentChar = () => {
-  if (currentChar.value) {
-    saySymbol(currentChar.value)
-  }
-}
-
 const showHint = (show: boolean) => {
   if (show) {
     const { next } = nextChar()
@@ -155,7 +147,6 @@ const startQuestion = () => {
     state.index = index.value + 1
   }
   store.typing.startQuestion(state)
-  sayCurrentChar()
 }
 
 const recordCorrect = () => {

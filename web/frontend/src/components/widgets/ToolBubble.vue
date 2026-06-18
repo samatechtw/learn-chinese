@@ -7,6 +7,9 @@
     :class="{ isDisabled: tool.disabled }"
     @click="click"
   >
+    <div v-if="tool.icon" class="tool-icon" aria-hidden="true">
+      {{ tool.icon }}
+    </div>
     <div class="tool-title">
       {{ ts(tool.title) }}
     </div>
@@ -39,44 +42,82 @@ const click = () => {
 <style lang="postcss" scoped>
 @import '@theme/css/defines.postcss';
 
+.tool-icon {
+  font-size: 34px;
+  line-height: 1;
+  margin-bottom: 14px;
+}
+.tool-title {
+  @mixin title 20px;
+  color: $color2;
+}
+.tool-text {
+  @mixin text 16px;
+  color: $text2;
+  margin-top: 10px;
+}
 .tool-bubble {
   align-items: center;
   justify-content: center;
   text-align: center;
   position: relative;
-  color: black;
+  overflow: hidden;
+  color: $color1;
   width: 244px;
   max-width: 260px;
   height: 200px;
-  border: 1px solid black;
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(50, 130, 184, 0.28);
+  border-radius: 20px;
   padding: 28px 24px;
-  transition: all 0.25s ease;
-  transform: scale(1);
+  box-shadow: 0 10px 26px rgba(15, 76, 117, 0.08);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease;
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 4px;
+    background: linear-gradient(90deg, $color2, $color3);
+    opacity: 0.85;
+    transition: opacity 0.22s ease;
+  }
   &.isDisabled {
     cursor: default;
     pointer-events: none;
-    color: rgba($color2, 0.4);
-    border-color: rgba(0, 0, 0, 0.4);
+    border-color: rgba(50, 130, 184, 0.16);
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: none;
+    &::before {
+      opacity: 0.25;
+    }
+    .tool-title,
+    .tool-text,
+    .tool-icon {
+      color: rgba($color2, 0.4);
+    }
   }
   &:hover:not(.isDisabled) {
+    transform: translateY(-4px);
     border-color: $color3;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 18px 36px rgba(15, 76, 117, 0.18);
   }
 }
 .coming-soon {
-  @mixin title-regular 14px;
-  color: $color2;
+  @mixin title-regular 13px;
+  color: white;
+  background: $color3;
+  border-radius: 999px;
+  padding: 3px 10px;
   position: absolute;
   right: 12px;
-  bottom: 4px;
-}
-.tool-title {
-  @mixin title 20px;
-}
-.tool-text {
-  @mixin text 17px;
-  margin-top: 12px;
+  top: 12px;
 }
 @media (max-width: 900px) {
   .tool-bubble {
