@@ -4,6 +4,11 @@
 
 <br>
 
+#### Docs
+
+- [TTS audio cache (R2 + restore/warm scripts)](docs/TTS.md)
+- [k3d local setup](docs/K3D_SETUP.md)
+
 #### Prerequisites
 
 - Install [PNPM](https://pnpm.io/)
